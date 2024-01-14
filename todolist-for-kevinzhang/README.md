@@ -1,13 +1,12 @@
 # todolist-for-kevinzhang
-我使用 nestJS + GraphQL + mongoDB 建立了 todolist 後端，前端使用 ReactJS。
+我使用 nestJS + GraphQL + PostgreSQL 建立了 todolist 後端，前端使用 ReactJS。
 
 我後端比較熟悉 expressJS 及其他非 NodeJS 語言，前端比較熟悉 Vue3.js 及 Android Native。
 因此如有任何不符框架精神的設計，還請在 github issue 中多多指教。
 
-## 如何啟動
+## How to start develop server
 ```bash
-pnpm i # 安裝套件
-pnpm start:prod # 啟動前後端
+make up
 ```
 
 ## 功能
@@ -17,10 +16,17 @@ pnpm start:prod # 啟動前後端
     - [ ] 任務建立後可指派執行人及關注人
     - [ ] 登入的使用者需要可以看見自己的任務、被指派給自己執行的任務、自己有在關注的任務
     - [ ] 任務的子任務，子任務與任務結構相同，子任務完成後自動完成主任務
+
+   > 1. 任務的結構是樹狀結構，任務可以有多個子任務，子任務可以有多個子任務。
+   > 2. 任務可指派、也可不指派執行人及關注人，任務的執行人可以是多人，關注人也可以是多人。
+   > 3. Created Task 就是 created by self 的 todo-item，這無關於指派與否。
+   > 4. All Task 是 Created Task + Assigned Task + Completed Task + Followed Task 的集合。
+   > 5. 「子任務完成後自動完成主任務」與 lark 不一致
+
  - 顯示任務歷史紀錄
     - [ ] 可以新增評論在歷史紀錄中
-    - [ ] 內容篩選（時段、創作人、任務人）
-    - [ ] 支援排序（建立時間、計劃完成時間、創建者、ID）
+ - [ ] 內容篩選（時段、創作人、任務人）
+ - [ ] 支援排序（建立時間、計劃完成時間、創建者、ID）
 
 ## 如何實現訊息提醒任務即將到期？
 

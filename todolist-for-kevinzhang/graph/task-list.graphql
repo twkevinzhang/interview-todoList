@@ -1,0 +1,14 @@
+extend type Query {
+  taskList(id: ID!): TaskList
+}
+
+extend type Mutation {
+  createTaskList(title: String!): TaskList!
+  deleteTaskList(id: ID!, form: TodoItemForm!): Boolean!
+}
+
+type TaskList {
+  id: ID!
+  title: String!
+  todoItems: [TodoItem!]!
+}

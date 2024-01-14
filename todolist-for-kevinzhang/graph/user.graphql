@@ -1,0 +1,13 @@
+type User {
+  uid: ID!
+  email: String!
+  name: String!
+  createdAt: RFC3339!
+  updatedAt: RFC3339!
+}
+
+input UserForm {
+  email: String!
+  name: String!
+  password: String!
+}

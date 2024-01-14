@@ -1,0 +1,11 @@
+scalar RFC3339
+scalar Upload
+
+type Query
+type Mutation
+
+input FileInput {
+    filename: String!
+    contentType: String!
+    content: Upload!
+}

@@ -1,0 +1,80 @@
+extend type Query {
+  todoItem(id: ID!): TodoItem
+}
+
+extend type Mutation {
+  createTodoItem(form: TodoItemForm!): TodoItem!
+  updateTodoItem(id: ID!, form: TodoItemForm!): Boolean!
+  deleteTodoItem(id: ID!): Boolean!
+  deleteAttachment(id: ID!): Boolean!
+  deleteComment(id: ID!): Boolean!
+}
+
+type TodoItem {
+  id: ID!
+  taskListID: ID
+  taskList: TaskList
+  title: String
+  """
+  執行人
+  """
+  ownersUID: [String!]!
+  owners: [User!]!
+  """
+  關注人
+  """
+  followersUIDs: [String!]!
+  followers: [User!]!
+  """
+  開始日期
+  """
+  start: RFC3339
+  """
+  到期日
+  """
+  due: RFC3339
+  description: String
+  parentID: ID
+  parent: TodoItem
+  childrenIDs: [ID!]!
+  children: [TodoItem!]!
+  attachmentsIDs: [ID!]!
+  attachments: [Attachment!]!
+  commentsIDs: [ID!]!
+  comments: [Comment!]!
+  isCompleted: Boolean!
+  createdAt: RFC3339!
+  createdBy: User!
+  updatedAt: RFC3339!
+  updatedBy: User!
+}
+
+type Comment {
+  id: ID!
+  todoItemID: ID!
+  content: String!
+  createdAt: RFC3339!
+  createdBy: User!
+}
+
+type Attachment {
+  id: ID!
+  todoItemID: ID!
+  name: String!
+  url: String!
+  createdAt: RFC3339!
+  createdBy: User!
+}
+
+input TodoItemForm {
+  taskListID: ID
+  title: String
+  putOwnersUIDs: [String!]
+  putFollowersUIDs: [String!]
+  start: RFC3339
+  due: RFC3339
+  description: String
+  newAttachments: [FileInput!]
+  newComments: [String!]
+  isCompleted: Boolean
+}
