@@ -2,6 +2,18 @@ type User {
   uid: ID!
   email: String!
   name: String!
+  """
+  自己建立的任務
+  """
+  createdTodoItems: [TodoItem!]!
+  """
+  被指派給自己執行的任務
+  """
+  ownedTodoItems: [TodoItem!]!
+  """
+  自己有在關注的任務
+  """
+  followedTodoItems: [TodoItem!]!
   createdAt: RFC3339!
   updatedAt: RFC3339!
 }

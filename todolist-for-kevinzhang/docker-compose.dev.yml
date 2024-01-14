@@ -1,0 +1,21 @@
+version: '3'
+services:
+  api-server:
+    image: gplane/pnpm:8.2.0-node16
+    working_dir: /app
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://user:password@localhost:5432
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app
+      - /app/node_modules
+      - /app/.pnpm-store
+    command:
+      - /bin/sh
+      - -c
+      - |
+        pnpm install
+        pnpm generate:prisma
+        pnpm start:dev

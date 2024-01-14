@@ -44,7 +44,7 @@ export abstract class IMutation {
 
     abstract deleteTaskList(id: string, form: TodoItemForm): boolean | Promise<boolean>;
 
-    abstract createTodoItem(form: TodoItemForm): TodoItem | Promise<TodoItem>;
+    abstract createTodoItem(form: TodoItemForm, parentID?: Nullable<string>): TodoItem | Promise<TodoItem>;
 
     abstract updateTodoItem(id: string, form: TodoItemForm): boolean | Promise<boolean>;
 
@@ -109,6 +109,9 @@ export class User {
     uid: string;
     email: string;
     name: string;
+    createdTodoItems: TodoItem[];
+    ownedTodoItems: TodoItem[];
+    followedTodoItems: TodoItem[];
     createdAt: RFC3339;
     updatedAt: RFC3339;
 }

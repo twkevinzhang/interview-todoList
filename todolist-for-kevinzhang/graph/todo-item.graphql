@@ -3,7 +3,7 @@ extend type Query {
 }
 
 extend type Mutation {
-  createTodoItem(form: TodoItemForm!): TodoItem!
+  createTodoItem(form: TodoItemForm!, parentID: ID,): TodoItem!
   updateTodoItem(id: ID!, form: TodoItemForm!): Boolean!
   deleteTodoItem(id: ID!): Boolean!
   deleteAttachment(id: ID!): Boolean!
@@ -69,7 +69,13 @@ type Attachment {
 input TodoItemForm {
   taskListID: ID
   title: String
+  """
+  指派執行人
+  """
   putOwnersUIDs: [String!]
+  """
+  指派關注人
+  """
   putFollowersUIDs: [String!]
   start: RFC3339
   due: RFC3339

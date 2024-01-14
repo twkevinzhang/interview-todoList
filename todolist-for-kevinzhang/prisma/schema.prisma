@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// -----
+// TodoItem
+// -----
+model TodoItem {
+  id           String       @id @default(uuid())
+  taskListID   String?     
+  taskList     TaskList?     @relation("TaskList", fields: [taskListID], references: [id])
+  title        String?
+  owners       User[]        @relation("Owners")
+  followers    User[]        @relation("Followers")
+  start        DateTime?
+  due          DateTime?
+  description  String?
+  parentID     String?
+  parent       TodoItem?    @relation("Parent", fields: [parentID], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  children     TodoItem[]   @relation("Parent")
+  attachments  Attachment[] @relation("Attachments")
+  comments     Comment[]    @relation("Comments")
+  isCompleted  Boolean
+  createdAt    DateTime     @default(now())
+  createdByUID String
+  createdBy    User         @relation("CreatedBy", fields: [createdByUID], references: [uid])
+  updatedAt    DateTime     @updatedAt
+  updatedByUID String
+  updatedBy    User         @relation("UpdatedBy", fields: [updatedByUID], references: [uid])
+}
+
+model TaskList {
+  id        String     @id @default(uuid())
+  title     String
+  todoItems TodoItem[] @relation("TaskList")
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  todoItemId String  
+  todoItem  TodoItem @relation("Comments", fields: [id], references: [id])
+  content   String
+  createdAt DateTime
+}
+
+model Attachment {
+  id        String   @id @default(uuid())
+  todoItemId String  
+  todoItem  TodoItem @relation("Attachments", fields: [id], references: [id])
+  name      String
+  url       String
+  createdAt DateTime
+}
+
+// -----
+// User
+// -----
+model User {
+  uid               String     @id @default(uuid())
+  email             String     @unique
+  name              String?
+  createdTodoItems  TodoItem[] @relation("CreatedBy")
+  updatedTodoItems  TodoItem[] @relation("UpdatedBy")
+  ownedTodoItems    TodoItem[] @relation("Owners")
+  followedTodoItems TodoItem[] @relation("Followers")
+}
