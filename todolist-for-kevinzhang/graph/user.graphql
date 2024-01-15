@@ -7,18 +7,6 @@ type User {
   username: String!
   nickname: String
   email: String
-  """
-  自己建立的任務
-  """
-  createdTodoItems: [TodoItem!]!
-  """
-  被指派給自己執行的任務
-  """
-  ownedTodoItems: [TodoItem!]!
-  """
-  自己有在關注的任務
-  """
-  followedTodoItems: [TodoItem!]!
 }
 
 input UserForm {

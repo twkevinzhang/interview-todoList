@@ -64,6 +64,12 @@ export abstract class IQuery {
 
     abstract todoItem(id: string): Nullable<TodoItem> | Promise<Nullable<TodoItem>>;
 
+    abstract myCreatedTodoItems(): TodoItem[] | Promise<TodoItem[]>;
+
+    abstract myOwnedTodoItems(): TodoItem[] | Promise<TodoItem[]>;
+
+    abstract myFollowedTodoItems(): TodoItem[] | Promise<TodoItem[]>;
+
     abstract user(uid: string): User | Promise<User>;
 }
 
@@ -122,9 +128,6 @@ export class User {
     username: string;
     nickname?: Nullable<string>;
     email?: Nullable<string>;
-    createdTodoItems: TodoItem[];
-    ownedTodoItems: TodoItem[];
-    followedTodoItems: TodoItem[];
 }
 
 export type RFC3339 = any;

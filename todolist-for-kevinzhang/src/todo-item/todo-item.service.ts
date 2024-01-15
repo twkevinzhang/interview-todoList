@@ -25,6 +25,41 @@ export class TodoItemService {
     return result.map(this.toOutput);
   }
 
+  async listByCreator(creatorUID: string): Promise<TodoItem[]> {
+    const result = await this.prisma.todoItem.findMany({
+      where: {
+        createdByUID: creatorUID,
+      },
+    });
+    return result.map(this.toOutput);
+  }
+
+  async listByOwner(ownerUID: string): Promise<TodoItem[]> {
+    const result = await this.prisma.todoItem.findMany({
+      where: {
+        owners: {
+          some: {
+            uid: ownerUID,
+          },
+        },
+      },
+    });
+    return result.map(this.toOutput);
+  }
+
+  async listByFollower(followerUID: string): Promise<TodoItem[]> {
+    const result = await this.prisma.todoItem.findMany({
+      where: {
+        followers: {
+          some: {
+            uid: followerUID,
+          },
+        },
+      },
+    });
+    return result.map(this.toOutput);
+  }
+
   async list(): Promise<TodoItem[]> {
     const result = await this.prisma.todoItem.findMany({});
     return result.map(this.toOutput);
@@ -46,7 +81,7 @@ export class TodoItemService {
       where: {
         id,
       },
-      data: this.toInput(form, by),
+      data: this.toInput(form, by, null),
     });
     return true;
   }
@@ -67,7 +102,7 @@ export class TodoItemService {
     start?: Date;
     due?: Date;
     description?: string;
-    parentId?: string;
+    parentID?: string;
     isCompleted: boolean;
     createdAt: Date;
     createdByUID: string;
@@ -82,7 +117,7 @@ export class TodoItemService {
       start: from.start,
       due: from.due,
       description: from.description,
-      parentID: from.parentId,
+      parentID: from.parentID,
       isCompleted: from.isCompleted,
       createdAt: from.createdAt,
       updatedAt: from.updatedAt,
@@ -92,7 +127,7 @@ export class TodoItemService {
   toInput(
     from: TodoItemForm,
     byUID: string,
-    parentID?: string,
+    parentID: string | null,
   ): Prisma.TodoItemCreateInput {
     const to = {} as Prisma.TodoItemCreateInput;
     if (from.taskListID) {
@@ -108,14 +143,14 @@ export class TodoItemService {
     if (from.putOwnersUIDs) {
       to.owners = {
         connect:
-          from.putOwnersUIDs?.map((id: string) => ({ uid: id.toString() })) ||
+          from.putOwnersUIDs.map((id: string) => ({ uid: id.toString() })) ||
           [],
       };
     }
     if (from.putFollowersUIDs) {
       to.followers = {
         connect:
-          from.putFollowersUIDs?.map((id: string) => ({
+          from.putFollowersUIDs.map((id: string) => ({
             uid: id.toString(),
           })) || [],
       };
@@ -135,6 +170,14 @@ export class TodoItemService {
     }
     if (from.description) {
       to.description = from.description;
+    }
+    if (from.newComments) {
+      to.comments = {
+        create: from.newComments.map((content) => ({
+          content: content,
+          createdAt: new Date(Date.now()),
+        })),
+      };
     }
     to.isCompleted = from.isCompleted || false;
     to.createdBy = {

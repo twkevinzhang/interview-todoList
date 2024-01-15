@@ -23,6 +23,21 @@ export class TodoItemResolvers {
     return this.todoItemService.findByID(id);
   }
 
+  @Query('myCreatedTodoItems')
+  async myCreatedTodoItems(@CurrentUser() by: User): Promise<TodoItem[]> {
+    return this.todoItemService.listByCreator(by.uid);
+  }
+
+  @Query('myOwnedTodoItems')
+  async myOwnedTodoItems(@CurrentUser() by: User): Promise<TodoItem[]> {
+    return this.todoItemService.listByOwner(by.uid);
+  }
+
+  @Query('myFollowedTodoItems')
+  async myFollowedTodoItems(@CurrentUser() by: User): Promise<TodoItem[]> {
+    return this.todoItemService.listByFollower(by.uid);
+  }
+
   @Mutation('createTodoItem')
   async create(
     @Args('parentID') parentID: string,

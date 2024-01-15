@@ -4,7 +4,7 @@ import { UserService } from 'src/user/user.service';
 import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
-@Resolver()
+@Resolver('User')
 @UseGuards(JwtAuthGuard)
 export class UserResolvers {
   constructor(private userService: UserService) {}
@@ -16,9 +16,6 @@ export class UserResolvers {
       uid: result.uid,
       email: result.email,
       username: result.username,
-      createdTodoItems: [],
-      ownedTodoItems: [],
-      followedTodoItems: [],
     };
   }
 }

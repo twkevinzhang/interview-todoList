@@ -4,7 +4,7 @@ import { Auth, UserForm, User } from 'src/graphql.schema';
 import { GqlAuthGuard } from 'src/auth/guards/gql-auth.guard';
 import { UseGuards } from '@nestjs/common';
 
-@Resolver()
+@Resolver('Auth')
 export class AuthResolvers {
   constructor(private authService: AuthService) {}
 

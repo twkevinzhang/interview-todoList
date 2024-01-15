@@ -1,5 +1,17 @@
 extend type Query {
   todoItem(id: ID!): TodoItem
+  """
+  自己建立的任務
+  """
+  myCreatedTodoItems: [TodoItem!]!
+  """
+  被指派給自己執行的任務
+  """
+  myOwnedTodoItems: [TodoItem!]!
+  """
+  自己有在關注的任務
+  """
+  myFollowedTodoItems: [TodoItem!]!
 }
 
 extend type Mutation {

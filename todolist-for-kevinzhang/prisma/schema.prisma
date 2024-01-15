@@ -45,16 +45,16 @@ model TaskList {
 
 model Comment {
   id        String   @id @default(uuid())
-  todoItemId String  
-  todoItem  TodoItem @relation("Comments", fields: [id], references: [id])
+  todoItemID String  
+  todoItem  TodoItem @relation("Comments", fields: [todoItemID], references: [id])
   content   String
   createdAt DateTime
 }
 
 model Attachment {
   id        String   @id @default(uuid())
-  todoItemId String  
-  todoItem  TodoItem @relation("Attachments", fields: [id], references: [id])
+  todoItemID String  
+  todoItem  TodoItem @relation("Attachments", fields: [todoItemID], references: [id])
   name      String
   url       String
   createdAt DateTime
