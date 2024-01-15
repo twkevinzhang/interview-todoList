@@ -6,7 +6,7 @@ import {
   ResolveField,
   Parent,
 } from '@nestjs/graphql';
-import { TodoItemService } from './todo-item.service';
+import { TodoItemService } from 'src/todo-item/todo-item.service';
 import { TodoItem, TodoItemForm } from 'src/graphql.schema';
 import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';

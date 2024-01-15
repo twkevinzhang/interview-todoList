@@ -1,15 +1,17 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
+import { ConfigModule } from '@nestjs/config';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
-import { TodoItemModule } from './todo-item/todo-item.module';
-import { AuthModule } from './auth/auth.module';
-import { UserModule } from './user/user.module';
+import { TodoItemModule } from 'src/todo-item/todo-item.module';
+import { AuthModule } from 'src/auth/auth.module';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
   imports: [
     TodoItemModule,
     AuthModule,
+    ConfigModule.forRoot(),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       playground: true,
