@@ -8,8 +8,13 @@ import {
 } from '@nestjs/graphql';
 import { TodoItemService } from './todo-item.service';
 import { TodoItem, TodoItemForm } from 'src/graphql.schema';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { CurrentUser } from 'src/auth/decorator/current-user.decorator';
+import { User } from '@prisma/client';
 
 @Resolver('TodoItem')
+@UseGuards(JwtAuthGuard)
 export class TodoItemResolvers {
   constructor(private readonly todoItemService: TodoItemService) {}
 
@@ -22,21 +27,26 @@ export class TodoItemResolvers {
   async create(
     @Args('parentID') parentID: string,
     @Args('form') form: TodoItemForm,
+    @CurrentUser() by: User,
   ): Promise<TodoItem> {
-    return this.todoItemService.create('system', form, parentID);
+    return this.todoItemService.create(by.uid, form, parentID);
   }
 
   @Mutation('updateTodoItem')
   async update(
     @Args('id') id: string,
     @Args('form') form: TodoItemForm,
+    @CurrentUser() by: User,
   ): Promise<boolean> {
-    return this.todoItemService.update('system', id, form);
+    return this.todoItemService.update(by.uid, id, form);
   }
 
   @Mutation('deleteTodoItem')
-  async delete(@Args('id') args: string): Promise<boolean> {
-    return this.todoItemService.delete('system', args);
+  async delete(
+    @Args('id') args: string,
+    @CurrentUser() by: User,
+  ): Promise<boolean> {
+    return this.todoItemService.delete(by.uid, args);
   }
 
   @ResolveField('parent')

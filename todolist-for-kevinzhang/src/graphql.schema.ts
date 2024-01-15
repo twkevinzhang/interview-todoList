@@ -28,18 +28,18 @@ export class TodoItemForm {
 }
 
 export class UserForm {
-    email: string;
-    name: string;
+    username: string;
     password: string;
-}
-
-export abstract class IQuery {
-    abstract taskList(id: string): Nullable<TaskList> | Promise<Nullable<TaskList>>;
-
-    abstract todoItem(id: string): Nullable<TodoItem> | Promise<Nullable<TodoItem>>;
+    email?: Nullable<string>;
 }
 
 export abstract class IMutation {
+    abstract signUp(form: UserForm): User | Promise<User>;
+
+    abstract signIn(username: string, password: string): Auth | Promise<Auth>;
+
+    abstract refreshToken(oldAccessToken: string): Auth | Promise<Auth>;
+
     abstract createTaskList(title: string): TaskList | Promise<TaskList>;
 
     abstract deleteTaskList(id: string, form: TodoItemForm): boolean | Promise<boolean>;
@@ -53,6 +53,18 @@ export abstract class IMutation {
     abstract deleteAttachment(id: string): boolean | Promise<boolean>;
 
     abstract deleteComment(id: string): boolean | Promise<boolean>;
+}
+
+export class Auth {
+    accessToken: string;
+}
+
+export abstract class IQuery {
+    abstract taskList(id: string): Nullable<TaskList> | Promise<Nullable<TaskList>>;
+
+    abstract todoItem(id: string): Nullable<TodoItem> | Promise<Nullable<TodoItem>>;
+
+    abstract user(uid: string): User | Promise<User>;
 }
 
 export class TaskList {
@@ -107,15 +119,15 @@ export class Attachment {
 
 export class User {
     uid: string;
-    email: string;
-    name: string;
+    username: string;
+    nickname?: Nullable<string>;
+    email?: Nullable<string>;
     createdTodoItems: TodoItem[];
     ownedTodoItems: TodoItem[];
     followedTodoItems: TodoItem[];
-    createdAt: RFC3339;
-    updatedAt: RFC3339;
 }
 
 export type RFC3339 = any;
 export type Upload = any;
+export type Int64 = any;
 type Nullable<T> = T | null;

@@ -1,7 +1,12 @@
+extend type Query {
+    user(uid: String!): User!
+}
+
 type User {
   uid: ID!
-  email: String!
-  name: String!
+  username: String!
+  nickname: String
+  email: String
   """
   自己建立的任務
   """
@@ -14,12 +19,10 @@ type User {
   自己有在關注的任務
   """
   followedTodoItems: [TodoItem!]!
-  createdAt: RFC3339!
-  updatedAt: RFC3339!
 }
 
 input UserForm {
-  email: String!
-  name: String!
+  username: String!
   password: String!
+  email: String
 }

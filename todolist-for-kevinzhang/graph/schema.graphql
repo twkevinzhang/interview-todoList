@@ -1,5 +1,6 @@
 scalar RFC3339
 scalar Upload
+scalar Int64
 
 type Query
 type Mutation

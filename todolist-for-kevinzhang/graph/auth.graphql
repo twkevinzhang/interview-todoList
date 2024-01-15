@@ -1,0 +1,9 @@
+extend type Mutation {
+    signUp(form: UserForm!): User!
+    signIn(username: String!, password: String!): Auth!
+    refreshToken(oldAccessToken: String!): Auth!
+}
+
+type Auth {
+    accessToken: String!
+}
