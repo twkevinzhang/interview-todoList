@@ -10,3 +10,32 @@ input FileInput {
     contentType: String!
     content: Upload!
 }
+
+input StringsFilter {
+  """
+  字串需包含
+  """
+  contains: [String!]
+
+  """
+  字串需不包含
+  """
+  notContains: [String!]
+
+  """
+  字串需為空
+  """
+  isEmpty: Boolean
+}
+
+input DateRange {
+    """
+    開始日期
+    """
+    start: RFC3339
+
+    """
+    到期日
+    """
+    due: RFC3339
+}

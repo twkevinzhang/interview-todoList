@@ -8,10 +8,30 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export enum TodoItemsSortBy {
+    CREATED_AT_ASC = "CREATED_AT_ASC",
+    CREATED_AT_DESC = "CREATED_AT_DESC",
+    DUE_ASC = "DUE_ASC",
+    DUE_DESC = "DUE_DESC",
+    CREATED_BY_ASC = "CREATED_BY_ASC",
+    CREATED_BY_DESC = "CREATED_BY_DESC"
+}
+
 export class FileInput {
     filename: string;
     contentType: string;
     content: Upload;
+}
+
+export class StringsFilter {
+    contains?: Nullable<string[]>;
+    notContains?: Nullable<string[]>;
+    isEmpty?: Nullable<boolean>;
+}
+
+export class DateRange {
+    start?: Nullable<RFC3339>;
+    due?: Nullable<RFC3339>;
 }
 
 export class TodoItemForm {
@@ -19,11 +39,19 @@ export class TodoItemForm {
     title?: Nullable<string>;
     putOwnersUIDs?: Nullable<string[]>;
     putFollowersUIDs?: Nullable<string[]>;
-    start?: Nullable<RFC3339>;
-    due?: Nullable<RFC3339>;
+    duration?: Nullable<DateRange>;
     description?: Nullable<string>;
     newAttachments?: Nullable<FileInput[]>;
     newComments?: Nullable<string[]>;
+    isCompleted?: Nullable<boolean>;
+}
+
+export class TodoItemsFilters {
+    taskListID?: Nullable<string>;
+    creatorUID?: Nullable<StringsFilter>;
+    ownerUID?: Nullable<StringsFilter>;
+    followerUID?: Nullable<StringsFilter>;
+    duration?: Nullable<DateRange>;
     isCompleted?: Nullable<boolean>;
 }
 
@@ -64,11 +92,7 @@ export abstract class IQuery {
 
     abstract todoItem(id: string): Nullable<TodoItem> | Promise<Nullable<TodoItem>>;
 
-    abstract myCreatedTodoItems(): TodoItem[] | Promise<TodoItem[]>;
-
-    abstract myOwnedTodoItems(): TodoItem[] | Promise<TodoItem[]>;
-
-    abstract myFollowedTodoItems(): TodoItem[] | Promise<TodoItem[]>;
+    abstract todoItems(filter?: Nullable<TodoItemsFilters>, sortBy?: Nullable<TodoItemsSortBy>): TodoItem[] | Promise<TodoItem[]>;
 
     abstract user(uid: string): User | Promise<User>;
 }
@@ -101,8 +125,10 @@ export class TodoItem {
     comments: Comment[];
     isCompleted: boolean;
     createdAt: RFC3339;
+    createdByUID: string;
     createdBy: User;
     updatedAt: RFC3339;
+    updatedByUID: string;
     updatedBy: User;
 }
 
@@ -111,6 +137,7 @@ export class Comment {
     todoItemID: string;
     content: string;
     createdAt: RFC3339;
+    createdByUID: string;
     createdBy: User;
 }
 
@@ -120,6 +147,7 @@ export class Attachment {
     name: string;
     url: string;
     createdAt: RFC3339;
+    createdByUID: string;
     createdBy: User;
 }
 

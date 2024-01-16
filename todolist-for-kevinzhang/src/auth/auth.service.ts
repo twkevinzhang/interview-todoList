@@ -39,8 +39,11 @@ export class AuthService {
 
   async validateUser(username: string, password: string): Promise<User> {
     const user = await this.userRepo.findByUsername(username);
-    if (!user || !(await bcrypt.compare(password, user.hashedPassword))) {
-      throw new UnauthorizedException();
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+    if (!(await bcrypt.compare(password, user.hashedPassword))) {
+      throw new UnauthorizedException('Wrong password');
     }
     return this.toOutput(user);
   }

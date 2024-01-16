@@ -7,6 +7,6 @@ import { UserRepo } from 'src/user/user.repo';
 @Module({
   providers: [UserService, UserResolvers, UserRepo],
   imports: [PrismaModule],
-  exports: [UserRepo],
+  exports: [UserRepo, UserService],
 })
 export class UserModule {}

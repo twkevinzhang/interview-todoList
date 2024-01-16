@@ -1,21 +1,10 @@
 extend type Query {
   todoItem(id: ID!): TodoItem
-  """
-  自己建立的任務
-  """
-  myCreatedTodoItems: [TodoItem!]!
-  """
-  被指派給自己執行的任務
-  """
-  myOwnedTodoItems: [TodoItem!]!
-  """
-  自己有在關注的任務
-  """
-  myFollowedTodoItems: [TodoItem!]!
+  todoItems(filter: TodoItemsFilters, sortBy: TodoItemsSortBy): [TodoItem!]!
 }
 
 extend type Mutation {
-  createTodoItem(form: TodoItemForm!, parentID: ID,): TodoItem!
+  createTodoItem(form: TodoItemForm!, parentID: ID): TodoItem!
   updateTodoItem(id: ID!, form: TodoItemForm!): Boolean!
   deleteTodoItem(id: ID!): Boolean!
   deleteAttachment(id: ID!): Boolean!
@@ -56,8 +45,10 @@ type TodoItem {
   comments: [Comment!]!
   isCompleted: Boolean!
   createdAt: RFC3339!
+  createdByUID: String!
   createdBy: User!
   updatedAt: RFC3339!
+  updatedByUID: String!
   updatedBy: User!
 }
 
@@ -66,6 +57,7 @@ type Comment {
   todoItemID: ID!
   content: String!
   createdAt: RFC3339!
+  createdByUID: String!
   createdBy: User!
 }
 
@@ -75,6 +67,7 @@ type Attachment {
   name: String!
   url: String!
   createdAt: RFC3339!
+  createdByUID: String!
   createdBy: User!
 }
 
@@ -89,10 +82,36 @@ input TodoItemForm {
   指派關注人
   """
   putFollowersUIDs: [String!]
-  start: RFC3339
-  due: RFC3339
+  duration: DateRange
   description: String
   newAttachments: [FileInput!]
   newComments: [String!]
   isCompleted: Boolean
+}
+
+input TodoItemsFilters {
+  taskListID: ID
+  creatorUID: StringsFilter
+  ownerUID: StringsFilter
+  followerUID: StringsFilter
+  duration: DateRange
+  isCompleted: Boolean
+}
+
+enum TodoItemsSortBy {
+  """
+  建立時間
+  """
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  """
+  計劃完成時間
+  """
+  DUE_ASC
+  DUE_DESC
+  """
+  創建者
+  """
+  CREATED_BY_ASC
+  CREATED_BY_DESC
 }

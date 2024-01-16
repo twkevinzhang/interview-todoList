@@ -1,14 +1,22 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import { TodoItemForm, TodoItem } from 'src/graphql.schema';
+import {
+  TodoItemForm,
+  TodoItem,
+  TodoItemsFilters,
+  TodoItemsSortBy,
+} from 'src/graphql.schema';
 import { TodoItemRepo } from 'src/todo-item/todo-item.repo';
 
 @Injectable()
 export class TodoItemService {
   constructor(private repo: TodoItemRepo) {}
 
-  async todoItem(id: string): Promise<TodoItem | null> {
+  async todoItem(id: string): Promise<TodoItem> {
     const result = await this.repo.findByID(id);
+    if (!result) {
+      throw new NotFoundException();
+    }
     return this.toOutput(result);
   }
 
@@ -17,23 +25,11 @@ export class TodoItemService {
     return result.map(this.toOutput);
   }
 
-  async myCreatedTodoItems(creatorUID: string): Promise<TodoItem[]> {
-    const result = await this.repo.listByCreator(creatorUID);
-    return result.map(this.toOutput);
-  }
-
-  async myOwnedTodoItems(ownerUID: string): Promise<TodoItem[]> {
-    const result = await this.repo.listByOwner(ownerUID);
-    return result.map(this.toOutput);
-  }
-
-  async myFollowedTodoItems(followerUID: string): Promise<TodoItem[]> {
-    const result = await this.repo.listByFollower(followerUID);
-    return result.map(this.toOutput);
-  }
-
-  async list(): Promise<TodoItem[]> {
-    const result = await this.repo.list();
+  async todoItems(
+    filter?: TodoItemsFilters,
+    sortBy?: TodoItemsSortBy,
+  ): Promise<TodoItem[]> {
+    const result = await this.repo.todoItems(filter || null, sortBy || null);
     return result.map(this.toOutput);
   }
 
@@ -81,7 +77,9 @@ export class TodoItemService {
       parentID: from.parentID,
       isCompleted: from.isCompleted,
       createdAt: from.createdAt,
+      createdByUID: from.createdByUID,
       updatedAt: from.updatedAt,
+      updatedByUID: from.updatedByUID,
     };
   }
 
@@ -123,11 +121,13 @@ export class TodoItemService {
         },
       };
     }
-    if (from.start) {
-      to.start = from.start;
-    }
-    if (from.due) {
-      to.due = from.due;
+    if (from.duration) {
+      if (from.duration.start) {
+        to.start = from.duration.start;
+      }
+      if (from.duration.due) {
+        to.due = from.duration.due;
+      }
     }
     if (from.description) {
       to.description = from.description;

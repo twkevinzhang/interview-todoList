@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma, TodoItem } from '@prisma/client';
+import { TodoItemsFilters, TodoItemsSortBy } from 'src/graphql.schema';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -22,40 +23,120 @@ export class TodoItemRepo {
     });
   }
 
-  async listByCreator(creatorUID: string): Promise<TodoItem[]> {
-    return await this.prisma.todoItem.findMany({
-      where: {
-        createdByUID: creatorUID,
-      },
-    });
-  }
-
-  async listByOwner(ownerUID: string): Promise<TodoItem[]> {
-    return await this.prisma.todoItem.findMany({
-      where: {
-        owners: {
-          some: {
-            uid: ownerUID,
-          },
+  async todoItems(
+    filter: TodoItemsFilters | null,
+    sortBy: TodoItemsSortBy | null,
+  ): Promise<TodoItem[]> {
+    let whereAnd: Prisma.TodoItemWhereInput[] = [];
+    if (filter) {
+      whereAnd = [
+        {
+          taskListID: filter.taskListID,
         },
-      },
-    });
-  }
-
-  async listByFollower(followerUID: string): Promise<TodoItem[]> {
-    return await this.prisma.todoItem.findMany({
-      where: {
-        followers: {
-          some: {
-            uid: followerUID,
-          },
+        {
+          createdByUID: filter.creatorUID
+            ? {
+                in: filter.creatorUID.contains,
+                notIn: filter.creatorUID.notContains,
+              }
+            : {},
         },
-      },
+        {
+          owners: filter.ownerUID
+            ? {
+                some: filter.ownerUID.contains
+                  ? {
+                      uid: {
+                        in: filter.ownerUID.contains,
+                      },
+                    }
+                  : {},
+                every: filter.ownerUID.notContains
+                  ? {
+                      uid: {
+                        notIn: filter.ownerUID.notContains,
+                      },
+                    }
+                  : {},
+              }
+            : {},
+        },
+        {
+          followers: filter.followerUID
+            ? {
+                some: filter.followerUID.contains
+                  ? {
+                      uid: {
+                        in: filter.followerUID.contains,
+                      },
+                    }
+                  : {},
+                every: filter.followerUID.notContains
+                  ? {
+                      uid: {
+                        notIn: filter.followerUID.notContains,
+                      },
+                    }
+                  : {},
+              }
+            : {},
+        },
+        {
+          start: filter.duration?.start
+            ? {
+                gte: filter.duration.start,
+              }
+            : {},
+        },
+        {
+          due: filter.duration?.due
+            ? {
+                lt: filter.duration.due,
+              }
+            : {},
+        },
+        {
+          isCompleted: filter.isCompleted,
+        },
+      ];
+    }
+    let orderBy: Prisma.TodoItemOrderByWithRelationInput = {};
+    switch (sortBy) {
+      case TodoItemsSortBy.CREATED_AT_ASC:
+        orderBy = {
+          createdAt: 'asc',
+        };
+        break;
+      case TodoItemsSortBy.CREATED_AT_DESC:
+        orderBy = {
+          createdAt: 'desc',
+        };
+        break;
+      case TodoItemsSortBy.DUE_ASC:
+        orderBy = {
+          due: 'asc',
+        };
+        break;
+      case TodoItemsSortBy.DUE_DESC:
+        orderBy = {
+          due: 'desc',
+        };
+        break;
+      case TodoItemsSortBy.CREATED_BY_ASC:
+        orderBy = {
+          createdByUID: 'asc',
+        };
+        break;
+      case TodoItemsSortBy.CREATED_BY_DESC:
+        orderBy = {
+          createdByUID: 'desc',
+        };
+        break;
+    }
+    return await this.prisma.todoItem.findMany({
+      where: { AND: whereAnd },
+      orderBy,
     });
-  }
-
-  async list(): Promise<TodoItem[]> {
-    return await this.prisma.todoItem.findMany({});
   }
 
   async create(form: Prisma.TodoItemCreateInput): Promise<TodoItem> {
