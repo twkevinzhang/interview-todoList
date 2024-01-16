@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
 import { UserRepo } from './user.repo';
+import { User } from 'src/graphql.schema';
 
 @Injectable()
 export class UserService {
   constructor(private repo: UserRepo) {}
 
-  async findByUID(uid: string): Promise<User> {
+  async user(uid: string): Promise<User> {
     return await this.repo.findByUID(uid);
   }
 }

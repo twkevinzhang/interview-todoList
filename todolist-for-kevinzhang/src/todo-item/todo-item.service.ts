@@ -7,27 +7,27 @@ import { TodoItemRepo } from 'src/todo-item/todo-item.repo';
 export class TodoItemService {
   constructor(private repo: TodoItemRepo) {}
 
-  async findByID(id: string): Promise<TodoItem | null> {
+  async todoItem(id: string): Promise<TodoItem | null> {
     const result = await this.repo.findByID(id);
     return this.toOutput(result);
   }
 
-  async listByParent(parentID: string): Promise<TodoItem[]> {
+  async children(parentID: string): Promise<TodoItem[]> {
     const result = await this.repo.listByParent(parentID);
     return result.map(this.toOutput);
   }
 
-  async listByCreator(creatorUID: string): Promise<TodoItem[]> {
+  async myCreatedTodoItems(creatorUID: string): Promise<TodoItem[]> {
     const result = await this.repo.listByCreator(creatorUID);
     return result.map(this.toOutput);
   }
 
-  async listByOwner(ownerUID: string): Promise<TodoItem[]> {
+  async myOwnedTodoItems(ownerUID: string): Promise<TodoItem[]> {
     const result = await this.repo.listByOwner(ownerUID);
     return result.map(this.toOutput);
   }
 
-  async listByFollower(followerUID: string): Promise<TodoItem[]> {
+  async myFollowedTodoItems(followerUID: string): Promise<TodoItem[]> {
     const result = await this.repo.listByFollower(followerUID);
     return result.map(this.toOutput);
   }

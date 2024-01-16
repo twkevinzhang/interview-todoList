@@ -20,22 +20,22 @@ export class TodoItemResolvers {
 
   @Query('todoItem')
   async todoItem(@Args('id') id: string): Promise<TodoItem> {
-    return this.todoItemService.findByID(id);
+    return this.todoItemService.todoItem(id);
   }
 
   @Query('myCreatedTodoItems')
   async myCreatedTodoItems(@CurrentUser() by: User): Promise<TodoItem[]> {
-    return this.todoItemService.listByCreator(by.uid);
+    return this.todoItemService.myCreatedTodoItems(by.uid);
   }
 
   @Query('myOwnedTodoItems')
   async myOwnedTodoItems(@CurrentUser() by: User): Promise<TodoItem[]> {
-    return this.todoItemService.listByOwner(by.uid);
+    return this.todoItemService.myOwnedTodoItems(by.uid);
   }
 
   @Query('myFollowedTodoItems')
   async myFollowedTodoItems(@CurrentUser() by: User): Promise<TodoItem[]> {
-    return this.todoItemService.listByFollower(by.uid);
+    return this.todoItemService.myFollowedTodoItems(by.uid);
   }
 
   @Mutation('createTodoItem')
@@ -66,11 +66,11 @@ export class TodoItemResolvers {
 
   @ResolveField('parent')
   async parent(@Parent() todoItem: TodoItem): Promise<TodoItem> {
-    return this.todoItemService.findByID(todoItem.parentID!);
+    return this.todoItemService.todoItem(todoItem.parentID!);
   }
 
   @ResolveField('children')
   async children(@Parent() todoItem: TodoItem): Promise<TodoItem[]> {
-    return this.todoItemService.listByParent(todoItem.id);
+    return this.todoItemService.children(todoItem.id);
   }
 }
