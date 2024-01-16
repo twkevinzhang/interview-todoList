@@ -8,17 +8,20 @@ import {
 } from '@nestjs/graphql';
 import { TodoItemService } from 'src/todo-item/todo-item.service';
 import {
+  Attachment,
+  Comment,
   TodoItem,
   TodoItemForm,
   TodoItemsFilters,
   TodoItemsSortBy,
-  User as UserRes,
+  User,
 } from 'src/graphql.schema';
-import { NotImplementedException, UseGuards } from '@nestjs/common';
+import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CurrentUser } from 'src/auth/decorator/current-user.decorator';
-import { User } from '@prisma/client';
+import { TaskList, User as By } from '@prisma/client';
 import { UserService } from 'src/user/user.service';
+import { TaskListService } from 'src/task-list/task-list.service';
 
 @Resolver('TodoItem')
 @UseGuards(JwtAuthGuard)
@@ -26,14 +29,15 @@ export class TodoItemResolvers {
   constructor(
     private readonly todoItemService: TodoItemService,
     private readonly userService: UserService,
+    private readonly taskListService: TaskListService,
   ) {}
 
-  @Query('todoItem')
+  @Query()
   async todoItem(@Args('id') id: string): Promise<TodoItem> {
     return this.todoItemService.todoItem(id);
   }
 
-  @Query('todoItems')
+  @Query()
   async todoItems(
     @Args('filter') filter: TodoItemsFilters,
     @Args('sortBy') sortBy: TodoItemsSortBy,
@@ -41,74 +45,96 @@ export class TodoItemResolvers {
     return this.todoItemService.todoItems(filter, sortBy);
   }
 
-  @Mutation('createTodoItem')
-  async create(
+  @Mutation()
+  async createTodoItem(
     @Args('parentID') parentID: string,
     @Args('form') form: TodoItemForm,
-    @CurrentUser() by: User,
+    @CurrentUser() by: By,
   ): Promise<TodoItem> {
     return this.todoItemService.create(by.uid, form, parentID);
   }
 
-  @Mutation('updateTodoItem')
-  async update(
+  @Mutation()
+  async updateTodoItem(
     @Args('id') id: string,
     @Args('form') form: TodoItemForm,
-    @CurrentUser() by: User,
+    @CurrentUser() by: By,
   ): Promise<boolean> {
     return this.todoItemService.update(by.uid, id, form);
   }
 
-  @Mutation('deleteTodoItem')
-  async delete(
+  @Mutation()
+  async deleteTodoItem(
     @Args('id') args: string,
-    @CurrentUser() by: User,
+    @CurrentUser() by: By,
   ): Promise<boolean> {
     return this.todoItemService.delete(by.uid, args);
   }
 
-  @ResolveField('taskList')
-  async taskList(@Parent() todoItem: TodoItem): Promise<UserRes> {
-    throw new NotImplementedException();
+  @ResolveField()
+  async taskList(@Parent() todoItem: TodoItem): Promise<TaskList> {
+    return this.taskListService.taskList(todoItem.id);
   }
 
-  @ResolveField('owners')
-  async owners(@Parent() todoItem: TodoItem): Promise<UserRes> {
-    throw new NotImplementedException();
+  @ResolveField()
+  async owners(@Parent() todoItem: TodoItem): Promise<User[]> {
+    return this.todoItemService.owners(todoItem.id);
   }
 
-  @ResolveField('followers')
-  async followers(@Parent() todoItem: TodoItem): Promise<UserRes> {
-    throw new NotImplementedException();
+  @ResolveField()
+  async followers(@Parent() todoItem: TodoItem): Promise<User[]> {
+    return this.todoItemService.followers(todoItem.id);
   }
 
-  @ResolveField('parent')
+  @ResolveField()
   async parent(@Parent() todoItem: TodoItem): Promise<TodoItem> {
     return this.todoItemService.todoItem(todoItem.parentID!);
   }
 
-  @ResolveField('children')
+  @ResolveField()
   async children(@Parent() todoItem: TodoItem): Promise<TodoItem[]> {
     return this.todoItemService.children(todoItem.id);
   }
 
-  @ResolveField('attachments')
-  async attachments(@Parent() todoItem: TodoItem): Promise<UserRes> {
-    throw new NotImplementedException();
+  @ResolveField()
+  async attachments(@Parent() todoItem: TodoItem): Promise<Attachment[]> {
+    return this.todoItemService.attachments(todoItem.id);
   }
 
-  @ResolveField('comments')
-  async comments(@Parent() todoItem: TodoItem): Promise<UserRes> {
-    throw new NotImplementedException();
+  @ResolveField()
+  async comments(@Parent() todoItem: TodoItem): Promise<Comment[]> {
+    return this.todoItemService.comments(todoItem.id);
   }
 
-  @ResolveField('createdBy')
-  async createdBy(@Parent() todoItem: TodoItem): Promise<UserRes> {
+  @ResolveField()
+  async createdBy(@Parent() todoItem: TodoItem): Promise<User> {
     return this.userService.user(todoItem.createdByUID);
   }
 
-  @ResolveField('updatedBy')
-  async updatedBy(@Parent() todoItem: TodoItem): Promise<UserRes> {
+  @ResolveField()
+  async updatedBy(@Parent() todoItem: TodoItem): Promise<User> {
     return this.userService.user(todoItem.updatedByUID);
+  }
+}
+
+@Resolver('Comment')
+@UseGuards(JwtAuthGuard)
+export class CommentResolvers {
+  constructor(private readonly userService: UserService) {}
+
+  @ResolveField()
+  async createdBy(@Parent() comment: Comment): Promise<User> {
+    return this.userService.user(comment.createdByUID);
+  }
+}
+
+@Resolver('Attachment')
+@UseGuards(JwtAuthGuard)
+export class AttachmentResolvers {
+  constructor(private readonly userService: UserService) {}
+
+  @ResolveField()
+  async createdBy(@Parent() attachment: Attachment): Promise<User> {
+    return this.userService.user(attachment.createdByUID);
   }
 }

@@ -8,12 +8,12 @@ import { UseGuards } from '@nestjs/common';
 export class AuthResolvers {
   constructor(private authService: AuthService) {}
 
-  @Mutation('signUp')
+  @Mutation()
   async signUp(@Args('form') form: UserForm): Promise<User> {
     return this.authService.signUp(form);
   }
 
-  @Mutation('signIn')
+  @Mutation()
   @UseGuards(GqlAuthGuard)
   async signIn(@Context('user') user: { username: string }): Promise<Auth> {
     return this.authService.signIn(user);

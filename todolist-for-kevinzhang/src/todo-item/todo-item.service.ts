@@ -1,35 +1,40 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  NotImplementedException,
+} from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import {
   TodoItemForm,
   TodoItem,
   TodoItemsFilters,
   TodoItemsSortBy,
+  Attachment,
+  Comment,
+  User,
 } from 'src/graphql.schema';
 import { TodoItemRepo } from 'src/todo-item/todo-item.repo';
 
 @Injectable()
 export class TodoItemService {
-  constructor(private repo: TodoItemRepo) {}
+  constructor(private todoItemRepo: TodoItemRepo) {}
 
   async todoItem(id: string): Promise<TodoItem> {
-    const result = await this.repo.findByID(id);
+    const result = await this.todoItemRepo.findByID(id);
     if (!result) {
       throw new NotFoundException();
     }
     return this.toOutput(result);
   }
 
-  async children(parentID: string): Promise<TodoItem[]> {
-    const result = await this.repo.listByParent(parentID);
-    return result.map(this.toOutput);
-  }
-
   async todoItems(
     filter?: TodoItemsFilters,
     sortBy?: TodoItemsSortBy,
   ): Promise<TodoItem[]> {
-    const result = await this.repo.todoItems(filter || null, sortBy || null);
+    const result = await this.todoItemRepo.todoItems(
+      filter || null,
+      sortBy || null,
+    );
     return result.map(this.toOutput);
   }
 
@@ -38,18 +43,50 @@ export class TodoItemService {
     form: TodoItemForm,
     parentID?: string,
   ): Promise<TodoItem> {
-    const result = await this.repo.create(this.toInput(form, by, parentID));
+    const result = await this.todoItemRepo.create(
+      this.toInput(form, by, parentID),
+    );
     return this.toOutput(result);
   }
 
   async update(by: string, id: string, form: TodoItemForm): Promise<boolean> {
-    await this.repo.update(id, this.toInput(form, by, null));
+    await this.todoItemRepo.update(id, this.toInput(form, by, null));
     return true;
   }
 
   async delete(by: string, id: string): Promise<boolean> {
-    await this.repo.delete(id);
+    await this.todoItemRepo.delete(id);
     return true;
+  }
+
+  async owners(id: string): Promise<User[]> {
+    const result = await this.todoItemRepo.listOwners(id);
+    return result.map(this.userToOutput);
+  }
+
+  async followers(id: string): Promise<User[]> {
+    const result = await this.todoItemRepo.listFollowers(id);
+    return result.map(this.userToOutput);
+  }
+
+  async children(parentID: string): Promise<TodoItem[]> {
+    const result = await this.todoItemRepo.listByParent(parentID);
+    return result.map(this.toOutput);
+  }
+
+  async attachments(id: string): Promise<Attachment[]> {
+    throw new NotImplementedException();
+  }
+
+  async comments(id: string): Promise<Comment[]> {
+    const result = await this.todoItemRepo.listComments(id);
+    return result.map((c) => ({
+      ...new Comment(),
+      id: c.id,
+      content: c.content,
+      createdAt: c.createdAt,
+      createdByUID: c.createdByUID,
+    }));
   }
 
   toOutput(from: {
@@ -80,6 +117,21 @@ export class TodoItemService {
       createdByUID: from.createdByUID,
       updatedAt: from.updatedAt,
       updatedByUID: from.updatedByUID,
+    };
+  }
+
+  userToOutput(from: {
+    uid: string;
+    username: string;
+    email: string;
+    nickname: string;
+    hashedPassword: string;
+  }): User {
+    return {
+      ...new User(),
+      uid: from.uid,
+      username: from.username,
+      email: from.email,
     };
   }
 
@@ -137,6 +189,11 @@ export class TodoItemService {
         create: from.newComments.map((content) => ({
           content: content,
           createdAt: new Date(Date.now()),
+          createdBy: {
+            connect: {
+              uid: byUID,
+            },
+          },
         })),
       };
     }

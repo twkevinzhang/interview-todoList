@@ -19,12 +19,10 @@ type TodoItem {
   """
   執行人
   """
-  ownersUID: [String!]!
   owners: [User!]!
   """
   關注人
   """
-  followersUIDs: [String!]!
   followers: [User!]!
   """
   開始日期
@@ -37,11 +35,8 @@ type TodoItem {
   description: String
   parentID: ID
   parent: TodoItem
-  childrenIDs: [ID!]!
   children: [TodoItem!]!
-  attachmentsIDs: [ID!]!
   attachments: [Attachment!]!
-  commentsIDs: [ID!]!
   comments: [Comment!]!
   isCompleted: Boolean!
   createdAt: RFC3339!

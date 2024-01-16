@@ -15,11 +15,11 @@ datasource db {
 // -----
 model TodoItem {
   id           String       @id @default(uuid())
-  taskListID   String?     
-  taskList     TaskList?     @relation("TaskList", fields: [taskListID], references: [id])
+  taskListID   String?
+  taskList     TaskList?    @relation("TaskList", fields: [taskListID], references: [id])
   title        String?
-  owners       User[]        @relation("Owners")
-  followers    User[]        @relation("Followers")
+  owners       User[]       @relation("Owners")
+  followers    User[]       @relation("Followers")
   start        DateTime?
   due          DateTime?
   description  String?
@@ -44,33 +44,39 @@ model TaskList {
 }
 
 model Comment {
-  id        String   @id @default(uuid())
-  todoItemID String  
-  todoItem  TodoItem @relation("Comments", fields: [todoItemID], references: [id])
-  content   String
-  createdAt DateTime
+  id           String   @id @default(uuid())
+  todoItemID   String
+  todoItem     TodoItem @relation("Comments", fields: [todoItemID], references: [id])
+  content      String
+  createdAt    DateTime
+  createdByUID String
+  createdBy    User     @relation("CommentCreatedBy", fields: [createdByUID], references: [uid])
 }
 
 model Attachment {
-  id        String   @id @default(uuid())
-  todoItemID String  
-  todoItem  TodoItem @relation("Attachments", fields: [todoItemID], references: [id])
-  name      String
-  url       String
-  createdAt DateTime
+  id           String   @id @default(uuid())
+  todoItemID   String
+  todoItem     TodoItem @relation("Attachments", fields: [todoItemID], references: [id])
+  name         String
+  url          String
+  createdAt    DateTime
+  createdByUID String
+  createdBy    User     @relation("AttachmentCreatedBy", fields: [createdByUID], references: [uid])
 }
 
 // -----
 // User
 // -----
 model User {
-  uid               String     @id @default(uuid())
-  username          String     @unique
-  email             String? 
-  nickname          String?
-  hashedPassword    String
-  createdTodoItems  TodoItem[] @relation("CreatedBy")
-  updatedTodoItems  TodoItem[] @relation("UpdatedBy")
-  ownedTodoItems    TodoItem[] @relation("Owners")
-  followedTodoItems TodoItem[] @relation("Followers")
+  uid                String       @id @default(uuid())
+  username           String       @unique
+  email              String?
+  nickname           String?
+  hashedPassword     String
+  createdTodoItems   TodoItem[]   @relation("CreatedBy")
+  updatedTodoItems   TodoItem[]   @relation("UpdatedBy")
+  ownedTodoItems     TodoItem[]   @relation("Owners")
+  followedTodoItems  TodoItem[]   @relation("Followers")
+  createdComments    Comment[]    @relation("CommentCreatedBy")
+  createdAttachments Attachment[] @relation("AttachmentCreatedBy")
 }

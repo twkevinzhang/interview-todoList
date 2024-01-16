@@ -10,7 +10,7 @@
     "generate": "run-p generate:*",
     "generate:typings": "ts-node generate-typings.ts",
     "generate:prisma": "prisma generate",
-    "format": "run-p generate:*",
+    "format": "run-p format:*",
     "format:prettier": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "format:prisma": "prisma format",
     "migration": "prisma migrate dev --name \"init\"",
