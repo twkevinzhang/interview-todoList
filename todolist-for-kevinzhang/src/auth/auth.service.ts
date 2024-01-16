@@ -6,19 +6,19 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { Auth, UserForm, User } from 'src/graphql.schema';
 import * as bcrypt from 'bcrypt';
-import { UserService } from 'src/user/user.service';
+import { UserRepo } from 'src/user/user.repo';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private userService: UserService,
+    private userRepo: UserRepo,
     private jwtService: JwtService,
   ) {}
 
   async signUp(form: UserForm): Promise<User> {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(form.password, salt);
-    const result = await this.userService.create({
+    const result = await this.userRepo.create({
       username: form.username,
       hashedPassword,
     });
@@ -38,7 +38,7 @@ export class AuthService {
   }
 
   async validateUser(username: string, password: string): Promise<User> {
-    const user = await this.userService.findByUsername(username);
+    const user = await this.userRepo.findByUsername(username);
     if (!user || !(await bcrypt.compare(password, user.hashedPassword))) {
       throw new UnauthorizedException();
     }

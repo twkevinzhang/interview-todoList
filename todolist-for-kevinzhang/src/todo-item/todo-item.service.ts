@@ -1,67 +1,39 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { TodoItemForm, TodoItem } from 'src/graphql.schema';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { TodoItemRepo } from 'src/todo-item/todo-item.repo';
 
 @Injectable()
 export class TodoItemService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private repo: TodoItemRepo) {}
 
   async findByID(id: string): Promise<TodoItem | null> {
-    const result = await this.prisma.todoItem.findFirst({
-      where: {
-        id,
-      },
-    });
+    const result = await this.repo.findByID(id);
     return this.toOutput(result);
   }
 
   async listByParent(parentID: string): Promise<TodoItem[]> {
-    const result = await this.prisma.todoItem.findMany({
-      where: {
-        parentID,
-      },
-    });
+    const result = await this.repo.listByParent(parentID);
     return result.map(this.toOutput);
   }
 
   async listByCreator(creatorUID: string): Promise<TodoItem[]> {
-    const result = await this.prisma.todoItem.findMany({
-      where: {
-        createdByUID: creatorUID,
-      },
-    });
+    const result = await this.repo.listByCreator(creatorUID);
     return result.map(this.toOutput);
   }
 
   async listByOwner(ownerUID: string): Promise<TodoItem[]> {
-    const result = await this.prisma.todoItem.findMany({
-      where: {
-        owners: {
-          some: {
-            uid: ownerUID,
-          },
-        },
-      },
-    });
+    const result = await this.repo.listByOwner(ownerUID);
     return result.map(this.toOutput);
   }
 
   async listByFollower(followerUID: string): Promise<TodoItem[]> {
-    const result = await this.prisma.todoItem.findMany({
-      where: {
-        followers: {
-          some: {
-            uid: followerUID,
-          },
-        },
-      },
-    });
+    const result = await this.repo.listByFollower(followerUID);
     return result.map(this.toOutput);
   }
 
   async list(): Promise<TodoItem[]> {
-    const result = await this.prisma.todoItem.findMany({});
+    const result = await this.repo.list();
     return result.map(this.toOutput);
   }
 
@@ -70,28 +42,17 @@ export class TodoItemService {
     form: TodoItemForm,
     parentID?: string,
   ): Promise<TodoItem> {
-    const result = await this.prisma.todoItem.create({
-      data: this.toInput(form, by, parentID),
-    });
+    const result = await this.repo.create(this.toInput(form, by, parentID));
     return this.toOutput(result);
   }
 
   async update(by: string, id: string, form: TodoItemForm): Promise<boolean> {
-    const result = await this.prisma.todoItem.update({
-      where: {
-        id,
-      },
-      data: this.toInput(form, by, null),
-    });
+    await this.repo.update(id, this.toInput(form, by, null));
     return true;
   }
 
   async delete(by: string, id: string): Promise<boolean> {
-    const result = await this.prisma.todoItem.delete({
-      where: {
-        id,
-      },
-    });
+    await this.repo.delete(id);
     return true;
   }
 
