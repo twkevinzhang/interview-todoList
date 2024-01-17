@@ -1,7 +1,7 @@
 version: '3'
 services:
   api-server:
-    image: gplane/pnpm:8.2.0-node16
+    image: gplane/pnpm:8.14-node20
     working_dir: /app
     environment:
       - NODE_ENV=development
@@ -10,7 +10,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./:/app
+      - ./api-server/:/app
       - /app/node_modules
       - /app/.pnpm-store
     command:
