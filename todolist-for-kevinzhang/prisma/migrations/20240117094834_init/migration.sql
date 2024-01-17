@@ -120,3 +120,11 @@ ALTER TABLE "_Followers" ADD CONSTRAINT "_Followers_A_fkey" FOREIGN KEY ("A") RE
 
 -- AddForeignKey
 ALTER TABLE "_Followers" ADD CONSTRAINT "_Followers_B_fkey" FOREIGN KEY ("B") REFERENCES "User"("uid") ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+-- data migration
+INSERT INTO public."User" (uid, username, email, nickname, "hashedPassword") VALUES ('d05a7576-ecc1-48da-a75b-636a6c414b66', 'user', null, null, '$2b$10$zZPOFFJ60pvGmqX4VmntI.A6RJEoz8.Ljt9Skmd7IaYur4N7c9XOm');
+INSERT INTO public."TodoItem" (id, "taskListID", title, start, due, description, "parentID", "isCompleted", "createdAt", "createdByUID", "updatedAt", "updatedByUID") VALUES ('5db2f89f-b323-45e3-b7f5-4123a02516f7', null, 'balab', null, null, null, null, false, '2024-01-17 09:59:33.218', 'd05a7576-ecc1-48da-a75b-636a6c414b66', '2024-01-17 09:59:33.218', 'd05a7576-ecc1-48da-a75b-636a6c414b66');
+INSERT INTO public."TodoItem" (id, "taskListID", title, start, due, description, "parentID", "isCompleted", "createdAt", "createdByUID", "updatedAt", "updatedByUID") VALUES ('50704e39-76a5-4a99-a4be-429c9e031e2c', null, 'aha', null, null, null, null, false, '2024-01-17 10:00:14.687', 'd05a7576-ecc1-48da-a75b-636a6c414b66', '2024-01-17 10:00:14.687', 'd05a7576-ecc1-48da-a75b-636a6c414b66');
+INSERT INTO public."Comment" (id, "todoItemID", content, "createdAt", "createdByUID") VALUES ('1c467635-80b3-4441-a12a-b015bf89d64f', '50704e39-76a5-4a99-a4be-429c9e031e2c', 'comment2', '2024-01-17 10:00:14.687', 'd05a7576-ecc1-48da-a75b-636a6c414b66');
+INSERT INTO public."Comment" (id, "todoItemID", content, "createdAt", "createdByUID") VALUES ('a776341f-78e4-42ea-9a5f-d78f67bf177a', '50704e39-76a5-4a99-a4be-429c9e031e2c', 'comment1', '2024-01-17 10:00:14.687', 'd05a7576-ecc1-48da-a75b-636a6c414b66');

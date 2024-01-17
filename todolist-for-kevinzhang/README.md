@@ -12,6 +12,8 @@ make up
 
 更詳細的 API 文件: /spectaql/output/index.html
 
+預設 signIn 帳號密碼: user / password
+
 ## Stop develop server
 ```bash
 make down
