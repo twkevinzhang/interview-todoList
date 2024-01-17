@@ -1,0 +1,2935 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GraphQL API Reference</title>
+    <link rel="stylesheet" href="stylesheets/spectaql.min.css" />
+    <script src="javascripts/spectaql.min.js"></script>
+  </head>
+  <body id="spectaql">
+    <div id="page" class="drawer-layout">
+      <div id="sidebar">
+        <div class="sidebar-top-container">
+          <div id="logo">
+          </div>
+          <button class="close-button" type="button">
+            <span aria-hidden="true">×</span>
+            <span class="sr-only">Close menu</span>
+          </button>
+        </div>
+        <nav id="nav" role="navigation">
+          <div class="nav-group">
+            <h4 class="nav-group-title">Introduction</h4>
+            <ul class="nav-group-items">
+              <li><a href="#introduction">Welcome</a></li>
+              <li><a href="#introduction-item-0">閱讀方式</a></li>
+            </ul>
+          </div>
+          <div class="nav-group">
+            <h4 class="nav-group-title">Operations</h4>
+            <ul class="nav-group-items">
+              <li class="nav-group-section">
+                <h5 class="nav-group-section-title">
+                  <a href="#group-Operations-Queries">Queries</a>
+                </h5>
+                <ul class="nav-group-section-items">
+                  <li><a href="#query-taskList">taskList</a></li>
+                  <li><a href="#query-todoItem">todoItem</a></li>
+                  <li><a href="#query-todoItems">todoItems</a></li>
+                  <li><a href="#query-user">user</a></li>
+                </ul>
+              </li>
+              <li class="nav-group-section">
+                <h5 class="nav-group-section-title">
+                  <a href="#group-Operations-Mutations">Mutations</a>
+                </h5>
+                <ul class="nav-group-section-items">
+                  <li><a href="#mutation-createTaskList">createTaskList</a></li>
+                  <li><a href="#mutation-createTodoItem">createTodoItem</a></li>
+                  <li><a href="#mutation-deleteAttachment">deleteAttachment</a></li>
+                  <li><a href="#mutation-deleteComment">deleteComment</a></li>
+                  <li><a href="#mutation-deleteTaskList">deleteTaskList</a></li>
+                  <li><a href="#mutation-deleteTodoItem">deleteTodoItem</a></li>
+                  <li><a href="#mutation-refreshToken">refreshToken</a></li>
+                  <li><a href="#mutation-signIn">signIn</a></li>
+                  <li><a href="#mutation-signUp">signUp</a></li>
+                  <li><a href="#mutation-updateTodoItem">updateTodoItem</a></li>
+                </ul>
+              </li>
+              <li><a href="#"></a></li>
+            </ul>
+          </div>
+          <div class="nav-group">
+            <h4 class="nav-group-title">Types</h4>
+            <ul class="nav-group-items">
+              <li><a href="#definition-Attachment">Attachment</a></li>
+              <li><a href="#definition-Auth">Auth</a></li>
+              <li><a href="#definition-Boolean">Boolean</a></li>
+              <li><a href="#definition-Comment">Comment</a></li>
+              <li><a href="#definition-DateRange">DateRange</a></li>
+              <li><a href="#definition-FileInput">FileInput</a></li>
+              <li><a href="#definition-ID">ID</a></li>
+              <li><a href="#definition-RFC3339">RFC3339</a></li>
+              <li><a href="#definition-String">String</a></li>
+              <li><a href="#definition-StringsFilter">StringsFilter</a></li>
+              <li><a href="#definition-TaskList">TaskList</a></li>
+              <li><a href="#definition-TodoItem">TodoItem</a></li>
+              <li><a href="#definition-TodoItemForm">TodoItemForm</a></li>
+              <li><a href="#definition-TodoItemsFilters">TodoItemsFilters</a></li>
+              <li><a href="#definition-TodoItemsSortBy">TodoItemsSortBy</a></li>
+              <li><a href="#definition-Upload">Upload</a></li>
+              <li><a href="#definition-User">User</a></li>
+              <li><a href="#definition-UserForm">UserForm</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div id="docs">
+        <div id="mobile-navbar">
+          <button class="sidebar-open-button" type="button">
+            <span class="hamburger"></span>
+            <span class="sr-only">All topics</span>
+          </button>
+        </div>
+        <article id="content">
+          <h1 class="doc-heading">GraphQL API Reference</h1>
+          <div id="introduction" data-traverse-target="introduction">
+            <div id="welcome" class="doc-row">
+              <div class="doc-copy">
+                <p>Playground: <a href="https://localhost:3000/graphql">https://localhost:3000/graphql</a></p>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section welcome-api-endpoints-section example-section-is-code">
+                  <h5>API Endpoints</h5>
+                  <pre><code># Development:
+https://localhost:3000/graphql
+</code></pre>
+                </div>
+                <div class="example-section welcome-api-endpoints-section example-section-is-code">
+                  <h5>Headers</h5>
+                  <pre><code># Get token from signIn mutation
+Authorization: Bearer &lt;YOUR_TOKEN_HERE&gt;</code></pre>
+                </div>
+              </div>
+            </div>
+            <div id="introduction-item-0" class="introduction-item" data-traverse-target="introduction-item-0">
+              <h2 class="introduction-item-title">閱讀方式</h2>
+              <div class="doc-row">
+                <div class="doc-copy">
+                  <p>&lt;#definition-TodoItem&gt; 是最重要的定義，建議從這裡開始閱讀</p>
+                </div>
+                <div class="doc-examples">
+                </div>
+              </div>
+            </div>
+          </div>
+          <h1 id="group-Operations-Queries" class="group-heading" data-traverse-target="group-Operations-Queries">Queries</h1>
+          <section id="query-taskList" class="operation operation-query" data-traverse-target="query-taskList">
+            <h2 class="operation-heading ">
+              <code>taskList</code>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="operation-description doc-copy-section">
+                  <h5>Description</h5>
+                  <p>傳入 taskList id 取得指定 TaskList</p>
+                </div>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="operation-response doc-copy-section">
+                  <h5>Response</h5>
+                  <p> Returns a <a href="#definition-TaskList"><code>TaskList</code></a>
+                  </p>
+                </div>
+                <div class="operation-arguments doc-copy-section">
+                  <h5>Arguments</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>id</code></span> - <span class="property-type"><a href="#definition-ID"><code>ID!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <h4 class="example-heading">Example</h4>
+                <div class="example-section example-section-is-code operation-query-example">
+                  <h5>Query</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> taskList<span class="hljs-tag">(<span class="hljs-code">$id</span>: ID!)</span> <span class="hljs-tag">{
+  <span class="hljs-symbol">taskList<span class="hljs-tag">(id: <span class="hljs-code">$id</span>)</span> <span class="hljs-tag">{
+    <span class="hljs-symbol">id</span>
+    <span class="hljs-symbol">title</span>
+    <span class="hljs-symbol">todoItems <span class="hljs-tag">{
+      <span class="hljs-symbol">id</span>
+      <span class="hljs-symbol">taskListID</span>
+      <span class="hljs-symbol">taskList <span class="hljs-tag">{
+        <span class="hljs-type">...TaskListFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">title</span>
+      <span class="hljs-symbol">owners <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">followers <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">start</span>
+      <span class="hljs-symbol">due</span>
+      <span class="hljs-symbol">description</span>
+      <span class="hljs-symbol">parentID</span>
+      <span class="hljs-symbol">parent <span class="hljs-tag">{
+        <span class="hljs-type">...TodoItemFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">children <span class="hljs-tag">{
+        <span class="hljs-type">...TodoItemFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">attachments <span class="hljs-tag">{
+        <span class="hljs-type">...AttachmentFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">comments <span class="hljs-tag">{
+        <span class="hljs-type">...CommentFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">isCompleted</span>
+      <span class="hljs-symbol">createdAt</span>
+      <span class="hljs-symbol">createdByUID</span>
+      <span class="hljs-symbol">createdBy <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">updatedAt</span>
+      <span class="hljs-symbol">updatedByUID</span>
+      <span class="hljs-symbol">updatedBy <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+    }</span></span>
+  }</span></span>
+}</span></span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-variables-example">
+                  <h5>Variables</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-response-example">
+                  <h5>Response</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"taskList"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"todoItems"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">TodoItem</span><span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="query-todoItem" class="operation operation-query" data-traverse-target="query-todoItem">
+            <div class="operation-group-name">
+              <a href="#group-Operations-Queries">Queries</a>
+            </div>
+            <h2 class="operation-heading ">
+              <code>todoItem</code>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="operation-response doc-copy-section">
+                  <h5>Response</h5>
+                  <p> Returns a <a href="#definition-TodoItem"><code>TodoItem</code></a>
+                  </p>
+                </div>
+                <div class="operation-arguments doc-copy-section">
+                  <h5>Arguments</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>id</code></span> - <span class="property-type"><a href="#definition-ID"><code>ID!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <h4 class="example-heading">Example</h4>
+                <div class="example-section example-section-is-code operation-query-example">
+                  <h5>Query</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> todoItem<span class="hljs-tag">(<span class="hljs-code">$id</span>: ID!)</span> <span class="hljs-tag">{
+  <span class="hljs-symbol">todoItem<span class="hljs-tag">(id: <span class="hljs-code">$id</span>)</span> <span class="hljs-tag">{
+    <span class="hljs-symbol">id</span>
+    <span class="hljs-symbol">taskListID</span>
+    <span class="hljs-symbol">taskList <span class="hljs-tag">{
+      <span class="hljs-symbol">id</span>
+      <span class="hljs-symbol">title</span>
+      <span class="hljs-symbol">todoItems <span class="hljs-tag">{
+        <span class="hljs-type">...TodoItemFragment</span>
+      }</span></span>
+    }</span></span>
+    <span class="hljs-symbol">title</span>
+    <span class="hljs-symbol">owners <span class="hljs-tag">{
+      <span class="hljs-symbol">uid</span>
+      <span class="hljs-symbol">username</span>
+      <span class="hljs-symbol">nickname</span>
+      <span class="hljs-symbol">email</span>
+    }</span></span>
+    <span class="hljs-symbol">followers <span class="hljs-tag">{
+      <span class="hljs-symbol">uid</span>
+      <span class="hljs-symbol">username</span>
+      <span class="hljs-symbol">nickname</span>
+      <span class="hljs-symbol">email</span>
+    }</span></span>
+    <span class="hljs-symbol">start</span>
+    <span class="hljs-symbol">due</span>
+    <span class="hljs-symbol">description</span>
+    <span class="hljs-symbol">parentID</span>
+    <span class="hljs-symbol">parent <span class="hljs-tag">{
+      <span class="hljs-symbol">id</span>
+      <span class="hljs-symbol">taskListID</span>
+      <span class="hljs-symbol">taskList <span class="hljs-tag">{
+        <span class="hljs-type">...TaskListFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">title</span>
+      <span class="hljs-symbol">owners <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">followers <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">start</span>
+      <span class="hljs-symbol">due</span>
+      <span class="hljs-symbol">description</span>
+      <span class="hljs-symbol">parentID</span>
+      <span class="hljs-symbol">parent <span class="hljs-tag">{
+        <span class="hljs-type">...TodoItemFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">children <span class="hljs-tag">{
+        <span class="hljs-type">...TodoItemFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">attachments <span class="hljs-tag">{
+        <span class="hljs-type">...AttachmentFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">comments <span class="hljs-tag">{
+        <span class="hljs-type">...CommentFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">isCompleted</span>
+      <span class="hljs-symbol">createdAt</span>
+      <span class="hljs-symbol">createdByUID</span>
+      <span class="hljs-symbol">createdBy <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">updatedAt</span>
+      <span class="hljs-symbol">updatedByUID</span>
+      <span class="hljs-symbol">updatedBy <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+    }</span></span>
+    <span class="hljs-symbol">children <span class="hljs-tag">{
+      <span class="hljs-symbol">id</span>
+      <span class="hljs-symbol">taskListID</span>
+      <span class="hljs-symbol">taskList <span class="hljs-tag">{
+        <span class="hljs-type">...TaskListFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">title</span>
+      <span class="hljs-symbol">owners <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">followers <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">start</span>
+      <span class="hljs-symbol">due</span>
+      <span class="hljs-symbol">description</span>
+      <span class="hljs-symbol">parentID</span>
+      <span class="hljs-symbol">parent <span class="hljs-tag">{
+        <span class="hljs-type">...TodoItemFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">children <span class="hljs-tag">{
+        <span class="hljs-type">...TodoItemFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">attachments <span class="hljs-tag">{
+        <span class="hljs-type">...AttachmentFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">comments <span class="hljs-tag">{
+        <span class="hljs-type">...CommentFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">isCompleted</span>
+      <span class="hljs-symbol">createdAt</span>
+      <span class="hljs-symbol">createdByUID</span>
+      <span class="hljs-symbol">createdBy <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">updatedAt</span>
+      <span class="hljs-symbol">updatedByUID</span>
+      <span class="hljs-symbol">updatedBy <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+    }</span></span>
+    <span class="hljs-symbol">attachments <span class="hljs-tag">{
+      <span class="hljs-symbol">id</span>
+      <span class="hljs-symbol">todoItemID</span>
+      <span class="hljs-symbol">name</span>
+      <span class="hljs-symbol">url</span>
+      <span class="hljs-symbol">createdAt</span>
+      <span class="hljs-symbol">createdByUID</span>
+      <span class="hljs-symbol">createdBy <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+    }</span></span>
+    <span class="hljs-symbol">comments <span class="hljs-tag">{
+      <span class="hljs-symbol">id</span>
+      <span class="hljs-symbol">todoItemID</span>
+      <span class="hljs-symbol">content</span>
+      <span class="hljs-symbol">createdAt</span>
+      <span class="hljs-symbol">createdByUID</span>
+      <span class="hljs-symbol">createdBy <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+    }</span></span>
+    <span class="hljs-symbol">isCompleted</span>
+    <span class="hljs-symbol">createdAt</span>
+    <span class="hljs-symbol">createdByUID</span>
+    <span class="hljs-symbol">createdBy <span class="hljs-tag">{
+      <span class="hljs-symbol">uid</span>
+      <span class="hljs-symbol">username</span>
+      <span class="hljs-symbol">nickname</span>
+      <span class="hljs-symbol">email</span>
+    }</span></span>
+    <span class="hljs-symbol">updatedAt</span>
+    <span class="hljs-symbol">updatedByUID</span>
+    <span class="hljs-symbol">updatedBy <span class="hljs-tag">{
+      <span class="hljs-symbol">uid</span>
+      <span class="hljs-symbol">username</span>
+      <span class="hljs-symbol">nickname</span>
+      <span class="hljs-symbol">email</span>
+    }</span></span>
+  }</span></span>
+}</span></span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-variables-example">
+                  <h5>Variables</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-response-example">
+                  <h5>Response</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"todoItem"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"taskListID"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"taskList"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">TaskList</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"owners"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">User</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"followers"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">User</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"start"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">RFC3339</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"due"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">RFC3339</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"parentID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"parent"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">TodoItem</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"children"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">TodoItem</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"attachments"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Attachment</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"comments"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Comment</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"isCompleted"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"createdAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">RFC3339</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"createdByUID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"createdBy"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">User</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"updatedAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">RFC3339</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"updatedByUID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"updatedBy"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">User</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="query-todoItems" class="operation operation-query" data-traverse-target="query-todoItems">
+            <div class="operation-group-name">
+              <a href="#group-Operations-Queries">Queries</a>
+            </div>
+            <h2 class="operation-heading ">
+              <code>todoItems</code>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="operation-response doc-copy-section">
+                  <h5>Response</h5>
+                  <p> Returns <a href="#definition-TodoItem"><code>[TodoItem!]!</code></a>
+                  </p>
+                </div>
+                <div class="operation-arguments doc-copy-section">
+                  <h5>Arguments</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>filter</code></span> - <span class="property-type"><a href="#definition-TodoItemsFilters"><code>TodoItemsFilters</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>sortBy</code></span> - <span class="property-type"><a href="#definition-TodoItemsSortBy"><code>TodoItemsSortBy</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <h4 class="example-heading">Example</h4>
+                <div class="example-section example-section-is-code operation-query-example">
+                  <h5>Query</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> todoItems<span class="hljs-tag">(
+  <span class="hljs-code">$filter</span>:<span class="hljs-type"> TodoItemsFilters,</span>
+  <span class="hljs-code">$sortBy</span>:<span class="hljs-type"> TodoItemsSortBy
+</span>)</span> <span class="hljs-tag">{
+  <span class="hljs-symbol">todoItems<span class="hljs-tag">(
+    filter: <span class="hljs-code">$filter</span>,
+    sortBy: <span class="hljs-code">$sortBy</span>
+  )</span> <span class="hljs-tag">{
+    <span class="hljs-symbol">id</span>
+    <span class="hljs-symbol">taskListID</span>
+    <span class="hljs-symbol">taskList <span class="hljs-tag">{
+      <span class="hljs-symbol">id</span>
+      <span class="hljs-symbol">title</span>
+      <span class="hljs-symbol">todoItems <span class="hljs-tag">{
+        <span class="hljs-type">...TodoItemFragment</span>
+      }</span></span>
+    }</span></span>
+    <span class="hljs-symbol">title</span>
+    <span class="hljs-symbol">owners <span class="hljs-tag">{
+      <span class="hljs-symbol">uid</span>
+      <span class="hljs-symbol">username</span>
+      <span class="hljs-symbol">nickname</span>
+      <span class="hljs-symbol">email</span>
+    }</span></span>
+    <span class="hljs-symbol">followers <span class="hljs-tag">{
+      <span class="hljs-symbol">uid</span>
+      <span class="hljs-symbol">username</span>
+      <span class="hljs-symbol">nickname</span>
+      <span class="hljs-symbol">email</span>
+    }</span></span>
+    <span class="hljs-symbol">start</span>
+    <span class="hljs-symbol">due</span>
+    <span class="hljs-symbol">description</span>
+    <span class="hljs-symbol">parentID</span>
+    <span class="hljs-symbol">parent <span class="hljs-tag">{
+      <span class="hljs-symbol">id</span>
+      <span class="hljs-symbol">taskListID</span>
+      <span class="hljs-symbol">taskList <span class="hljs-tag">{
+        <span class="hljs-type">...TaskListFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">title</span>
+      <span class="hljs-symbol">owners <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">followers <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">start</span>
+      <span class="hljs-symbol">due</span>
+      <span class="hljs-symbol">description</span>
+      <span class="hljs-symbol">parentID</span>
+      <span class="hljs-symbol">parent <span class="hljs-tag">{
+        <span class="hljs-type">...TodoItemFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">children <span class="hljs-tag">{
+        <span class="hljs-type">...TodoItemFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">attachments <span class="hljs-tag">{
+        <span class="hljs-type">...AttachmentFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">comments <span class="hljs-tag">{
+        <span class="hljs-type">...CommentFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">isCompleted</span>
+      <span class="hljs-symbol">createdAt</span>
+      <span class="hljs-symbol">createdByUID</span>
+      <span class="hljs-symbol">createdBy <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">updatedAt</span>
+      <span class="hljs-symbol">updatedByUID</span>
+      <span class="hljs-symbol">updatedBy <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+    }</span></span>
+    <span class="hljs-symbol">children <span class="hljs-tag">{
+      <span class="hljs-symbol">id</span>
+      <span class="hljs-symbol">taskListID</span>
+      <span class="hljs-symbol">taskList <span class="hljs-tag">{
+        <span class="hljs-type">...TaskListFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">title</span>
+      <span class="hljs-symbol">owners <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">followers <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">start</span>
+      <span class="hljs-symbol">due</span>
+      <span class="hljs-symbol">description</span>
+      <span class="hljs-symbol">parentID</span>
+      <span class="hljs-symbol">parent <span class="hljs-tag">{
+        <span class="hljs-type">...TodoItemFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">children <span class="hljs-tag">{
+        <span class="hljs-type">...TodoItemFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">attachments <span class="hljs-tag">{
+        <span class="hljs-type">...AttachmentFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">comments <span class="hljs-tag">{
+        <span class="hljs-type">...CommentFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">isCompleted</span>
+      <span class="hljs-symbol">createdAt</span>
+      <span class="hljs-symbol">createdByUID</span>
+      <span class="hljs-symbol">createdBy <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">updatedAt</span>
+      <span class="hljs-symbol">updatedByUID</span>
+      <span class="hljs-symbol">updatedBy <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+    }</span></span>
+    <span class="hljs-symbol">attachments <span class="hljs-tag">{
+      <span class="hljs-symbol">id</span>
+      <span class="hljs-symbol">todoItemID</span>
+      <span class="hljs-symbol">name</span>
+      <span class="hljs-symbol">url</span>
+      <span class="hljs-symbol">createdAt</span>
+      <span class="hljs-symbol">createdByUID</span>
+      <span class="hljs-symbol">createdBy <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+    }</span></span>
+    <span class="hljs-symbol">comments <span class="hljs-tag">{
+      <span class="hljs-symbol">id</span>
+      <span class="hljs-symbol">todoItemID</span>
+      <span class="hljs-symbol">content</span>
+      <span class="hljs-symbol">createdAt</span>
+      <span class="hljs-symbol">createdByUID</span>
+      <span class="hljs-symbol">createdBy <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+    }</span></span>
+    <span class="hljs-symbol">isCompleted</span>
+    <span class="hljs-symbol">createdAt</span>
+    <span class="hljs-symbol">createdByUID</span>
+    <span class="hljs-symbol">createdBy <span class="hljs-tag">{
+      <span class="hljs-symbol">uid</span>
+      <span class="hljs-symbol">username</span>
+      <span class="hljs-symbol">nickname</span>
+      <span class="hljs-symbol">email</span>
+    }</span></span>
+    <span class="hljs-symbol">updatedAt</span>
+    <span class="hljs-symbol">updatedByUID</span>
+    <span class="hljs-symbol">updatedBy <span class="hljs-tag">{
+      <span class="hljs-symbol">uid</span>
+      <span class="hljs-symbol">username</span>
+      <span class="hljs-symbol">nickname</span>
+      <span class="hljs-symbol">email</span>
+    }</span></span>
+  }</span></span>
+}</span></span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-variables-example">
+                  <h5>Variables</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"filter"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">TodoItemsFilters</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"sortBy"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"CREATED_AT_ASC"</span><span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-response-example">
+                  <h5>Response</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"todoItems"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+      <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"taskListID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"taskList"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">TaskList</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"owners"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">User</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"followers"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">User</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"start"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">RFC3339</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"due"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">RFC3339</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"parentID"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"parent"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">TodoItem</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"children"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">TodoItem</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"attachments"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Attachment</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"comments"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Comment</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"isCompleted"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"createdAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">RFC3339</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"createdByUID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"createdBy"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">User</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"updatedAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">RFC3339</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"updatedByUID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"updatedBy"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">User</span>
+      <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">]</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="query-user" class="operation operation-query" data-traverse-target="query-user">
+            <div class="operation-group-name">
+              <a href="#group-Operations-Queries">Queries</a>
+            </div>
+            <h2 class="operation-heading ">
+              <code>user</code>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="operation-response doc-copy-section">
+                  <h5>Response</h5>
+                  <p> Returns a <a href="#definition-User"><code>User!</code></a>
+                  </p>
+                </div>
+                <div class="operation-arguments doc-copy-section">
+                  <h5>Arguments</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>uid</code></span> - <span class="property-type"><a href="#definition-String"><code>String!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <h4 class="example-heading">Example</h4>
+                <div class="example-section example-section-is-code operation-query-example">
+                  <h5>Query</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> user<span class="hljs-tag">(<span class="hljs-code">$uid</span>:<span class="hljs-type"> String!</span>)</span> <span class="hljs-tag">{
+  <span class="hljs-symbol">user<span class="hljs-tag">(uid: <span class="hljs-code">$uid</span>)</span> <span class="hljs-tag">{
+    <span class="hljs-symbol">uid</span>
+    <span class="hljs-symbol">username</span>
+    <span class="hljs-symbol">nickname</span>
+    <span class="hljs-symbol">email</span>
+  }</span></span>
+}</span></span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-variables-example">
+                  <h5>Variables</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"uid"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-response-example">
+                  <h5>Response</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"user"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"uid"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"username"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"nickname"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"email"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <h1 id="group-Operations-Mutations" class="group-heading" data-traverse-target="group-Operations-Mutations">Mutations</h1>
+          <section id="mutation-createTaskList" class="operation operation-mutation" data-traverse-target="mutation-createTaskList">
+            <h2 class="operation-heading ">
+              <code>createTaskList</code>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="operation-response doc-copy-section">
+                  <h5>Response</h5>
+                  <p> Returns a <a href="#definition-TaskList"><code>TaskList!</code></a>
+                  </p>
+                </div>
+                <div class="operation-arguments doc-copy-section">
+                  <h5>Arguments</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>title</code></span> - <span class="property-type"><a href="#definition-String"><code>String!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <h4 class="example-heading">Example</h4>
+                <div class="example-section example-section-is-code operation-query-example">
+                  <h5>Query</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> createTaskList<span class="hljs-tag">(<span class="hljs-code">$title</span>:<span class="hljs-type"> String!</span>)</span> <span class="hljs-tag">{
+  <span class="hljs-symbol">createTaskList<span class="hljs-tag">(title: <span class="hljs-code">$title</span>)</span> <span class="hljs-tag">{
+    <span class="hljs-symbol">id</span>
+    <span class="hljs-symbol">title</span>
+    <span class="hljs-symbol">todoItems <span class="hljs-tag">{
+      <span class="hljs-symbol">id</span>
+      <span class="hljs-symbol">taskListID</span>
+      <span class="hljs-symbol">taskList <span class="hljs-tag">{
+        <span class="hljs-type">...TaskListFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">title</span>
+      <span class="hljs-symbol">owners <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">followers <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">start</span>
+      <span class="hljs-symbol">due</span>
+      <span class="hljs-symbol">description</span>
+      <span class="hljs-symbol">parentID</span>
+      <span class="hljs-symbol">parent <span class="hljs-tag">{
+        <span class="hljs-type">...TodoItemFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">children <span class="hljs-tag">{
+        <span class="hljs-type">...TodoItemFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">attachments <span class="hljs-tag">{
+        <span class="hljs-type">...AttachmentFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">comments <span class="hljs-tag">{
+        <span class="hljs-type">...CommentFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">isCompleted</span>
+      <span class="hljs-symbol">createdAt</span>
+      <span class="hljs-symbol">createdByUID</span>
+      <span class="hljs-symbol">createdBy <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">updatedAt</span>
+      <span class="hljs-symbol">updatedByUID</span>
+      <span class="hljs-symbol">updatedBy <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+    }</span></span>
+  }</span></span>
+}</span></span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-variables-example">
+                  <h5>Variables</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-response-example">
+                  <h5>Response</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"createTaskList"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"todoItems"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">TodoItem</span><span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="mutation-createTodoItem" class="operation operation-mutation" data-traverse-target="mutation-createTodoItem">
+            <div class="operation-group-name">
+              <a href="#group-Operations-Mutations">Mutations</a>
+            </div>
+            <h2 class="operation-heading ">
+              <code>createTodoItem</code>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="operation-response doc-copy-section">
+                  <h5>Response</h5>
+                  <p> Returns a <a href="#definition-TodoItem"><code>TodoItem!</code></a>
+                  </p>
+                </div>
+                <div class="operation-arguments doc-copy-section">
+                  <h5>Arguments</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>form</code></span> - <span class="property-type"><a href="#definition-TodoItemForm"><code>TodoItemForm!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>parentID</code></span> - <span class="property-type"><a href="#definition-ID"><code>ID</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <h4 class="example-heading">Example</h4>
+                <div class="example-section example-section-is-code operation-query-example">
+                  <h5>Query</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> createTodoItem<span class="hljs-tag">(
+  <span class="hljs-code">$form</span>:<span class="hljs-type"> TodoItemForm!</span>,
+  <span class="hljs-code">$parentID</span>: ID
+)</span> <span class="hljs-tag">{
+  <span class="hljs-symbol">createTodoItem<span class="hljs-tag">(
+    form: <span class="hljs-code">$form</span>,
+    parentID: <span class="hljs-code">$parentID</span>
+  )</span> <span class="hljs-tag">{
+    <span class="hljs-symbol">id</span>
+    <span class="hljs-symbol">taskListID</span>
+    <span class="hljs-symbol">taskList <span class="hljs-tag">{
+      <span class="hljs-symbol">id</span>
+      <span class="hljs-symbol">title</span>
+      <span class="hljs-symbol">todoItems <span class="hljs-tag">{
+        <span class="hljs-type">...TodoItemFragment</span>
+      }</span></span>
+    }</span></span>
+    <span class="hljs-symbol">title</span>
+    <span class="hljs-symbol">owners <span class="hljs-tag">{
+      <span class="hljs-symbol">uid</span>
+      <span class="hljs-symbol">username</span>
+      <span class="hljs-symbol">nickname</span>
+      <span class="hljs-symbol">email</span>
+    }</span></span>
+    <span class="hljs-symbol">followers <span class="hljs-tag">{
+      <span class="hljs-symbol">uid</span>
+      <span class="hljs-symbol">username</span>
+      <span class="hljs-symbol">nickname</span>
+      <span class="hljs-symbol">email</span>
+    }</span></span>
+    <span class="hljs-symbol">start</span>
+    <span class="hljs-symbol">due</span>
+    <span class="hljs-symbol">description</span>
+    <span class="hljs-symbol">parentID</span>
+    <span class="hljs-symbol">parent <span class="hljs-tag">{
+      <span class="hljs-symbol">id</span>
+      <span class="hljs-symbol">taskListID</span>
+      <span class="hljs-symbol">taskList <span class="hljs-tag">{
+        <span class="hljs-type">...TaskListFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">title</span>
+      <span class="hljs-symbol">owners <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">followers <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">start</span>
+      <span class="hljs-symbol">due</span>
+      <span class="hljs-symbol">description</span>
+      <span class="hljs-symbol">parentID</span>
+      <span class="hljs-symbol">parent <span class="hljs-tag">{
+        <span class="hljs-type">...TodoItemFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">children <span class="hljs-tag">{
+        <span class="hljs-type">...TodoItemFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">attachments <span class="hljs-tag">{
+        <span class="hljs-type">...AttachmentFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">comments <span class="hljs-tag">{
+        <span class="hljs-type">...CommentFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">isCompleted</span>
+      <span class="hljs-symbol">createdAt</span>
+      <span class="hljs-symbol">createdByUID</span>
+      <span class="hljs-symbol">createdBy <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">updatedAt</span>
+      <span class="hljs-symbol">updatedByUID</span>
+      <span class="hljs-symbol">updatedBy <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+    }</span></span>
+    <span class="hljs-symbol">children <span class="hljs-tag">{
+      <span class="hljs-symbol">id</span>
+      <span class="hljs-symbol">taskListID</span>
+      <span class="hljs-symbol">taskList <span class="hljs-tag">{
+        <span class="hljs-type">...TaskListFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">title</span>
+      <span class="hljs-symbol">owners <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">followers <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">start</span>
+      <span class="hljs-symbol">due</span>
+      <span class="hljs-symbol">description</span>
+      <span class="hljs-symbol">parentID</span>
+      <span class="hljs-symbol">parent <span class="hljs-tag">{
+        <span class="hljs-type">...TodoItemFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">children <span class="hljs-tag">{
+        <span class="hljs-type">...TodoItemFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">attachments <span class="hljs-tag">{
+        <span class="hljs-type">...AttachmentFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">comments <span class="hljs-tag">{
+        <span class="hljs-type">...CommentFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">isCompleted</span>
+      <span class="hljs-symbol">createdAt</span>
+      <span class="hljs-symbol">createdByUID</span>
+      <span class="hljs-symbol">createdBy <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+      <span class="hljs-symbol">updatedAt</span>
+      <span class="hljs-symbol">updatedByUID</span>
+      <span class="hljs-symbol">updatedBy <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+    }</span></span>
+    <span class="hljs-symbol">attachments <span class="hljs-tag">{
+      <span class="hljs-symbol">id</span>
+      <span class="hljs-symbol">todoItemID</span>
+      <span class="hljs-symbol">name</span>
+      <span class="hljs-symbol">url</span>
+      <span class="hljs-symbol">createdAt</span>
+      <span class="hljs-symbol">createdByUID</span>
+      <span class="hljs-symbol">createdBy <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+    }</span></span>
+    <span class="hljs-symbol">comments <span class="hljs-tag">{
+      <span class="hljs-symbol">id</span>
+      <span class="hljs-symbol">todoItemID</span>
+      <span class="hljs-symbol">content</span>
+      <span class="hljs-symbol">createdAt</span>
+      <span class="hljs-symbol">createdByUID</span>
+      <span class="hljs-symbol">createdBy <span class="hljs-tag">{
+        <span class="hljs-type">...UserFragment</span>
+      }</span></span>
+    }</span></span>
+    <span class="hljs-symbol">isCompleted</span>
+    <span class="hljs-symbol">createdAt</span>
+    <span class="hljs-symbol">createdByUID</span>
+    <span class="hljs-symbol">createdBy <span class="hljs-tag">{
+      <span class="hljs-symbol">uid</span>
+      <span class="hljs-symbol">username</span>
+      <span class="hljs-symbol">nickname</span>
+      <span class="hljs-symbol">email</span>
+    }</span></span>
+    <span class="hljs-symbol">updatedAt</span>
+    <span class="hljs-symbol">updatedByUID</span>
+    <span class="hljs-symbol">updatedBy <span class="hljs-tag">{
+      <span class="hljs-symbol">uid</span>
+      <span class="hljs-symbol">username</span>
+      <span class="hljs-symbol">nickname</span>
+      <span class="hljs-symbol">email</span>
+    }</span></span>
+  }</span></span>
+}</span></span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-variables-example">
+                  <h5>Variables</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"form"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">TodoItemForm</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"parentID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-response-example">
+                  <h5>Response</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"createTodoItem"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"taskListID"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"taskList"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">TaskList</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"owners"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">User</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"followers"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">User</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"start"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">RFC3339</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"due"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">RFC3339</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"parentID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"parent"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">TodoItem</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"children"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">TodoItem</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"attachments"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Attachment</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"comments"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Comment</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"isCompleted"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"createdAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">RFC3339</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"createdByUID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"createdBy"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">User</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"updatedAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">RFC3339</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"updatedByUID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"updatedBy"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">User</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="mutation-deleteAttachment" class="operation operation-mutation" data-traverse-target="mutation-deleteAttachment">
+            <div class="operation-group-name">
+              <a href="#group-Operations-Mutations">Mutations</a>
+            </div>
+            <h2 class="operation-heading ">
+              <code>deleteAttachment</code>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="operation-response doc-copy-section">
+                  <h5>Response</h5>
+                  <p> Returns a <a href="#definition-Boolean"><code>Boolean!</code></a>
+                  </p>
+                </div>
+                <div class="operation-arguments doc-copy-section">
+                  <h5>Arguments</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>id</code></span> - <span class="property-type"><a href="#definition-ID"><code>ID!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <h4 class="example-heading">Example</h4>
+                <div class="example-section example-section-is-code operation-query-example">
+                  <h5>Query</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> deleteAttachment<span class="hljs-tag">(<span class="hljs-code">$id</span>: ID!)</span> <span class="hljs-tag">{
+  <span class="hljs-symbol">deleteAttachment<span class="hljs-tag">(id: <span class="hljs-code">$id</span>)</span></span>
+}</span></span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-variables-example">
+                  <h5>Variables</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-response-example">
+                  <h5>Response</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-attr">"deleteAttachment"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="mutation-deleteComment" class="operation operation-mutation" data-traverse-target="mutation-deleteComment">
+            <div class="operation-group-name">
+              <a href="#group-Operations-Mutations">Mutations</a>
+            </div>
+            <h2 class="operation-heading ">
+              <code>deleteComment</code>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="operation-response doc-copy-section">
+                  <h5>Response</h5>
+                  <p> Returns a <a href="#definition-Boolean"><code>Boolean!</code></a>
+                  </p>
+                </div>
+                <div class="operation-arguments doc-copy-section">
+                  <h5>Arguments</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>id</code></span> - <span class="property-type"><a href="#definition-ID"><code>ID!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <h4 class="example-heading">Example</h4>
+                <div class="example-section example-section-is-code operation-query-example">
+                  <h5>Query</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> deleteComment<span class="hljs-tag">(<span class="hljs-code">$id</span>: ID!)</span> <span class="hljs-tag">{
+  <span class="hljs-symbol">deleteComment<span class="hljs-tag">(id: <span class="hljs-code">$id</span>)</span></span>
+}</span></span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-variables-example">
+                  <h5>Variables</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-response-example">
+                  <h5>Response</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-attr">"deleteComment"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="mutation-deleteTaskList" class="operation operation-mutation" data-traverse-target="mutation-deleteTaskList">
+            <div class="operation-group-name">
+              <a href="#group-Operations-Mutations">Mutations</a>
+            </div>
+            <h2 class="operation-heading ">
+              <code>deleteTaskList</code>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="operation-response doc-copy-section">
+                  <h5>Response</h5>
+                  <p> Returns a <a href="#definition-Boolean"><code>Boolean!</code></a>
+                  </p>
+                </div>
+                <div class="operation-arguments doc-copy-section">
+                  <h5>Arguments</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>id</code></span> - <span class="property-type"><a href="#definition-ID"><code>ID!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>form</code></span> - <span class="property-type"><a href="#definition-TodoItemForm"><code>TodoItemForm!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <h4 class="example-heading">Example</h4>
+                <div class="example-section example-section-is-code operation-query-example">
+                  <h5>Query</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> deleteTaskList<span class="hljs-tag">(
+  <span class="hljs-code">$id</span>: ID!,
+  <span class="hljs-code">$form</span>:<span class="hljs-type"> TodoItemForm!</span>
+)</span> <span class="hljs-tag">{
+  <span class="hljs-symbol">deleteTaskList<span class="hljs-tag">(
+    id: <span class="hljs-code">$id</span>,
+    form: <span class="hljs-code">$form</span>
+  )</span></span>
+}</span></span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-variables-example">
+                  <h5>Variables</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"form"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">TodoItemForm</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-response-example">
+                  <h5>Response</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-attr">"deleteTaskList"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="mutation-deleteTodoItem" class="operation operation-mutation" data-traverse-target="mutation-deleteTodoItem">
+            <div class="operation-group-name">
+              <a href="#group-Operations-Mutations">Mutations</a>
+            </div>
+            <h2 class="operation-heading ">
+              <code>deleteTodoItem</code>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="operation-response doc-copy-section">
+                  <h5>Response</h5>
+                  <p> Returns a <a href="#definition-Boolean"><code>Boolean!</code></a>
+                  </p>
+                </div>
+                <div class="operation-arguments doc-copy-section">
+                  <h5>Arguments</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>id</code></span> - <span class="property-type"><a href="#definition-ID"><code>ID!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <h4 class="example-heading">Example</h4>
+                <div class="example-section example-section-is-code operation-query-example">
+                  <h5>Query</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> deleteTodoItem<span class="hljs-tag">(<span class="hljs-code">$id</span>: ID!)</span> <span class="hljs-tag">{
+  <span class="hljs-symbol">deleteTodoItem<span class="hljs-tag">(id: <span class="hljs-code">$id</span>)</span></span>
+}</span></span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-variables-example">
+                  <h5>Variables</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-response-example">
+                  <h5>Response</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-attr">"deleteTodoItem"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="mutation-refreshToken" class="operation operation-mutation" data-traverse-target="mutation-refreshToken">
+            <div class="operation-group-name">
+              <a href="#group-Operations-Mutations">Mutations</a>
+            </div>
+            <h2 class="operation-heading ">
+              <code>refreshToken</code>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="operation-response doc-copy-section">
+                  <h5>Response</h5>
+                  <p> Returns an <a href="#definition-Auth"><code>Auth!</code></a>
+                  </p>
+                </div>
+                <div class="operation-arguments doc-copy-section">
+                  <h5>Arguments</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>oldAccessToken</code></span> - <span class="property-type"><a href="#definition-String"><code>String!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <h4 class="example-heading">Example</h4>
+                <div class="example-section example-section-is-code operation-query-example">
+                  <h5>Query</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> refreshToken<span class="hljs-tag">(<span class="hljs-code">$oldAccessToken</span>:<span class="hljs-type"> String!</span>)</span> <span class="hljs-tag">{
+  <span class="hljs-symbol">refreshToken<span class="hljs-tag">(oldAccessToken: <span class="hljs-code">$oldAccessToken</span>)</span> <span class="hljs-tag">{
+    <span class="hljs-symbol">accessToken</span>
+  }</span></span>
+}</span></span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-variables-example">
+                  <h5>Variables</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"oldAccessToken"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-response-example">
+                  <h5>Response</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"refreshToken"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"accessToken"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="mutation-signIn" class="operation operation-mutation" data-traverse-target="mutation-signIn">
+            <div class="operation-group-name">
+              <a href="#group-Operations-Mutations">Mutations</a>
+            </div>
+            <h2 class="operation-heading ">
+              <code>signIn</code>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="operation-response doc-copy-section">
+                  <h5>Response</h5>
+                  <p> Returns an <a href="#definition-Auth"><code>Auth!</code></a>
+                  </p>
+                </div>
+                <div class="operation-arguments doc-copy-section">
+                  <h5>Arguments</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>username</code></span> - <span class="property-type"><a href="#definition-String"><code>String!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>password</code></span> - <span class="property-type"><a href="#definition-String"><code>String!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <h4 class="example-heading">Example</h4>
+                <div class="example-section example-section-is-code operation-query-example">
+                  <h5>Query</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> signIn<span class="hljs-tag">(
+  <span class="hljs-code">$username</span>:<span class="hljs-type"> String!</span>,
+  <span class="hljs-code">$password</span>:<span class="hljs-type"> String!</span>
+)</span> <span class="hljs-tag">{
+  <span class="hljs-symbol">signIn<span class="hljs-tag">(
+    username: <span class="hljs-code">$username</span>,
+    password: <span class="hljs-code">$password</span>
+  )</span> <span class="hljs-tag">{
+    <span class="hljs-symbol">accessToken</span>
+  }</span></span>
+}</span></span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-variables-example">
+                  <h5>Variables</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"username"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"password"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-response-example">
+                  <h5>Response</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"signIn"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-attr">"accessToken"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="mutation-signUp" class="operation operation-mutation" data-traverse-target="mutation-signUp">
+            <div class="operation-group-name">
+              <a href="#group-Operations-Mutations">Mutations</a>
+            </div>
+            <h2 class="operation-heading ">
+              <code>signUp</code>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="operation-response doc-copy-section">
+                  <h5>Response</h5>
+                  <p> Returns a <a href="#definition-User"><code>User!</code></a>
+                  </p>
+                </div>
+                <div class="operation-arguments doc-copy-section">
+                  <h5>Arguments</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>form</code></span> - <span class="property-type"><a href="#definition-UserForm"><code>UserForm!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <h4 class="example-heading">Example</h4>
+                <div class="example-section example-section-is-code operation-query-example">
+                  <h5>Query</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> signUp<span class="hljs-tag">(<span class="hljs-code">$form</span>:<span class="hljs-type"> UserForm!</span>)</span> <span class="hljs-tag">{
+  <span class="hljs-symbol">signUp<span class="hljs-tag">(form: <span class="hljs-code">$form</span>)</span> <span class="hljs-tag">{
+    <span class="hljs-symbol">uid</span>
+    <span class="hljs-symbol">username</span>
+    <span class="hljs-symbol">nickname</span>
+    <span class="hljs-symbol">email</span>
+  }</span></span>
+}</span></span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-variables-example">
+                  <h5>Variables</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"form"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">UserForm</span><span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-response-example">
+                  <h5>Response</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"signUp"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"uid"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"username"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"nickname"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"email"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="mutation-updateTodoItem" class="operation operation-mutation" data-traverse-target="mutation-updateTodoItem">
+            <div class="operation-group-name">
+              <a href="#group-Operations-Mutations">Mutations</a>
+            </div>
+            <h2 class="operation-heading ">
+              <code>updateTodoItem</code>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="operation-response doc-copy-section">
+                  <h5>Response</h5>
+                  <p> Returns a <a href="#definition-Boolean"><code>Boolean!</code></a>
+                  </p>
+                </div>
+                <div class="operation-arguments doc-copy-section">
+                  <h5>Arguments</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>id</code></span> - <span class="property-type"><a href="#definition-ID"><code>ID!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>form</code></span> - <span class="property-type"><a href="#definition-TodoItemForm"><code>TodoItemForm!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <h4 class="example-heading">Example</h4>
+                <div class="example-section example-section-is-code operation-query-example">
+                  <h5>Query</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> updateTodoItem<span class="hljs-tag">(
+  <span class="hljs-code">$id</span>: ID!,
+  <span class="hljs-code">$form</span>:<span class="hljs-type"> TodoItemForm!</span>
+)</span> <span class="hljs-tag">{
+  <span class="hljs-symbol">updateTodoItem<span class="hljs-tag">(
+    id: <span class="hljs-code">$id</span>,
+    form: <span class="hljs-code">$form</span>
+  )</span></span>
+}</span></span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-variables-example">
+                  <h5>Variables</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"form"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">TodoItemForm</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-response-example">
+                  <h5>Response</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-attr">"updateTodoItem"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <h1 id="group-Types" class="group-heading" data-traverse-target="group-Types">Types</h1>
+          <section id="definition-Attachment" class="definition definition-object" data-traverse-target="definition-Attachment">
+            <h2 class="definition-heading">Attachment</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-properties doc-copy-section">
+                  <h5>Fields</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Field Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>id</code></span> - <span class="property-type"><a href="#definition-ID"><code>ID!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>todoItemID</code></span> - <span class="property-type"><a href="#definition-ID"><code>ID!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>name</code></span> - <span class="property-type"><a href="#definition-String"><code>String!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>url</code></span> - <span class="property-type"><a href="#definition-String"><code>String!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>createdAt</code></span> - <span class="property-type"><a href="#definition-RFC3339"><code>RFC3339!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>createdByUID</code></span> - <span class="property-type"><a href="#definition-String"><code>String!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>createdBy</code></span> - <span class="property-type"><a href="#definition-User"><code>User!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"todoItemID"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"createdAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">RFC3339</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"createdByUID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"createdBy"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">User</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="definition-Auth" class="definition definition-object" data-traverse-target="definition-Auth">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">Auth</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-properties doc-copy-section">
+                  <h5>Fields</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Field Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>accessToken</code></span> - <span class="property-type"><a href="#definition-String"><code>String!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"accessToken"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="definition-Boolean" class="definition definition-scalar" data-traverse-target="definition-Boolean">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">Boolean</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-description doc-copy-section">
+                  <h5>Description</h5>
+                  <p>The <code>Boolean</code> scalar type represents <code>true</code> or <code>false</code>.</p>
+                </div>
+              </div>
+              <div class="doc-examples">
+              </div>
+            </div>
+          </section>
+          <section id="definition-Comment" class="definition definition-object" data-traverse-target="definition-Comment">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">Comment</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-properties doc-copy-section">
+                  <h5>Fields</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Field Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>id</code></span> - <span class="property-type"><a href="#definition-ID"><code>ID!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>todoItemID</code></span> - <span class="property-type"><a href="#definition-ID"><code>ID!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>content</code></span> - <span class="property-type"><a href="#definition-String"><code>String!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>createdAt</code></span> - <span class="property-type"><a href="#definition-RFC3339"><code>RFC3339!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>createdByUID</code></span> - <span class="property-type"><a href="#definition-String"><code>String!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>createdBy</code></span> - <span class="property-type"><a href="#definition-User"><code>User!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"todoItemID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"content"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"createdAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">RFC3339</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"createdByUID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"createdBy"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">User</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="definition-DateRange" class="definition definition-input-object" data-traverse-target="definition-DateRange">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">DateRange</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-description doc-copy-section">
+                  <h5>Description</h5>
+                  <p>DateRange</p>
+                </div>
+                <div class="definition-properties doc-copy-section">
+                  <h5>Fields</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Input Field</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>start</code></span> - <span class="property-type"><a href="#definition-RFC3339"><code>RFC3339</code></a></span>
+                        </td>
+                        <td> 開始日期 </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>due</code></span> - <span class="property-type"><a href="#definition-RFC3339"><code>RFC3339</code></a></span>
+                        </td>
+                        <td> 到期日 </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"start"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">RFC3339</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"due"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">RFC3339</span><span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="definition-FileInput" class="definition definition-input-object" data-traverse-target="definition-FileInput">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">FileInput</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-properties doc-copy-section">
+                  <h5>Fields</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Input Field</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>filename</code></span> - <span class="property-type"><a href="#definition-String"><code>String!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>contentType</code></span> - <span class="property-type"><a href="#definition-String"><code>String!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>content</code></span> - <span class="property-type"><a href="#definition-Upload"><code>Upload!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"filename"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"contentType"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"content"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Upload</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="definition-ID" class="definition definition-scalar" data-traverse-target="definition-ID">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">ID</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-description doc-copy-section">
+                  <h5>Description</h5>
+                  <p>The <code>ID</code> scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as <code>&quot;4&quot;</code>) or integer (such as <code>4</code>) input value will be accepted as an ID.</p>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">"4"</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="definition-RFC3339" class="definition definition-scalar" data-traverse-target="definition-RFC3339">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">RFC3339</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">RFC3339</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="definition-String" class="definition definition-scalar" data-traverse-target="definition-String">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">String</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-description doc-copy-section">
+                  <h5>Description</h5>
+                  <p>The <code>String</code> scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.</p>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">"xyz789"</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="definition-StringsFilter" class="definition definition-input-object" data-traverse-target="definition-StringsFilter">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">StringsFilter</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-description doc-copy-section">
+                  <h5>Description</h5>
+                  <p>StringsFilter</p>
+                </div>
+                <div class="definition-properties doc-copy-section">
+                  <h5>Fields</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Input Field</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>contains</code></span> - <span class="property-type"><a href="#definition-String"><code>[String!]</code></a></span>
+                        </td>
+                        <td> 如果不為 null，代表回傳字串需包含 </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>notContains</code></span> - <span class="property-type"><a href="#definition-String"><code>[String!]</code></a></span>
+                        </td>
+                        <td> 如果不為 null，代表回傳字串不可包含 </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>isNull</code></span> - <span class="property-type"><a href="#definition-Boolean"><code>Boolean</code></a></span>
+                        </td>
+                        <td> 如果為 true，代表回傳字串需為 null </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"contains"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"notContains"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"isNull"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="definition-TaskList" class="definition definition-object" data-traverse-target="definition-TaskList">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">TaskList</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-properties doc-copy-section">
+                  <h5>Fields</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Field Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>id</code></span> - <span class="property-type"><a href="#definition-ID"><code>ID!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>title</code></span> - <span class="property-type"><a href="#definition-String"><code>String!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>todoItems</code></span> - <span class="property-type"><a href="#definition-TodoItem"><code>[TodoItem!]!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"todoItems"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">TodoItem</span><span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="definition-TodoItem" class="definition definition-object" data-traverse-target="definition-TodoItem">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">TodoItem</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-description doc-copy-section">
+                  <h5>Description</h5>
+                  <p>TodoItem 是最重要的 model，代表一個待辦事項</p>
+                </div>
+                <div class="definition-properties doc-copy-section">
+                  <h5>Fields</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Field Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>id</code></span> - <span class="property-type"><a href="#definition-ID"><code>ID!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>taskListID</code></span> - <span class="property-type"><a href="#definition-ID"><code>ID</code></a></span>
+                        </td>
+                        <td> TodoItem 可以隸屬於一個 TaskList </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>taskList</code></span> - <span class="property-type"><a href="#definition-TaskList"><code>TaskList</code></a></span>
+                        </td>
+                        <td> TodoItem 可以隸屬於一個 TaskList </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>title</code></span> - <span class="property-type"><a href="#definition-String"><code>String</code></a></span>
+                        </td>
+                        <td> 不一定有 title </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>owners</code></span> - <span class="property-type"><a href="#definition-User"><code>[User!]!</code></a></span>
+                        </td>
+                        <td> 有多個執行人，也可能是空陣列 </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>followers</code></span> - <span class="property-type"><a href="#definition-User"><code>[User!]!</code></a></span>
+                        </td>
+                        <td> 有多個關注人，也可能是空陣列 </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>start</code></span> - <span class="property-type"><a href="#definition-RFC3339"><code>RFC3339</code></a></span>
+                        </td>
+                        <td> 開始日期，可能因為沒有設定而是 null </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>due</code></span> - <span class="property-type"><a href="#definition-RFC3339"><code>RFC3339</code></a></span>
+                        </td>
+                        <td> 到期日，可能因為沒有設定而是 null </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>description</code></span> - <span class="property-type"><a href="#definition-String"><code>String</code></a></span>
+                        </td>
+                        <td> 內文 </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>parentID</code></span> - <span class="property-type"><a href="#definition-ID"><code>ID</code></a></span>
+                        </td>
+                        <td> TodoItem 可以是一個巢狀的結構，parent 是父任務 </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>parent</code></span> - <span class="property-type"><a href="#definition-TodoItem"><code>TodoItem</code></a></span>
+                        </td>
+                        <td> TodoItem 可以是一個巢狀的結構，parent 是父任務 </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>children</code></span> - <span class="property-type"><a href="#definition-TodoItem"><code>[TodoItem!]!</code></a></span>
+                        </td>
+                        <td> TodoItem 可以是一個巢狀的結構，children 是子任務 </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>attachments</code></span> - <span class="property-type"><a href="#definition-Attachment"><code>[Attachment!]!</code></a></span>
+                        </td>
+                        <td> TodoItem 可以有多個附件，也可能是空陣列 </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>comments</code></span> - <span class="property-type"><a href="#definition-Comment"><code>[Comment!]!</code></a></span>
+                        </td>
+                        <td> TodoItem 可以有多個留言，也可能是空陣列 </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>isCompleted</code></span> - <span class="property-type"><a href="#definition-Boolean"><code>Boolean!</code></a></span>
+                        </td>
+                        <td> 是否完成 </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>createdAt</code></span> - <span class="property-type"><a href="#definition-RFC3339"><code>RFC3339!</code></a></span>
+                        </td>
+                        <td> 建立時間 </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>createdByUID</code></span> - <span class="property-type"><a href="#definition-String"><code>String!</code></a></span>
+                        </td>
+                        <td> 建立者 UID </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>createdBy</code></span> - <span class="property-type"><a href="#definition-User"><code>User!</code></a></span>
+                        </td>
+                        <td> 建立者 </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>updatedAt</code></span> - <span class="property-type"><a href="#definition-RFC3339"><code>RFC3339!</code></a></span>
+                        </td>
+                        <td> 最後更新時間 </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>updatedByUID</code></span> - <span class="property-type"><a href="#definition-String"><code>String!</code></a></span>
+                        </td>
+                        <td> 最後更新者 UID </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>updatedBy</code></span> - <span class="property-type"><a href="#definition-User"><code>User!</code></a></span>
+                        </td>
+                        <td> 最後更新者 </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"taskListID"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"taskList"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">TaskList</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"owners"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">User</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"followers"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">User</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"start"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">RFC3339</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"due"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">RFC3339</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"parentID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"parent"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">TodoItem</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"children"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">TodoItem</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"attachments"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Attachment</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"comments"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Comment</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"isCompleted"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"createdAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">RFC3339</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"createdByUID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"createdBy"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">User</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"updatedAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">RFC3339</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"updatedByUID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"updatedBy"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">User</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="definition-TodoItemForm" class="definition definition-input-object" data-traverse-target="definition-TodoItemForm">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">TodoItemForm</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-properties doc-copy-section">
+                  <h5>Fields</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Input Field</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>taskListID</code></span> - <span class="property-type"><a href="#definition-ID"><code>ID</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>title</code></span> - <span class="property-type"><a href="#definition-String"><code>String</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>putOwnersUIDs</code></span> - <span class="property-type"><a href="#definition-String"><code>[String!]</code></a></span>
+                        </td>
+                        <td> 指派執行人，這將覆蓋舊資料 </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>putFollowersUIDs</code></span> - <span class="property-type"><a href="#definition-String"><code>[String!]</code></a></span>
+                        </td>
+                        <td> 指派關注人，這將覆蓋舊資料 </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>duration</code></span> - <span class="property-type"><a href="#definition-DateRange"><code>DateRange</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>description</code></span> - <span class="property-type"><a href="#definition-String"><code>String</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>newAttachments</code></span> - <span class="property-type"><a href="#definition-FileInput"><code>[FileInput!]</code></a></span>
+                        </td>
+                        <td> 上傳附件，這不會覆蓋舊附件 </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>newComments</code></span> - <span class="property-type"><a href="#definition-String"><code>[String!]</code></a></span>
+                        </td>
+                        <td> 新增留言內容。新增後的格式為 <code>json={ content: '傳入的字串', createdByUID: '從 request 的 token 解析'}</code>，如需刪除，請呼叫 mutation deleteAttachment </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>isCompleted</code></span> - <span class="property-type"><a href="#definition-Boolean"><code>Boolean</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"taskListID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"putOwnersUIDs"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"abc123"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"putFollowersUIDs"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"duration"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">DateRange</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"newAttachments"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">FileInput</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"newComments"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"abc123"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"isCompleted"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="definition-TodoItemsFilters" class="definition definition-input-object" data-traverse-target="definition-TodoItemsFilters">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">TodoItemsFilters</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-description doc-copy-section">
+                  <h5>Description</h5>
+                  <p>用於篩選 todoItems 的回傳資料</p>
+                </div>
+                <div class="definition-properties doc-copy-section">
+                  <h5>Fields</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Input Field</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>taskListID</code></span> - <span class="property-type"><a href="#definition-ID"><code>ID</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>creatorUID</code></span> - <span class="property-type"><a href="#definition-StringsFilter"><code>StringsFilter</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>ownerUID</code></span> - <span class="property-type"><a href="#definition-StringsFilter"><code>StringsFilter</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>followerUID</code></span> - <span class="property-type"><a href="#definition-StringsFilter"><code>StringsFilter</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>duration</code></span> - <span class="property-type"><a href="#definition-DateRange"><code>DateRange</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>isCompleted</code></span> - <span class="property-type"><a href="#definition-Boolean"><code>Boolean</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"taskListID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"creatorUID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">StringsFilter</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"ownerUID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">StringsFilter</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"followerUID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">StringsFilter</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"duration"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">DateRange</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"isCompleted"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="definition-TodoItemsSortBy" class="definition definition-enum" data-traverse-target="definition-TodoItemsSortBy">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">TodoItemsSortBy</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-description doc-copy-section">
+                  <h5>Description</h5>
+                  <p>用於排序 todoItems 的回傳資料</p>
+                </div>
+                <div class="definition-properties doc-copy-section">
+                  <h5>Values</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Enum Value</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <p><code>CREATED_AT_ASC</code></p>
+                        </td>
+                        <td> 依據建立時間正序 </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p><code>CREATED_AT_DESC</code></p>
+                        </td>
+                        <td> 依據建立時間倒序 </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p><code>DUE_ASC</code></p>
+                        </td>
+                        <td> 依據任務到期時間正序 </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p><code>DUE_DESC</code></p>
+                        </td>
+                        <td> 依據任務到期時間倒序 </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p><code>CREATED_BY_ASC</code></p>
+                        </td>
+                        <td> 依據創建者正序 </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p><code>CREATED_BY_DESC</code></p>
+                        </td>
+                        <td> 依據創建者倒序 </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">"CREATED_AT_ASC"</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="definition-Upload" class="definition definition-scalar" data-traverse-target="definition-Upload">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">Upload</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">Upload</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="definition-User" class="definition definition-object" data-traverse-target="definition-User">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">User</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-properties doc-copy-section">
+                  <h5>Fields</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Field Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>uid</code></span> - <span class="property-type"><a href="#definition-ID"><code>ID!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>username</code></span> - <span class="property-type"><a href="#definition-String"><code>String!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>nickname</code></span> - <span class="property-type"><a href="#definition-String"><code>String</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name=""><span class="property-name"><code>email</code></span> - <span class="property-type"><a href="#definition-String"><code>String</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"uid"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"username"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"nickname"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"email"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="definition-UserForm" class="definition definition-input-object" data-traverse-target="definition-UserForm">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">UserForm</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-properties doc-copy-section">
+                  <h5>Fields</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Input Field</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>username</code></span> - <span class="property-type"><a href="#definition-String"><code>String!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>password</code></span> - <span class="property-type"><a href="#definition-String"><code>String!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>email</code></span> - <span class="property-type"><a href="#definition-String"><code>String</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                    <head></head>
+                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"username"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"password"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"email"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                    </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <div class="doc-row no-margin">
+            <div class="doc-copy doc-separator">
+              <a class="powered-by" href="https://github.com/anvilco/spectaql">Documentation by <span>Anvil SpectaQL</span></a>
+            </div>
+          </div>
+        </article>
+        <div class="drawer-overlay"></div>
+      </div>
+    </div>
+  </body>
+</html>

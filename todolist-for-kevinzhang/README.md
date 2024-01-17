@@ -10,6 +10,8 @@ make up
 ```
 然後訪問 http://localhost:3000/graphql，即可使用 GraphQL Playground 及文件。
 
+更詳細的 API 文件: /spectaql/output/index.html
+
 ## Stop develop server
 ```bash
 make down

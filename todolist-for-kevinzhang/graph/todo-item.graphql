@@ -11,39 +11,68 @@ extend type Mutation {
   deleteComment(id: ID!): Boolean!
 }
 
+"TodoItem 是最重要的 model，代表一個待辦事項"
 type TodoItem {
   id: ID!
+
+  "TodoItem 可以隸屬於一個 TaskList"
   taskListID: ID
+
+  "TodoItem 可以隸屬於一個 TaskList"
   taskList: TaskList
+
+  "不一定有 title"
   title: String
-  """
-  執行人
-  """
+
+  "有多個執行人，也可能是空陣列"
   owners: [User!]!
-  """
-  關注人
-  """
+
+  "有多個關注人，也可能是空陣列"
   followers: [User!]!
-  """
-  開始日期
-  """
+
+  "開始日期，可能因為沒有設定而是 null"
   start: RFC3339
-  """
-  到期日
-  """
+
+  "到期日，可能因為沒有設定而是 null"
   due: RFC3339
+
+  "內文"
   description: String
+
+  "TodoItem 可以是一個巢狀的結構，parent 是父任務"
   parentID: ID
+
+  "TodoItem 可以是一個巢狀的結構，parent 是父任務"
   parent: TodoItem
+
+  "TodoItem 可以是一個巢狀的結構，children 是子任務"
   children: [TodoItem!]!
+
+  "TodoItem 可以有多個附件，也可能是空陣列"
   attachments: [Attachment!]!
+
+  "TodoItem 可以有多個留言，也可能是空陣列"
   comments: [Comment!]!
+
+  "是否完成"
   isCompleted: Boolean!
+
+  "建立時間"
   createdAt: RFC3339!
+
+  "建立者 UID"
   createdByUID: String!
+
+  "建立者"
   createdBy: User!
+
+  "最後更新時間"
   updatedAt: RFC3339!
+
+  "最後更新者 UID"
   updatedByUID: String!
+
+  "最後更新者"
   updatedBy: User!
 }
 
@@ -69,21 +98,25 @@ type Attachment {
 input TodoItemForm {
   taskListID: ID
   title: String
-  """
-  指派執行人
-  """
+
+  "指派執行人，這將覆蓋舊資料"
   putOwnersUIDs: [String!]
-  """
-  指派關注人
-  """
+
+  "指派關注人，這將覆蓋舊資料"
   putFollowersUIDs: [String!]
+
   duration: DateRange
   description: String
+
+  "上傳附件，這不會覆蓋舊附件"
   newAttachments: [FileInput!]
+
+  "新增留言內容。新增後的格式為 `{ content: '傳入的字串', createdByUID: '從 request 的 token 解析'}`，如需刪除，請呼叫 mutation `deleteAttachment`"
   newComments: [String!]
   isCompleted: Boolean
 }
 
+"用於篩選 todoItems 的回傳資料"
 input TodoItemsFilters {
   taskListID: ID
   creatorUID: StringsFilter
@@ -93,20 +126,24 @@ input TodoItemsFilters {
   isCompleted: Boolean
 }
 
+"用於排序 todoItems 的回傳資料"
 enum TodoItemsSortBy {
-  """
-  建立時間
-  """
+
+  "依據建立時間正序"
   CREATED_AT_ASC
+
+  "依據建立時間倒序"
   CREATED_AT_DESC
-  """
-  計劃完成時間
-  """
+  
+  "依據任務到期時間正序"
   DUE_ASC
+
+  "依據任務到期時間倒序"
   DUE_DESC
-  """
-  創建者
-  """
+  
+  "依據創建者正序"
   CREATED_BY_ASC
+
+  "依據創建者倒序"
   CREATED_BY_DESC
 }

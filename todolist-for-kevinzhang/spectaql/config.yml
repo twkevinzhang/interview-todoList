@@ -1,0 +1,30 @@
+spectaql:
+  displayAllServers: true
+  targetDir: ./spectaql/output
+
+introspection:
+  removeTrailingPeriodFromDescriptions: false
+  schemaFile:
+    - ./graph/auth.graphql
+    - ./graph/schema.graphql
+    - ./graph/task-list.graphql
+    - ./graph/todo-item.graphql
+    - ./graph/user.graphql
+  metadataFile: ./spectaql/metadata.json
+  fieldExpansionDepth: 2
+
+info:
+  title: GraphQL API Reference
+  description: 'Playground: https://localhost:3000/graphql'
+  x-introItems:
+    - title: 閱讀方式
+      description: '<#definition-TodoItem> 是最重要的定義，建議從這裡開始閱讀'
+
+servers:
+  - url: https://localhost:3000/graphql
+    description: Development
+    production: false
+    headers:
+      - name: Authorization
+        example: Bearer <YOUR_TOKEN_HERE>
+        comment: Get token from signIn mutation

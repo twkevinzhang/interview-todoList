@@ -1,3 +1,7 @@
+directive @spectaql(options: [SpectaQLOption]) on QUERY | MUTATION | SUBSCRIPTION | FIELD | FRAGMENT_DEFINITION | FRAGMENT_SPREAD | INLINE_FRAGMENT | VARIABLE_DEFINITION | SCHEMA | SCALAR | OBJECT | FIELD_DEFINITION | ARGUMENT_DEFINITION | INTERFACE | UNION | ENUM | ENUM_VALUE | INPUT_OBJECT | INPUT_FIELD_DEFINITION
+
+input SpectaQLOption { key: String!, value: String! }
+
 scalar RFC3339
 scalar Upload
 scalar Int64
@@ -11,31 +15,24 @@ input FileInput {
     content: Upload!
 }
 
+"StringsFilter"
 input StringsFilter {
-  """
-  字串需包含
-  """
+  "如果不為 null，代表回傳字串需包含"
   contains: [String!]
 
-  """
-  字串需不包含
-  """
+  "如果不為 null，代表回傳字串不可包含"
   notContains: [String!]
 
-  """
-  字串需為空
-  """
-  isEmpty: Boolean
+  "如果為 true，代表回傳字串需為 null"
+  isNull: Boolean
 }
 
+"DateRange"
 input DateRange {
-    """
-    開始日期
-    """
+
+    "開始日期"
     start: RFC3339
 
-    """
-    到期日
-    """
+    "到期日"
     due: RFC3339
 }

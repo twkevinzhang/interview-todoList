@@ -1,4 +1,5 @@
 extend type Query {
+  "傳入 taskList id 取得指定 TaskList"
   taskList(id: ID!): TaskList
 }
 

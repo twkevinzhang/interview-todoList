@@ -17,6 +17,11 @@ export enum TodoItemsSortBy {
     CREATED_BY_DESC = "CREATED_BY_DESC"
 }
 
+export class SpectaQLOption {
+    key: string;
+    value: string;
+}
+
 export class FileInput {
     filename: string;
     contentType: string;
@@ -26,7 +31,7 @@ export class FileInput {
 export class StringsFilter {
     contains?: Nullable<string[]>;
     notContains?: Nullable<string[]>;
-    isEmpty?: Nullable<boolean>;
+    isNull?: Nullable<boolean>;
 }
 
 export class DateRange {
