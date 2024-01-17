@@ -15,6 +15,12 @@ make up
 make down
 ```
 
+## Build and deploy
+```bash
+make build
+```
+然後你可以使用 built image 執行 container，注意設定 environment variables。
+
 ## 功能
  - [x] 註冊／登入
  - [ ] 可以多人分享任務的團隊
