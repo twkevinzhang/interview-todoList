@@ -13,3 +13,4 @@ down:
 .PHONY: build
 build:
 	docker buildx build --platform linux/amd64 -t api-server:latest -f ./api-server/Dockerfile ./api-server
+	docker buildx build --platform linux/amd64 -t web:latest -f ./web/Dockerfile ./web
