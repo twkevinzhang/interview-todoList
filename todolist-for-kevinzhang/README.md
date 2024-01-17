@@ -1,5 +1,5 @@
 # todolist-for-kevinzhang
-我使用 nestJS + GraphQL + PostgreSQL 建立了 todolist 後端，前端使用 ReactJS。
+我使用 nestJS + GraphQL + Prisma + PostgreSQL 建立了 todolist 後端。
 
 我後端比較熟悉 expressJS 及其他非 NodeJS 語言，前端比較熟悉 Vue3.js 及 Android Native。
 因此如有任何不符框架精神的設計，還請在 github issue 中多多指教。
@@ -8,6 +8,7 @@
 ```bash
 make up
 ```
+然後訪問 http://localhost:3000/graphql，即可使用 GraphQL Playground 及文件。
 
 ## Stop develop server
 ```bash
