@@ -2,5 +2,4 @@
 ## environment
  - node.js: 20.9
  - typescript: 5.3.3
- - react.js and react-dom: 18.2.18
  - @typescript-eslint/*: 6.18.1
