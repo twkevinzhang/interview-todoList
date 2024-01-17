@@ -2,6 +2,7 @@ directive @spectaql(options: [SpectaQLOption]) on QUERY | MUTATION | SUBSCRIPTIO
 
 input SpectaQLOption { key: String!, value: String! }
 
+"like '2024-01-17T10:38:42+00:00'"
 scalar RFC3339
 scalar Upload
 scalar Int64

@@ -1,27 +1,73 @@
 {
-    "OBJECT": {
-      "SecretType": {
-        "documentation": { "undocumented": true }
-      },
-      "MyType": {
-        "fields": {
-          "nonRequiredField": {
-            "documentation": { "example": "Metadata example of `nonRequiredField`"}
+  "OBJECT": {
+    "Query": {
+      "fields": {
+        "todoItem": {
+          "args": {
+            "id": {
+              "documentation": { "example": "5db2f89f-b323-45e3-b7f5-4123a02516f7" }
+            }
           }
-        }
-      },
-      "Query": {
-        "fields": {
-          "myQuery": {
-            "args": {
-              "nonReqQueryArg": {
-                "documentation": { "example": "Metadata example of `nonReqQueryArg`" }
-              }
+        },
+        "user": {
+          "args": {
+            "uid": {
+              "documentation": { "example": "d05a7576-ecc1-48da-a75b-636a6c414b66" }
             }
           }
         }
       }
     },
+    "Mutation": {
+      "fields": {
+        "signIn": {
+          "args": {
+            "username": {
+              "documentation": { "example": "user" }
+            },
+            "password": {
+              "documentation": { "example": "password" }
+            }
+          }
+        },
+        "deleteAttachment": {
+          "args": {
+            "id": {
+              "documentation": { "example": "example not implement yet" }
+            }
+          }
+        },
+        "deleteComment": {
+          "args": {
+            "id": {
+              "documentation": { "example": "1c467635-80b3-4441-a12a-b015bf89d64f" }
+            }
+          }
+        },
+        "deleteTaskList": {
+          "args": {
+            "id": {
+              "documentation": { "example": "example not implement yet" }
+            }
+          }
+        },
+        "deleteTodoItem": {
+          "args": {
+            "id": {
+              "documentation": { "example": "5db2f89f-b323-45e3-b7f5-4123a02516f7" }
+            }
+          }
+        },
+        "refreshToken": {
+          "args": {
+            "oldAccessToken": {
+              "documentation": { "example": "example not implement yet" }
+            }
+          }
+        }
+      }
+    }
+  },
     "SCALAR": {
       "DateTime": {
         "documentation": { "example": "2016-10-07T01:08:03.420Z" }
