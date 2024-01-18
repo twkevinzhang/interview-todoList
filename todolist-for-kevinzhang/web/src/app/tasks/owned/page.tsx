@@ -2,16 +2,23 @@
 
 import * as React from "react";
 import Table from "@/components/Table";
-import { useTodoItemsQuery, useUsersQuery } from "@/graphql/types-and-hooks";
+import {
+  TodoItemForm,
+  useCreateTodoItemMutation,
+  useTodoItemsQuery,
+  useUpdateTodoItemMutation,
+  useUsersQuery,
+} from "@/graphql/types-and-hooks";
 import { useRouter, useSearchParams } from "next/navigation";
 import { EnumTodoItemsSortBy } from "@/utils/enum";
+import TaskForm from "@/components/TaskForm";
 
 export default () => {
   const queryParams = useSearchParams();
   const {
     data: todoItemsQuery,
-    error,
-    loading,
+    error: todoItemsError,
+    loading: todoItemsListing,
   } = useTodoItemsQuery({
     variables: {
       filter: {
@@ -31,9 +38,24 @@ export default () => {
         : null,
     },
   });
-  const { data: usersQuery } = useUsersQuery();
+  const {
+    data: usersQuery,
+    error: usersError,
+    loading: userListing,
+  } = useUsersQuery();
+
+  const [create, { loading: creating }] = useCreateTodoItemMutation();
+  const [update, { loading: updating }] = useUpdateTodoItemMutation();
+  const [isOpend, setOpened] = React.useState(false);
+
+  const loading = React.useMemo(
+    () => todoItemsListing && userListing && creating && updating,
+    [todoItemsListing, userListing, creating, updating],
+  );
+
   if (loading) return "Loading...";
-  if (error) return `Error! ${error}`;
+  if (todoItemsError) return `Error! ${todoItemsError.message}`;
+  if (usersError) return `Error! ${usersError.message}`;
 
   const router = useRouter();
   function pushQueryParams(name: string, value: string[] | null) {
@@ -56,28 +78,42 @@ export default () => {
     router.push("/tasks/owned?" + params.toString());
   }
 
+  function handleCreate(newForm: TodoItemForm) {
+    create({ variables: { form: newForm }, refetchQueries: ["todoItems"] });
+    setOpened(false);
+  }
+
   return (
-    <Table
-      users={usersQuery?.users ?? []}
-      todoItems={todoItemsQuery?.todoItems ?? []}
-      queryParams={new URLSearchParams(queryParams.toString())}
-      onSelectCreators={(newValue: string[] | null) =>
-        pushQueryParams("creators", newValue)
-      }
-      onSelectOwners={(newValue: string[] | null) =>
-        pushQueryParams("owners", newValue)
-      }
-      onSelectSortBy={(newValue: string | null) =>
-        pushQueryParam("sortby", newValue)
-      }
-      onEditClick={(todoItemID: string) => {
-        // TODO: implement
-        console.log("edit " + todoItemID);
-      }}
-      onDeleteClick={(todoItemID: string) => {
-        // TODO: implement
-        console.log("del " + todoItemID);
-      }}
-    ></Table>
+    <div>
+      <TaskForm
+        owners={usersQuery?.users ?? []}
+        onSubmit={handleCreate}
+        onClose={() => setOpened(false)}
+        isOpend={isOpend}
+      />
+      <Table
+        users={usersQuery?.users ?? []}
+        todoItems={todoItemsQuery?.todoItems ?? []}
+        queryParams={new URLSearchParams(queryParams.toString())}
+        onSelectCreators={(newValue: string[] | null) =>
+          pushQueryParams("creators", newValue)
+        }
+        onSelectOwners={(newValue: string[] | null) =>
+          pushQueryParams("owners", newValue)
+        }
+        onSelectSortBy={(newValue: string | null) =>
+          pushQueryParam("sortby", newValue)
+        }
+        onCreateClick={() => setOpened(true)}
+        onEditClick={(todoItemID: string) => {
+          // TODO: implement
+          console.log("edit " + todoItemID);
+        }}
+        onDeleteClick={(todoItemID: string) => {
+          // TODO: implement
+          console.log("del " + todoItemID);
+        }}
+      ></Table>
+    </div>
   );
 };

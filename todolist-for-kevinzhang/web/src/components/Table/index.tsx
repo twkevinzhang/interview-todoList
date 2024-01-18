@@ -21,6 +21,7 @@ export default ({
   onSelectCreators,
   onSelectOwners,
   onSelectSortBy,
+  onCreateClick,
   onEditClick,
   onDeleteClick,
 }: {
@@ -30,10 +31,10 @@ export default ({
   onSelectCreators: (newCreatorsUIDs: string[] | null) => void;
   onSelectOwners: (newOwnersUIDs: string[] | null) => void;
   onSelectSortBy: (newSortBy: string | null) => void;
+  onCreateClick: () => void;
   onEditClick: (todoItemID: string) => void;
   onDeleteClick: (todoItemID: string) => void;
 }) => {
-  const columns = ["title", "due", "createdBy", "createdAt", "id"];
   const sortby_options = {
     [TodoItemsSortBy.CreatedAtAsc]: "依據建立時間正序",
     [TodoItemsSortBy.CreatedAtDesc]: "依據建立時間倒序",
@@ -63,7 +64,6 @@ export default ({
     event: React.SyntheticEvent | null,
     newValue: string | null,
   ) {
-    console.log(newValue);
     event?.preventDefault();
     onSelectSortBy(newValue);
   }
@@ -76,91 +76,105 @@ export default ({
     <div>
       <Box
         sx={{
-          display: "grid",
-          rowGap: 1,
+          display: "flex",
+          justifyContent: "space-between",
         }}
       >
-        <FormControl orientation="horizontal">
-          <FormLabel>Creator contains</FormLabel>
-          <Stack spacing={2}>
-            <Select
-              name="listOfCreators"
-              defaultValue={creators}
-              multiple
-              sx={{ minWidth: 200 }}
-              onChange={handleCreators}
-            >
-              {users.map((user) => (
-                <Option key={user.uid} value={user.uid}>
-                  {user.uid}
-                </Option>
-              ))}
-            </Select>
-          </Stack>
-        </FormControl>
-        <FormControl orientation="horizontal">
-          <FormLabel>Assigned by contains</FormLabel>
-          <Stack spacing={2}>
-            <Select
-              name="listOfOwner"
-              defaultValue={owners}
-              multiple
-              sx={{ minWidth: 200 }}
-              onChange={handleOwners}
-            >
-              {users.map((user) => (
-                <Option key={user.uid} value={user.uid}>
-                  {user.uid}
-                </Option>
-              ))}
-            </Select>
-          </Stack>
-        </FormControl>
-
         <Box
           sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: 1,
+            display: "grid",
+            rowGap: 1,
           }}
         >
-          <FormLabel>Due</FormLabel>
-          <Stack spacing={2} direction="row">
-            <Checkbox label="from 2024-01-17 10:00" />
-            <Checkbox label="to 2024-01-17 11:00" />
-          </Stack>
-        </Box>
+          <FormControl orientation="horizontal">
+            <FormLabel>Creator contains</FormLabel>
+            <Stack spacing={2}>
+              <Select
+                name="listOfCreators"
+                defaultValue={creators}
+                multiple
+                sx={{ minWidth: 200 }}
+                onChange={handleCreators}
+              >
+                {users.map((user) => (
+                  <Option key={user.uid} value={user.uid}>
+                    {user.username}
+                  </Option>
+                ))}
+              </Select>
+            </Stack>
+          </FormControl>
+          <FormControl orientation="horizontal">
+            <FormLabel>Assigned by contains</FormLabel>
+            <Stack spacing={2}>
+              <Select
+                name="listOfOwner"
+                defaultValue={owners}
+                multiple
+                sx={{ minWidth: 200 }}
+                onChange={handleOwners}
+              >
+                {users.map((user) => (
+                  <Option key={user.uid} value={user.uid}>
+                    {user.username}
+                  </Option>
+                ))}
+              </Select>
+            </Stack>
+          </FormControl>
 
-        <FormControl orientation="horizontal">
-          <FormLabel>Sort by</FormLabel>
-          <Stack spacing={2}>
-            <Select
-              name="sortBy"
-              sx={{ minWidth: 200 }}
-              defaultValue={sortby}
-              onChange={handleSortBy}
-            >
-              {Object.entries(sortby_options).map(([k, v]) => (
-                <Option key={k} value={k}>
-                  {v}
-                </Option>
-              ))}
-            </Select>
-          </Stack>
-        </FormControl>
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 1,
+            }}
+          >
+            <FormLabel>Due</FormLabel>
+            <Stack spacing={2} direction="row">
+              <Checkbox label="from 2024-01-17 10:00" />
+              <Checkbox label="to 2024-01-17 11:00" />
+            </Stack>
+          </Box>
+
+          <FormControl orientation="horizontal">
+            <FormLabel>Sort by</FormLabel>
+            <Stack spacing={2}>
+              <Select
+                name="sortBy"
+                sx={{ minWidth: 200 }}
+                defaultValue={sortby}
+                onChange={handleSortBy}
+              >
+                {Object.entries(sortby_options).map(([k, v]) => (
+                  <Option key={k} value={k}>
+                    {v}
+                  </Option>
+                ))}
+              </Select>
+            </Stack>
+          </FormControl>
+        </Box>
+        <Box>
+          <Button size="lg" onClick={onCreateClick}>
+            New Task
+          </Button>
+        </Box>
       </Box>
       <Table hoverRow>
         <thead>
           <tr>
-            {columns.map((column) => {
-              return <th key={column}>{column}</th>;
-            })}
+            {["標題", "截止時間", "建立者", "建立時間", "任務 ID"].map(
+              (column) => (
+                <th key={column}>{column}</th>
+              ),
+            )}
             <th>action</th>
           </tr>
         </thead>
         <tbody>
-          {todoItems.map((item) => (
-            <tr key={item.id}>
+          {todoItems.map((item, i) => (
+            <tr key={i}>
               <td>{item.title}</td>
               <td>{item.due ? dayjs(item.due).format("YYYY/MM/DD") : null}</td>
               <td>{item.createdBy?.username}</td>

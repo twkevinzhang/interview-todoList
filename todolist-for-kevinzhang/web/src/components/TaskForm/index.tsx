@@ -11,6 +11,8 @@ import {
   Stack,
   Option,
   Textarea,
+  ModalClose,
+  DialogTitle,
 } from "@mui/joy";
 import { TodoItem, TodoItemForm, User } from "@/graphql/types-and-hooks";
 
@@ -30,11 +32,16 @@ export default ({
   return (
     <Modal open={isOpend} onClose={onClose}>
       <ModalDialog>
+        <ModalClose />
+        <DialogTitle>New Task</DialogTitle>
         <form
           onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
             const formData = new FormData(event.target);
             const formJson = Object.fromEntries(formData.entries());
+            formJson.putOwnersUIDs = formJson["putOwnersUIDs"]?.length
+              ? JSON.parse(formJson.putOwnersUIDs)
+              : null;
             onSubmit(formJson);
           }}
         >
@@ -58,7 +65,9 @@ export default ({
                   }
                 >
                   {owners.map((owner) => (
-                    <Option value={owner.uid}>{owner.username}</Option>
+                    <Option key={owner.uid} value={owner.uid}>
+                      {owner.username}
+                    </Option>
                   ))}
                 </Select>
               </Stack>

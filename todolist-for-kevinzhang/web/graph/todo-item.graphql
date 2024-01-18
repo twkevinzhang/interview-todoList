@@ -6,13 +6,13 @@ query todoItems($filter: TodoItemsFilters, $sortBy: TodoItemsSortBy) {
     }
     title
     createdAt
+    due
   }
 }
 
 mutation createTodoItem($form: TodoItemForm!) {
   createTodoItem(form: $form) {
     id
-    due
   }
 }
 
