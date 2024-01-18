@@ -4,6 +4,7 @@ import * as React from "react";
 import { Box, Button, Input, Stack } from "@mui/joy";
 import { useSignInMutation } from "@/graphql/types-and-hooks";
 import { useRouter } from "next/navigation";
+import { jwtDecode } from "jwt-decode";
 
 export default () => {
   const [username, password] = ["user", "password"];
@@ -19,7 +20,16 @@ export default () => {
       },
     })
       .then((res) => {
-        localStorage.setItem("token", res.data?.signIn.accessToken ?? "");
+        const accessToken = res.data?.signIn.accessToken;
+        if (accessToken) {
+          const decoded = jwtDecode<{ sub: string; username: string }>(
+            accessToken,
+          );
+          localStorage.setItem("token", accessToken);
+          localStorage.setItem("uid", decoded.sub);
+        } else {
+          localStorage.setItem("token", "");
+        }
       })
       .then(() => {
         router.push("/tasks");
