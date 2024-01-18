@@ -4,6 +4,7 @@ query todoItems($filter: TodoItemsFilters, $sortBy: TodoItemsSortBy) {
       uid
       username
     }
+    id
     title
     createdAt
     due
