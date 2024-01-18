@@ -100,6 +100,8 @@ export abstract class IQuery {
     abstract todoItems(filter?: Nullable<TodoItemsFilters>, sortBy?: Nullable<TodoItemsSortBy>): TodoItem[] | Promise<TodoItem[]>;
 
     abstract user(uid: string): User | Promise<User>;
+
+    abstract users(): User[] | Promise<User[]>;
 }
 
 export class TaskList {

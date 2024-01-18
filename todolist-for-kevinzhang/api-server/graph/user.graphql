@@ -1,5 +1,6 @@
 extend type Query {
     user(uid: String!): User!
+    users: [User!]!
 }
 
 type User {

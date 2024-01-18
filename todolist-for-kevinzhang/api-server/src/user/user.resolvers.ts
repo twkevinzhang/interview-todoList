@@ -13,4 +13,9 @@ export class UserResolvers {
   async user(@Args('uid') uid: string): Promise<User> {
     return await this.userService.user(uid);
   }
+
+  @Query()
+  async users(): Promise<User[]> {
+    return await this.userService.users();
+  }
 }

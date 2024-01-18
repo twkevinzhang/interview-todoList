@@ -6,7 +6,20 @@ query todoItems($filter: TodoItemsFilters, $sortBy: TodoItemsSortBy) {
     }
     title
     createdAt
+  }
+}
+
+mutation createTodoItem($form: TodoItemForm!) {
+  createTodoItem(form: $form) {
     id
     due
   }
+}
+
+mutation updateTodoItem($id: ID!, $form: TodoItemForm!) {
+  updateTodoItem(id: $id, form: $form)
+}
+
+mutation deleteTodoItem($id: ID!) {
+  deleteTodoItem(id: $id)
 }

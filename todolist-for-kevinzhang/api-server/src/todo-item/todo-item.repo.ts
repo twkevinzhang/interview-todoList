@@ -36,10 +36,10 @@ export class TodoItemRepo {
         {
           createdByUID: filter.creatorUID
             ? {
-                in: filter.creatorUID.contains,
-                notIn: filter.creatorUID.notContains,
+                in: filter.creatorUID.contains || undefined,
+                notIn: filter.creatorUID.notContains || undefined,
               }
-            : {},
+            : undefined,
         },
         {
           owners: filter.ownerUID
@@ -50,16 +50,16 @@ export class TodoItemRepo {
                         in: filter.ownerUID.contains,
                       },
                     }
-                  : {},
+                  : undefined,
                 every: filter.ownerUID.notContains
                   ? {
                       uid: {
                         notIn: filter.ownerUID.notContains,
                       },
                     }
-                  : {},
+                  : undefined,
               }
-            : {},
+            : undefined,
         },
         {
           followers: filter.followerUID
@@ -70,30 +70,30 @@ export class TodoItemRepo {
                         in: filter.followerUID.contains,
                       },
                     }
-                  : {},
+                  : undefined,
                 every: filter.followerUID.notContains
                   ? {
                       uid: {
                         notIn: filter.followerUID.notContains,
                       },
                     }
-                  : {},
+                  : undefined,
               }
-            : {},
+            : undefined,
         },
         {
           start: filter.duration?.start
             ? {
                 gte: filter.duration.start,
               }
-            : {},
+            : undefined,
         },
         {
           due: filter.duration?.due
             ? {
                 lt: filter.duration.due,
               }
-            : {},
+            : undefined,
         },
         {
           isCompleted: filter.isCompleted,
