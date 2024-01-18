@@ -5,6 +5,7 @@ import Table from "@/components/Table";
 import {
   TodoItemForm,
   useCreateTodoItemMutation,
+  useDeleteTodoItemMutation,
   useTodoItemsQuery,
   useUpdateTodoItemMutation,
   useUsersQuery,
@@ -47,11 +48,12 @@ export default () => {
 
   const [create, { loading: creating }] = useCreateTodoItemMutation();
   const [update, { loading: updating }] = useUpdateTodoItemMutation();
+  const [del, { loading: deleting }] = useDeleteTodoItemMutation();
   const [isOpend, setOpened] = React.useState(false);
 
   const loading = React.useMemo(
-    () => todoItemsListing && userListing && creating && updating,
-    [todoItemsListing, userListing, creating, updating],
+    () => todoItemsListing && userListing && creating && updating && deleting,
+    [todoItemsListing, userListing, creating, updating, deleting],
   );
 
   if (loading) return "Loading...";
@@ -83,6 +85,10 @@ export default () => {
     setOpened(false);
   }
 
+  function handleDel(todoItemID: string) {
+    del({ variables: { id: todoItemID }, refetchQueries: ["todoItems"] });
+  }
+
   return (
     <div>
       <TaskForm
@@ -111,7 +117,7 @@ export default () => {
         }}
         onDeleteClick={(todoItemID: string) => {
           // TODO: implement
-          console.log("del " + todoItemID);
+          handleDel(todoItemID);
         }}
       ></Table>
     </div>
