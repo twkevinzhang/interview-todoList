@@ -1,5 +1,22 @@
-query todoItems {
-  todoItems {
+query todoItems($filter: TodoItemsFilters, $sortBy: TodoItemsSortBy) {
+  todoItems(filter: $filter, sortBy: $sortBy) {
+    createdBy {
+      uid
+      username
+    }
+  }
+}
+
+mutation createTodoItem($form: TodoItemForm!) {
+  createTodoItem(form: $form) {
     id
   }
+}
+
+mutation updateTodoItem($id: ID!, $form: TodoItemForm!) {
+  updateTodoItem(id: $id, form: $form)
+}
+
+mutation deleteTodoItem($id: ID!) {
+  deleteTodoItem(id: $id)
 }

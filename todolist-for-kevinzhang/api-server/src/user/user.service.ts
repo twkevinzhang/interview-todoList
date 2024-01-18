@@ -13,4 +13,8 @@ export class UserService {
     }
     return user;
   }
+
+  async users(): Promise<User[]> {
+    return await this.repo.findAll();
+  }
 }

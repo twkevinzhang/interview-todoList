@@ -20,6 +20,11 @@ export class UserRepo {
     return user;
   }
 
+  async findAll(): Promise<User[]> {
+    const users = await this.prisma.user.findMany();
+    return users;
+  }
+
   async create(input: Prisma.UserCreateInput): Promise<{
     username: string;
     hashedPassword: string;
