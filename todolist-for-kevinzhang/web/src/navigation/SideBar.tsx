@@ -39,22 +39,22 @@ export default function Home() {
   ));
   return (
     <List size="lg">
-      {list[0]}
-      {list[1]}
-      {list[2]}
+      {/* {list[0]} */}
+      {/* {list[2]} */}
       <ListDivider />
       <ListSubheader>Quick Access</ListSubheader>
       {list[3]}
       {list[4]}
       {list[5]}
-      {list[6]}
+      {list[1]}
+      {/* {list[6]} */}
       <ListDivider />
-      <ListSubheader>Task List</ListSubheader>
+      {/* <ListSubheader>Task List</ListSubheader>
       <ListItem>
         <ListItemButton disabled>
           <ListItemContent>Not implement</ListItemContent>
         </ListItemButton>
-      </ListItem>
+      </ListItem> */}
     </List>
   );
 }
