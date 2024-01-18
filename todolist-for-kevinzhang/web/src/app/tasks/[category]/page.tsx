@@ -16,7 +16,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { EnumTodoItemsSortBy } from "@/utils/enum";
 import TaskForm from "@/components/TaskForm";
 
-export default () => {
+export default ({ params }: { params: { category: string } }) => {
+  const { category } = params;
   const router = useRouter();
   const queryParams = useSearchParams();
   const {
@@ -73,7 +74,7 @@ export default () => {
     } else {
       params.delete(name);
     }
-    router.push("/tasks/owned?" + params.toString());
+    router.push(`/tasks/${category}?${params.toString()}`);
   }
 
   function pushQueryParam(name: string, value: string | null) {
@@ -83,7 +84,7 @@ export default () => {
     } else {
       params.delete(name);
     }
-    router.push("/tasks/owned?" + params.toString());
+    router.push(`/tasks/${category}?${params.toString()}`);
   }
 
   function handleCreateSubmit(newForm: TodoItemForm) {
@@ -140,8 +141,10 @@ export default () => {
         onCreateClick={() => setCreateDialogOpened(true)}
         onEditClick={handleEdit}
         onDeleteClick={(todoItemID: string) => {
-          // TODO: implement
           handleDel(todoItemID);
+        }}
+        categoryWithMyUID={{
+          [category]: "d05a7576-ecc1-48da-a75b-636a6c414b66",
         }}
       ></Table>
     </div>

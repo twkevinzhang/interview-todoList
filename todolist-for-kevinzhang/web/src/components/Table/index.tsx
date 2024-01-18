@@ -24,6 +24,7 @@ export default ({
   onCreateClick,
   onEditClick,
   onDeleteClick,
+  categoryWithMyUID,
 }: {
   users: User[];
   todoItems: Partial<TodoItem>[];
@@ -34,6 +35,7 @@ export default ({
   onCreateClick: () => void;
   onEditClick: (todoItemID: string) => void;
   onDeleteClick: (todoItemID: string) => void;
+  categoryWithMyUID: { [key: string]: string };
 }) => {
   const sortby_options = {
     [TodoItemsSortBy.CreatedAtAsc]: "依據建立時間正序",
@@ -68,8 +70,19 @@ export default ({
     onSelectSortBy(newValue);
   }
 
-  const creators = queryParams.get("creators")?.split(",") ?? [""];
-  const owners = queryParams.get("owners")?.split(",") ?? [""];
+  let creators: string[] = [];
+  if (categoryWithMyUID["created"]) {
+    creators = [categoryWithMyUID["created"]];
+  } else {
+    creators = queryParams.get("creators")?.split(",") ?? [""];
+  }
+
+  let owners: string[] = [];
+  if (categoryWithMyUID["assigned"]) {
+    owners = [categoryWithMyUID["assigned"]];
+  } else {
+    owners = queryParams.get("owners")?.split(",") ?? [""];
+  }
   const sortby = queryParams.get("sortby") ?? "";
 
   return (
@@ -95,6 +108,7 @@ export default ({
                 multiple
                 sx={{ minWidth: 200 }}
                 onChange={handleCreators}
+                disabled={!!categoryWithMyUID["created"]}
               >
                 {users.map((user) => (
                   <Option key={user.uid} value={user.uid}>
@@ -113,6 +127,7 @@ export default ({
                 multiple
                 sx={{ minWidth: 200 }}
                 onChange={handleOwners}
+                disabled={!!categoryWithMyUID["assigned"]}
               >
                 {users.map((user) => (
                   <Option key={user.uid} value={user.uid}>
