@@ -18,6 +18,7 @@ import TaskForm from "@/components/TaskForm";
 
 export default ({ params }: { params: { category: string } }) => {
   const { category } = params;
+  const { uid } = localStorage;
   const router = useRouter();
   const queryParams = useSearchParams();
   const {
@@ -146,7 +147,7 @@ export default ({ params }: { params: { category: string } }) => {
           handleDel(todoItemID);
         }}
         categoryWithMyUID={{
-          [category]: "d05a7576-ecc1-48da-a75b-636a6c414b66",
+          [category]: uid,
         }}
       ></Table>
     </div>
