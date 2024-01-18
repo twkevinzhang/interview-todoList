@@ -297,14 +297,21 @@ export type TodoItemsQueryVariables = Exact<{
 }>;
 
 
-export type TodoItemsQuery = { __typename?: 'Query', todoItems: Array<{ __typename?: 'TodoItem', title?: string | null, createdAt: any, createdBy: { __typename?: 'User', uid: string, username: string } }> };
+export type TodoItemsQuery = { __typename?: 'Query', todoItems: Array<{ __typename?: 'TodoItem', id: string, title?: string | null, createdAt: any, due?: any | null, createdBy: { __typename?: 'User', uid: string, username: string } }> };
+
+export type TodoItemQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type TodoItemQuery = { __typename?: 'Query', todoItem?: { __typename?: 'TodoItem', id: string, title?: string | null, createdAt: any, due?: any | null, description?: string | null, owners: Array<{ __typename?: 'User', uid: string, username: string }> } | null };
 
 export type CreateTodoItemMutationVariables = Exact<{
   form: TodoItemForm;
 }>;
 
 
-export type CreateTodoItemMutation = { __typename?: 'Mutation', createTodoItem: { __typename?: 'TodoItem', id: string, due?: any | null } };
+export type CreateTodoItemMutation = { __typename?: 'Mutation', createTodoItem: { __typename?: 'TodoItem', id: string } };
 
 export type UpdateTodoItemMutationVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -368,8 +375,10 @@ export const TodoItemsDocument = gql`
       uid
       username
     }
+    id
     title
     createdAt
+    due
   }
 }
     `;
@@ -407,11 +416,58 @@ export type TodoItemsQueryHookResult = ReturnType<typeof useTodoItemsQuery>;
 export type TodoItemsLazyQueryHookResult = ReturnType<typeof useTodoItemsLazyQuery>;
 export type TodoItemsSuspenseQueryHookResult = ReturnType<typeof useTodoItemsSuspenseQuery>;
 export type TodoItemsQueryResult = Apollo.QueryResult<TodoItemsQuery, TodoItemsQueryVariables>;
+export const TodoItemDocument = gql`
+    query todoItem($id: ID!) {
+  todoItem(id: $id) {
+    id
+    title
+    createdAt
+    due
+    owners {
+      uid
+      username
+    }
+    description
+  }
+}
+    `;
+
+/**
+ * __useTodoItemQuery__
+ *
+ * To run a query within a React component, call `useTodoItemQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTodoItemQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTodoItemQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useTodoItemQuery(baseOptions: Apollo.QueryHookOptions<TodoItemQuery, TodoItemQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<TodoItemQuery, TodoItemQueryVariables>(TodoItemDocument, options);
+      }
+export function useTodoItemLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TodoItemQuery, TodoItemQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<TodoItemQuery, TodoItemQueryVariables>(TodoItemDocument, options);
+        }
+export function useTodoItemSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<TodoItemQuery, TodoItemQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<TodoItemQuery, TodoItemQueryVariables>(TodoItemDocument, options);
+        }
+export type TodoItemQueryHookResult = ReturnType<typeof useTodoItemQuery>;
+export type TodoItemLazyQueryHookResult = ReturnType<typeof useTodoItemLazyQuery>;
+export type TodoItemSuspenseQueryHookResult = ReturnType<typeof useTodoItemSuspenseQuery>;
+export type TodoItemQueryResult = Apollo.QueryResult<TodoItemQuery, TodoItemQueryVariables>;
 export const CreateTodoItemDocument = gql`
     mutation createTodoItem($form: TodoItemForm!) {
   createTodoItem(form: $form) {
     id
-    due
   }
 }
     `;

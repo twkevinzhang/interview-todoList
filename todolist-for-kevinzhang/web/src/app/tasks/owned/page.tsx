@@ -7,8 +7,10 @@ import {
   useCreateTodoItemMutation,
   useDeleteTodoItemMutation,
   useTodoItemsQuery,
+  useTodoItemLazyQuery,
   useUpdateTodoItemMutation,
   useUsersQuery,
+  TodoItem,
 } from "@/graphql/types-and-hooks";
 import { useRouter, useSearchParams } from "next/navigation";
 import { EnumTodoItemsSortBy } from "@/utils/enum";
@@ -40,6 +42,8 @@ export default () => {
         : null,
     },
   });
+  const [getTodoItem] = useTodoItemLazyQuery();
+
   const {
     data: usersQuery,
     error: usersError,
@@ -49,7 +53,9 @@ export default () => {
   const [create, { loading: creating }] = useCreateTodoItemMutation();
   const [update, { loading: updating }] = useUpdateTodoItemMutation();
   const [del, { loading: deleting }] = useDeleteTodoItemMutation();
-  const [isOpend, setOpened] = React.useState(false);
+  const [isCreateDialogOpened, setCreateDialogOpened] = React.useState(false);
+  const [editingTodoItem, setEditingTodoItem] =
+    React.useState<Partial<TodoItem> | null>(null);
 
   const loading = React.useMemo(
     () => todoItemsListing && userListing && creating && updating && deleting,
@@ -80,9 +86,23 @@ export default () => {
     router.push("/tasks/owned?" + params.toString());
   }
 
-  function handleCreate(newForm: TodoItemForm) {
+  function handleCreateSubmit(newForm: TodoItemForm) {
     create({ variables: { form: newForm }, refetchQueries: ["todoItems"] });
-    setOpened(false);
+    setCreateDialogOpened(false);
+  }
+
+  function handleEdit(todoItemID: string) {
+    getTodoItem({ variables: { id: todoItemID } }).then((res) => {
+      setEditingTodoItem(res.data?.todoItem ?? null);
+    });
+  }
+
+  function handleEditSubmit(newForm: TodoItemForm) {
+    update({
+      variables: { form: newForm, id: editingTodoItem!.id! },
+      refetchQueries: ["todoItems", "todoItem"],
+    });
+    setEditingTodoItem(null);
   }
 
   function handleDel(todoItemID: string) {
@@ -93,9 +113,16 @@ export default () => {
     <div>
       <TaskForm
         owners={usersQuery?.users ?? []}
-        onSubmit={handleCreate}
-        onClose={() => setOpened(false)}
-        isOpend={isOpend}
+        onSubmit={handleCreateSubmit}
+        onClose={() => setCreateDialogOpened(false)}
+        isOpend={isCreateDialogOpened}
+      />
+      <TaskForm
+        owners={usersQuery?.users ?? []}
+        defaultValue={editingTodoItem}
+        onSubmit={handleEditSubmit}
+        onClose={() => setEditingTodoItem(null)}
+        isOpend={!!editingTodoItem}
       />
       <Table
         users={usersQuery?.users ?? []}
@@ -110,11 +137,8 @@ export default () => {
         onSelectSortBy={(newValue: string | null) =>
           pushQueryParam("sortby", newValue)
         }
-        onCreateClick={() => setOpened(true)}
-        onEditClick={(todoItemID: string) => {
-          // TODO: implement
-          console.log("edit " + todoItemID);
-        }}
+        onCreateClick={() => setCreateDialogOpened(true)}
+        onEditClick={handleEdit}
         onDeleteClick={(todoItemID: string) => {
           // TODO: implement
           handleDel(todoItemID);

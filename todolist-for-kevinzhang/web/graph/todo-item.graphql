@@ -11,6 +11,20 @@ query todoItems($filter: TodoItemsFilters, $sortBy: TodoItemsSortBy) {
   }
 }
 
+query todoItem($id: ID!) {
+  todoItem(id: $id) {
+    id
+    title
+    createdAt
+    due
+    owners {
+      uid
+      username
+    }
+    description
+  }
+}
+
 mutation createTodoItem($form: TodoItemForm!) {
   createTodoItem(form: $form) {
     id
