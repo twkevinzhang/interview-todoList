@@ -41,7 +41,7 @@ export default ({
             const formJson = Object.fromEntries(formData.entries());
             formJson.putOwnersUIDs = formJson["putOwnersUIDs"]?.length
               ? JSON.parse(formJson.putOwnersUIDs)
-              : null;
+              : [];
             onSubmit(formJson);
           }}
         >
