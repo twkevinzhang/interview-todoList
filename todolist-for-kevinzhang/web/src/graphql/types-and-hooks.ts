@@ -289,7 +289,7 @@ export type TodoItemsQuery = { __typename?: 'Query', todoItems: Array<{ __typena
 
 
 export const TodoItemsDocument = gql`
-    query TodoItems {
+    query todoItems {
   todoItems {
     id
   }

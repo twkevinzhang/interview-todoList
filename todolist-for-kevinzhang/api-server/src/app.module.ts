@@ -20,6 +20,10 @@ import { UserModule } from 'src/user/user.module';
         path: join(process.cwd(), 'src/graphql.schema.ts'),
         outputAs: 'class',
       },
+      cors: {
+        credentials: true,
+        origin: true,
+      },
     }),
     UserModule,
   ],
