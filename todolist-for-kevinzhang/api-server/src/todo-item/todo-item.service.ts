@@ -44,13 +44,13 @@ export class TodoItemService {
     parentID?: string,
   ): Promise<TodoItem> {
     const result = await this.todoItemRepo.create(
-      this.toInput(form, by, parentID),
+      this.toCreateInput(form, by, parentID),
     );
     return this.toOutput(result);
   }
 
   async update(by: string, id: string, form: TodoItemForm): Promise<boolean> {
-    await this.todoItemRepo.update(id, this.toInput(form, by, null));
+    await this.todoItemRepo.update(id, this.toUpdateInput(form, by));
     return true;
   }
 
@@ -135,7 +135,7 @@ export class TodoItemService {
     };
   }
 
-  toInput(
+  toCreateInput(
     from: TodoItemForm,
     byUID: string,
     parentID: string | null,
@@ -196,6 +196,60 @@ export class TodoItemService {
           },
         })),
       };
+    }
+    to.isCompleted = from.isCompleted || false;
+    to.createdBy = {
+      connect: {
+        uid: byUID,
+      },
+    };
+    to.createdAt = new Date(Date.now());
+    to.updatedBy = {
+      connect: {
+        uid: byUID,
+      },
+    };
+    to.updatedAt = new Date(Date.now());
+    return to;
+  }
+
+  toUpdateInput(from: TodoItemForm, byUID: string): Prisma.TodoItemUpdateInput {
+    const to = {} as Prisma.TodoItemUpdateInput;
+    if (from.taskListID) {
+      to.taskList = {
+        connect: {
+          id: from.taskListID,
+        },
+      };
+    }
+    if (from.title) {
+      to.title = from.title;
+    }
+    if (from.putOwnersUIDs) {
+      to.owners = {
+        set:
+          from.putOwnersUIDs.map((id: string) => ({ uid: id.toString() })) ||
+          [],
+      };
+    }
+    if (from.putFollowersUIDs) {
+      to.followers = {
+        set:
+          from.putFollowersUIDs.map((id: string) => ({
+            uid: id.toString(),
+          })) || [],
+      };
+    }
+    if (from.duration) {
+      if (from.duration.start) {
+        to.start = from.duration.start;
+      }
+      if (from.duration.due) {
+        to.due = from.duration.due;
+      }
+    }
+    if (from.description) {
+      to.description = from.description;
     }
     to.isCompleted = from.isCompleted || false;
     to.createdBy = {
