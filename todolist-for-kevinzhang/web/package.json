@@ -3,21 +3,28 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 4000",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint --fix"
+    "start": "next start -p 4000",
+    "lint": "next lint --fix",
+    "codegen": "graphql-codegen --config graph/codegen.yml"
   },
   "dependencies": {
+    "@apollo/client": "^3.8.9",
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@mui/joy": "5.0.0-beta.23",
+    "dayjs": "^1.11.10",
     "next": "14.0.4",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "5.0.0",
+    "@graphql-codegen/client-preset": "4.1.0",
+    "@graphql-codegen/typescript-react-apollo": "^4.1.0",
+    "@parcel/watcher": "^2.4.0",
     "@types/node": "20.9",
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.0",
