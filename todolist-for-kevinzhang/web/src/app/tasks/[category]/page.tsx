@@ -114,12 +114,14 @@ export default ({ params }: { params: { category: string } }) => {
     <div>
       <TaskForm
         owners={usersQuery?.users ?? []}
+        followers={usersQuery?.users ?? []}
         onSubmit={handleCreateSubmit}
         onClose={() => setCreateDialogOpened(false)}
         isOpend={isCreateDialogOpened}
       />
       <TaskForm
         owners={usersQuery?.users ?? []}
+        followers={usersQuery?.users ?? []}
         defaultValue={editingTodoItem}
         onSubmit={handleEditSubmit}
         onClose={() => setEditingTodoItem(null)}

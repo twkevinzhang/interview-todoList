@@ -18,12 +18,14 @@ import { TodoItem, TodoItemForm, User } from "@/graphql/types-and-hooks";
 
 export default ({
   owners,
+  followers,
   defaultValue,
   onSubmit,
   isOpend,
   onClose,
 }: {
   owners: User[];
+  followers: User[];
   defaultValue?: TodoItem;
   onSubmit: (newForm: TodoItemForm) => void;
   onClose: () => void;
@@ -41,6 +43,9 @@ export default ({
             const formJson = Object.fromEntries(formData.entries());
             formJson.putOwnersUIDs = formJson["putOwnersUIDs"]?.length
               ? JSON.parse(formJson.putOwnersUIDs)
+              : [];
+            formJson.putFollowersUIDs = formJson["putFollowersUIDs"]?.length
+              ? JSON.parse(formJson.putFollowersUIDs)
               : [];
             onSubmit(formJson);
           }}
@@ -83,6 +88,25 @@ export default ({
                 placeholder="Type description"
                 defaultValue={defaultValue?.description ?? undefined}
               />
+            </FormControl>
+            <FormControl orientation="horizontal">
+              <FormLabel>Subscribed</FormLabel>
+              <Stack spacing={2}>
+                <Select
+                  name="putFollowersUIDs"
+                  sx={{ minWidth: 200 }}
+                  multiple
+                  defaultValue={
+                    defaultValue?.followers?.map((o) => o.uid) ?? undefined
+                  }
+                >
+                  {followers.map((follower) => (
+                    <Option key={follower.uid} value={follower.uid}>
+                      {follower.username}
+                    </Option>
+                  ))}
+                </Select>
+              </Stack>
             </FormControl>
             <Button type="submit">Submit</Button>
           </Stack>

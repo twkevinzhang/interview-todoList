@@ -22,6 +22,10 @@ query todoItem($id: ID!) {
       username
     }
     description
+    followers {
+      uid
+      username
+    }
   }
 }
 
