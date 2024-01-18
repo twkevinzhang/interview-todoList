@@ -14,6 +14,7 @@ import { EnumTodoItemsSortBy } from "@/utils/enum";
 import TaskForm from "@/components/TaskForm";
 
 export default () => {
+  const router = useRouter();
   const queryParams = useSearchParams();
   const {
     data: todoItemsQuery,
@@ -57,7 +58,6 @@ export default () => {
   if (todoItemsError) return `Error! ${todoItemsError.message}`;
   if (usersError) return `Error! ${usersError.message}`;
 
-  const router = useRouter();
   function pushQueryParams(name: string, value: string[] | null) {
     const params = new URLSearchParams(queryParams.toString());
     if (value?.length) {
