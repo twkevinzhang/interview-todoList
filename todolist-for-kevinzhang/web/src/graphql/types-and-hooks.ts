@@ -27,6 +27,7 @@ export type Query = {
   todoItem?: Maybe<TodoItem>;
   todoItems: Array<TodoItem>;
   user: User;
+  users: Array<User>;
 };
 
 
@@ -290,10 +291,18 @@ export type SignInMutationVariables = Exact<{
 
 export type SignInMutation = { __typename?: 'Mutation', signIn: { __typename?: 'Auth', accessToken: string } };
 
-export type TodoItemsQueryVariables = Exact<{ [key: string]: never; }>;
+export type TodoItemsQueryVariables = Exact<{
+  filter?: InputMaybe<TodoItemsFilters>;
+  sortBy?: InputMaybe<TodoItemsSortBy>;
+}>;
 
 
-export type TodoItemsQuery = { __typename?: 'Query', todoItems: Array<{ __typename?: 'TodoItem', id: string }> };
+export type TodoItemsQuery = { __typename?: 'Query', todoItems: Array<{ __typename?: 'TodoItem', title?: string | null, createdAt: any, id: string, due?: any | null, createdBy: { __typename?: 'User', uid: string, username: string } }> };
+
+export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', uid: string, username: string }> };
 
 
 export const SignInDocument = gql`
@@ -331,9 +340,16 @@ export type SignInMutationHookResult = ReturnType<typeof useSignInMutation>;
 export type SignInMutationResult = Apollo.MutationResult<SignInMutation>;
 export type SignInMutationOptions = Apollo.BaseMutationOptions<SignInMutation, SignInMutationVariables>;
 export const TodoItemsDocument = gql`
-    query todoItems {
-  todoItems {
+    query todoItems($filter: TodoItemsFilters, $sortBy: TodoItemsSortBy) {
+  todoItems(filter: $filter, sortBy: $sortBy) {
+    createdBy {
+      uid
+      username
+    }
+    title
+    createdAt
     id
+    due
   }
 }
     `;
@@ -350,6 +366,8 @@ export const TodoItemsDocument = gql`
  * @example
  * const { data, loading, error } = useTodoItemsQuery({
  *   variables: {
+ *      filter: // value for 'filter'
+ *      sortBy: // value for 'sortBy'
  *   },
  * });
  */
@@ -369,3 +387,43 @@ export type TodoItemsQueryHookResult = ReturnType<typeof useTodoItemsQuery>;
 export type TodoItemsLazyQueryHookResult = ReturnType<typeof useTodoItemsLazyQuery>;
 export type TodoItemsSuspenseQueryHookResult = ReturnType<typeof useTodoItemsSuspenseQuery>;
 export type TodoItemsQueryResult = Apollo.QueryResult<TodoItemsQuery, TodoItemsQueryVariables>;
+export const UsersDocument = gql`
+    query users {
+  users {
+    uid
+    username
+  }
+}
+    `;
+
+/**
+ * __useUsersQuery__
+ *
+ * To run a query within a React component, call `useUsersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUsersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useUsersQuery(baseOptions?: Apollo.QueryHookOptions<UsersQuery, UsersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UsersQuery, UsersQueryVariables>(UsersDocument, options);
+      }
+export function useUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UsersQuery, UsersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UsersQuery, UsersQueryVariables>(UsersDocument, options);
+        }
+export function useUsersSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<UsersQuery, UsersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<UsersQuery, UsersQueryVariables>(UsersDocument, options);
+        }
+export type UsersQueryHookResult = ReturnType<typeof useUsersQuery>;
+export type UsersLazyQueryHookResult = ReturnType<typeof useUsersLazyQuery>;
+export type UsersSuspenseQueryHookResult = ReturnType<typeof useUsersSuspenseQuery>;
+export type UsersQueryResult = Apollo.QueryResult<UsersQuery, UsersQueryVariables>;

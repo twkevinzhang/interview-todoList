@@ -1,5 +1,12 @@
-query todoItems {
-  todoItems {
+query todoItems($filter: TodoItemsFilters, $sortBy: TodoItemsSortBy) {
+  todoItems(filter: $filter, sortBy: $sortBy) {
+    createdBy {
+      uid
+      username
+    }
+    title
+    createdAt
     id
+    due
   }
 }
