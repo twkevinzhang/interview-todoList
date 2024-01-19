@@ -297,17 +297,18 @@ export type TodoItemsQueryVariables = Exact<{
 }>;
 
 
-export type TodoItemsQuery = { __typename?: 'Query', todoItems: Array<{ __typename?: 'TodoItem', id: string, title?: string | null, createdAt: any, due?: any | null, isCompleted: boolean, createdBy: { __typename?: 'User', uid: string, username: string }, comments: Array<{ __typename?: 'Comment', id: string, content: string }> }> };
+export type TodoItemsQuery = { __typename?: 'Query', todoItems: Array<{ __typename?: 'TodoItem', id: string, title?: string | null, createdAt: any, due?: any | null, isCompleted: boolean, createdBy: { __typename?: 'User', uid: string, username: string }, comments: Array<{ __typename?: 'Comment', id: string, content: string }>, children: Array<{ __typename?: 'TodoItem', id: string, title?: string | null }> }> };
 
 export type TodoItemQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type TodoItemQuery = { __typename?: 'Query', todoItem?: { __typename?: 'TodoItem', id: string, title?: string | null, createdAt: any, due?: any | null, description?: string | null, owners: Array<{ __typename?: 'User', uid: string, username: string }>, followers: Array<{ __typename?: 'User', uid: string, username: string }>, comments: Array<{ __typename?: 'Comment', id: string, content: string, createdAt: any, createdBy: { __typename?: 'User', uid: string, username: string } }> } | null };
+export type TodoItemQuery = { __typename?: 'Query', todoItem?: { __typename?: 'TodoItem', id: string, title?: string | null, createdAt: any, due?: any | null, description?: string | null, owners: Array<{ __typename?: 'User', uid: string, username: string }>, followers: Array<{ __typename?: 'User', uid: string, username: string }>, comments: Array<{ __typename?: 'Comment', id: string, content: string, createdAt: any, createdBy: { __typename?: 'User', uid: string, username: string } }>, children: Array<{ __typename?: 'TodoItem', id: string, title?: string | null }> } | null };
 
 export type CreateTodoItemMutationVariables = Exact<{
   form: TodoItemForm;
+  parentID?: InputMaybe<Scalars['ID']['input']>;
 }>;
 
 
@@ -384,6 +385,10 @@ export const TodoItemsDocument = gql`
       id
       content
     }
+    children {
+      id
+      title
+    }
   }
 }
     `;
@@ -446,6 +451,10 @@ export const TodoItemDocument = gql`
       }
       createdAt
     }
+    children {
+      id
+      title
+    }
   }
 }
     `;
@@ -483,8 +492,8 @@ export type TodoItemLazyQueryHookResult = ReturnType<typeof useTodoItemLazyQuery
 export type TodoItemSuspenseQueryHookResult = ReturnType<typeof useTodoItemSuspenseQuery>;
 export type TodoItemQueryResult = Apollo.QueryResult<TodoItemQuery, TodoItemQueryVariables>;
 export const CreateTodoItemDocument = gql`
-    mutation createTodoItem($form: TodoItemForm!) {
-  createTodoItem(form: $form) {
+    mutation createTodoItem($form: TodoItemForm!, $parentID: ID) {
+  createTodoItem(form: $form, parentID: $parentID) {
     id
   }
 }
@@ -505,6 +514,7 @@ export type CreateTodoItemMutationFn = Apollo.MutationFunction<CreateTodoItemMut
  * const [createTodoItemMutation, { data, loading, error }] = useCreateTodoItemMutation({
  *   variables: {
  *      form: // value for 'form'
+ *      parentID: // value for 'parentID'
  *   },
  * });
  */

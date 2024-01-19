@@ -28,6 +28,7 @@ export default ({
   onSelectSortBy,
   onCreateClick,
   onMessageClick,
+  onMissionClick,
   onEditClick,
   onDeleteClick,
   categoryWithMyUID,
@@ -40,6 +41,7 @@ export default ({
   onSelectSortBy: (newSortBy: string | null) => void;
   onCreateClick: () => void;
   onMessageClick: (todoItemID: string) => void;
+  onMissionClick: (todoItemID: string) => void;
   onEditClick: (todoItemID: string) => void;
   onDeleteClick: (todoItemID: string) => void;
   categoryWithMyUID: { [key: string]: string };
@@ -227,9 +229,17 @@ export default ({
                     size="sm"
                     variant="soft"
                     color="neutral"
+                    onClick={() => onMissionClick(item.id!)}
+                  >
+                    Mission
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="soft"
+                    color="neutral"
                     onClick={() => onMessageClick(item.id!)}
                   >
-                    message
+                    Message
                   </Button>
                   <Button
                     size="sm"
