@@ -77,10 +77,6 @@ export default ({
                 </Select>
               </Stack>
             </FormControl>
-            <FormControl orientation="horizontal">
-              <FormLabel>Due</FormLabel>
-              <Checkbox label="今天到期" />
-            </FormControl>
             <FormControl>
               <Textarea
                 minRows={2}

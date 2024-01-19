@@ -137,21 +137,6 @@ export default ({
               </Select>
             </Stack>
           </FormControl>
-
-          <Box
-            sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: 1,
-            }}
-          >
-            <FormLabel>Due</FormLabel>
-            <Stack spacing={2} direction="row">
-              <Checkbox label="from 2024-01-17 10:00" />
-              <Checkbox label="to 2024-01-17 11:00" />
-            </Stack>
-          </Box>
-
           <FormControl orientation="horizontal">
             <FormLabel>Sort by</FormLabel>
             <Stack spacing={2}>
