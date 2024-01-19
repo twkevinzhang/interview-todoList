@@ -304,7 +304,7 @@ export type TodoItemQueryVariables = Exact<{
 }>;
 
 
-export type TodoItemQuery = { __typename?: 'Query', todoItem?: { __typename?: 'TodoItem', id: string, title?: string | null, createdAt: any, due?: any | null, description?: string | null, owners: Array<{ __typename?: 'User', uid: string, username: string }>, followers: Array<{ __typename?: 'User', uid: string, username: string }> } | null };
+export type TodoItemQuery = { __typename?: 'Query', todoItem?: { __typename?: 'TodoItem', id: string, title?: string | null, createdAt: any, due?: any | null, description?: string | null, owners: Array<{ __typename?: 'User', uid: string, username: string }>, followers: Array<{ __typename?: 'User', uid: string, username: string }>, attachments: Array<{ __typename?: 'Attachment', id: string, name: string, url: string }> } | null };
 
 export type CreateTodoItemMutationVariables = Exact<{
   form: TodoItemForm;
@@ -431,6 +431,11 @@ export const TodoItemDocument = gql`
     followers {
       uid
       username
+    }
+    attachments {
+      id
+      name
+      url
     }
   }
 }

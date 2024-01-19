@@ -11,6 +11,7 @@ import {
   useUpdateTodoItemMutation,
   useUsersQuery,
   TodoItem,
+  Attachment,
 } from "@/graphql/types-and-hooks";
 import { useRouter, useSearchParams } from "next/navigation";
 import { EnumTodoItemsSortBy } from "@/utils/enum";
@@ -117,6 +118,10 @@ export default ({ params }: { params: { category: string } }) => {
     del({ variables: { id: todoItemID }, refetchQueries: ["todoItems"] });
   }
 
+  function handleDownload(attachment: Attachment) {
+    window.open(attachment.url, "_blank");
+  }
+
   return (
     <div>
       <TaskFormDialog
@@ -125,6 +130,7 @@ export default ({ params }: { params: { category: string } }) => {
         onSubmit={handleCreateSubmit}
         onClose={() => setCreateDialogOpened(false)}
         isOpend={isCreateDialogOpened}
+        onDownloadClick={handleDownload}
       />
       <TaskFormDialog
         owners={usersQuery?.users ?? []}
@@ -133,6 +139,7 @@ export default ({ params }: { params: { category: string } }) => {
         onSubmit={handleEditSubmit}
         onClose={() => setEditingTodoItem(null)}
         isOpend={!!editingTodoItem}
+        onDownloadClick={handleDownload}
       />
       <Table
         users={usersQuery?.users ?? []}
@@ -153,7 +160,7 @@ export default ({ params }: { params: { category: string } }) => {
         categoryWithMyUID={{
           [category]: uid,
         }}
-      ></Table>
+      />
     </div>
   );
 };

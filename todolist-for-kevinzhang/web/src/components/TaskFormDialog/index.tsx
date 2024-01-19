@@ -14,8 +14,17 @@ import {
   DialogTitle,
   SvgIcon,
   styled,
+  Link,
+  Box,
+  Chip,
+  ChipDelete,
 } from "@mui/joy";
-import { TodoItem, TodoItemForm, User } from "@/graphql/types-and-hooks";
+import {
+  Attachment,
+  TodoItem,
+  TodoItemForm,
+  User,
+} from "@/graphql/types-and-hooks";
 
 const VisuallyHiddenInput = styled("input")`
   clip: rect(0 0 0 0);
@@ -36,6 +45,7 @@ export default ({
   onSubmit,
   isOpend,
   onClose,
+  onDownloadClick,
 }: {
   owners: User[];
   followers: User[];
@@ -43,8 +53,10 @@ export default ({
   onSubmit: (newForm: TodoItemForm) => void;
   onClose: () => void;
   isOpend: boolean;
+  onDownloadClick: (a: Attachment) => void;
 }) => {
   const [file, setFile] = React.useState<File | null>(null);
+
   return (
     <Modal open={isOpend} onClose={onClose}>
       <ModalDialog>
@@ -108,8 +120,39 @@ export default ({
                 defaultValue={defaultValue?.description ?? undefined}
               />
             </FormControl>
+            {defaultValue?.attachments?.length ? (
+              <Stack spacing={1}>
+                {defaultValue?.attachments?.map((attachment, i) => (
+                  <Chip
+                    key={i}
+                    size="lg"
+                    variant="outlined"
+                    onClick={() => onDownloadClick(attachment)}
+                    endDecorator={
+                      <ChipDelete
+                        variant="plain"
+                        onDelete={() => alert("You clicked the delete button!")}
+                      />
+                    }
+                  >
+                    {attachment.name}
+                  </Chip>
+                ))}
+              </Stack>
+            ) : null}
+            {file ? (
+              <Chip
+                size="lg"
+                variant="outlined"
+                color="primary"
+                endDecorator={<ChipDelete onDelete={() => setFile(null)} />}
+              >
+                {file.name}
+              </Chip>
+            ) : null}
             <FormControl>
               <Button
+                disabled={!!file}
                 component="label"
                 role={undefined}
                 tabIndex={-1}
@@ -124,8 +167,6 @@ export default ({
                     event.preventDefault();
                     const selectedFile = event.target.files?.[0];
                     if (selectedFile) {
-                      // Do something with the selected file
-                      console.log("Selected File:", selectedFile);
                       setFile(selectedFile);
                     }
                   }}

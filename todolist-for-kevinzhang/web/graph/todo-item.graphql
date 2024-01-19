@@ -26,6 +26,11 @@ query todoItem($id: ID!) {
       uid
       username
     }
+    attachments {
+      id
+      name
+      url
+    }
   }
 }
 
