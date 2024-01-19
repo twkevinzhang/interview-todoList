@@ -18,7 +18,10 @@ import TaskForm from "@/components/TaskForm";
 
 export default ({ params }: { params: { category: string } }) => {
   const { category } = params;
-  const { uid } = localStorage;
+  const [uid, setUID] = React.useState("");
+  React.useEffect(() => {
+    setUID(localStorage.getItem("uid") ?? "");
+  });
   const router = useRouter();
   const queryParams = useSearchParams();
   const {
