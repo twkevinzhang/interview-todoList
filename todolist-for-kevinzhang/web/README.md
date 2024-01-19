@@ -5,6 +5,17 @@
  - react.js and react-dom: 18.2.18
  - @typescript-eslint/*: 6.18.1
 
+## 工具描述
+ - 使用 codegen 及 apollo client 產生用於串接後端 GraphQL API 的 useHooks 及 schema interface typescript code
+ - 使用 Next.js 作為 SSR 框架
+
+## 啟動
+copy .env.example to .env then
+```
+pnpm install
+pnpm dev
+```
+
 ## 可以改善的地方
  - [ ] 無障礙及鍵盤操作
  - [ ] useHooks 單元測試

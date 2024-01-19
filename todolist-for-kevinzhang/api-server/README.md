@@ -4,7 +4,8 @@
  - typescript: 5.3.3
  - @typescript-eslint/*: 6.18.1
 
-## 在 local 啟動 production server
+## 啟動
+copy .env.example to .env then
 ```
 pnpm install
 pnpm generate
