@@ -297,14 +297,14 @@ export type TodoItemsQueryVariables = Exact<{
 }>;
 
 
-export type TodoItemsQuery = { __typename?: 'Query', todoItems: Array<{ __typename?: 'TodoItem', id: string, title?: string | null, createdAt: any, due?: any | null, createdBy: { __typename?: 'User', uid: string, username: string } }> };
+export type TodoItemsQuery = { __typename?: 'Query', todoItems: Array<{ __typename?: 'TodoItem', id: string, title?: string | null, createdAt: any, due?: any | null, isCompleted: boolean, createdBy: { __typename?: 'User', uid: string, username: string }, comments: Array<{ __typename?: 'Comment', id: string, content: string }> }> };
 
 export type TodoItemQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type TodoItemQuery = { __typename?: 'Query', todoItem?: { __typename?: 'TodoItem', id: string, title?: string | null, createdAt: any, due?: any | null, description?: string | null, owners: Array<{ __typename?: 'User', uid: string, username: string }>, followers: Array<{ __typename?: 'User', uid: string, username: string }> } | null };
+export type TodoItemQuery = { __typename?: 'Query', todoItem?: { __typename?: 'TodoItem', id: string, title?: string | null, createdAt: any, due?: any | null, description?: string | null, owners: Array<{ __typename?: 'User', uid: string, username: string }>, followers: Array<{ __typename?: 'User', uid: string, username: string }>, comments: Array<{ __typename?: 'Comment', id: string, content: string, createdAt: any, createdBy: { __typename?: 'User', uid: string, username: string } }> } | null };
 
 export type CreateTodoItemMutationVariables = Exact<{
   form: TodoItemForm;
@@ -379,6 +379,11 @@ export const TodoItemsDocument = gql`
     title
     createdAt
     due
+    isCompleted
+    comments {
+      id
+      content
+    }
   }
 }
     `;
@@ -431,6 +436,15 @@ export const TodoItemDocument = gql`
     followers {
       uid
       username
+    }
+    comments {
+      id
+      content
+      createdBy {
+        uid
+        username
+      }
+      createdAt
     }
   }
 }

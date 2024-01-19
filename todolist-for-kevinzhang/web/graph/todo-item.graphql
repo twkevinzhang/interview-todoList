@@ -8,6 +8,11 @@ query todoItems($filter: TodoItemsFilters, $sortBy: TodoItemsSortBy) {
     title
     createdAt
     due
+    isCompleted
+    comments {
+      id
+      content
+    }
   }
 }
 
@@ -25,6 +30,15 @@ query todoItem($id: ID!) {
     followers {
       uid
       username
+    }
+    comments {
+      id
+      content
+      createdBy {
+        uid
+        username
+      }
+      createdAt
     }
   }
 }

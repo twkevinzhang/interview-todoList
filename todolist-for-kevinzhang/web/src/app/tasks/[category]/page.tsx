@@ -15,6 +15,7 @@ import {
 import { useRouter, useSearchParams } from "next/navigation";
 import { EnumTodoItemsSortBy } from "@/utils/enum";
 import TaskForm from "@/components/TaskForm";
+import CommentFormDialog from "@/components/CommentFormDialog";
 
 export default ({ params }: { params: { category: string } }) => {
   const { category } = params;
@@ -61,6 +62,8 @@ export default ({ params }: { params: { category: string } }) => {
   const [isCreateDialogOpened, setCreateDialogOpened] = React.useState(false);
   const [editingTodoItem, setEditingTodoItem] =
     React.useState<Partial<TodoItem> | null>(null);
+  const [commentingTodoItem, setCommentingTodoItem] =
+    React.useState<Partial<TodoItem> | null>(null);
 
   const loading = React.useMemo(
     () => todoItemsListing && userListing && creating && updating && deleting,
@@ -94,6 +97,25 @@ export default ({ params }: { params: { category: string } }) => {
   function handleCreateSubmit(newForm: TodoItemForm) {
     create({ variables: { form: newForm }, refetchQueries: ["todoItems"] });
     setCreateDialogOpened(false);
+  }
+
+  function handleMessage(todoItemID: string) {
+    getTodoItem({ variables: { id: todoItemID } }).then((res) => {
+      setCommentingTodoItem(res.data?.todoItem ?? null);
+    });
+  }
+
+  function handleMessageSubmit(todoItemID: string, newComment: string) {
+    update({
+      variables: {
+        form: {
+          newComments: [newComment],
+        },
+        id: todoItemID,
+      },
+      refetchQueries: ["todoItems", "todoItem"],
+    });
+    setCommentingTodoItem(null);
   }
 
   function handleEdit(todoItemID: string) {
@@ -131,6 +153,15 @@ export default ({ params }: { params: { category: string } }) => {
         onClose={() => setEditingTodoItem(null)}
         isOpend={!!editingTodoItem}
       />
+      <CommentFormDialog
+        comments={commentingTodoItem?.comments ?? []}
+        title={commentingTodoItem?.title ?? ""}
+        onSubmit={(newComment: string) =>
+          handleMessageSubmit(commentingTodoItem!.id!, newComment)
+        }
+        onClose={() => setCommentingTodoItem(null)}
+        isOpend={!!commentingTodoItem}
+      />
       <Table
         users={usersQuery?.users ?? []}
         todoItems={todoItemsQuery?.todoItems ?? []}
@@ -145,6 +176,7 @@ export default ({ params }: { params: { category: string } }) => {
           pushQueryParam("sortby", newValue)
         }
         onCreateClick={() => setCreateDialogOpened(true)}
+        onMessageClick={handleMessage}
         onEditClick={handleEdit}
         onDeleteClick={(todoItemID: string) => {
           handleDel(todoItemID);
