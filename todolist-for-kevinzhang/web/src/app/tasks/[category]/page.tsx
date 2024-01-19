@@ -38,6 +38,9 @@ export default ({ params }: { params: { category: string } }) => {
             ? queryParams.get("owners")?.split(",")
             : null,
         },
+        followerUID: {
+          contains: category === "subscribed" ? [uid] : null,
+        },
       },
       sortBy: queryParams.has("sortby")
         ? EnumTodoItemsSortBy(queryParams.get("sortby")!)

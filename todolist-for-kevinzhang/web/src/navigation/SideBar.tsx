@@ -15,13 +15,10 @@ export default function Home() {
   const pathname = usePathname();
 
   const list = Object.entries({
-    Owned: "/tasks/owned",
-    Subscribed: "/tasks/subscribed",
-    Activity: "/tasks/activity",
     All: "/tasks/all",
     Created: "/tasks/created",
     Assigned: "/tasks/assigned",
-    Completed: "/tasks/completed",
+    Subscribed: "/tasks/subscribed",
   }).map(([title, href]) => (
     <Link
       key={href}
@@ -39,22 +36,11 @@ export default function Home() {
   ));
   return (
     <List size="lg">
-      {/* {list[0]} */}
-      {/* {list[2]} */}
-      <ListDivider />
       <ListSubheader>Quick Access</ListSubheader>
-      {list[3]}
-      {list[4]}
-      {list[5]}
+      {list[0]}
       {list[1]}
-      {/* {list[6]} */}
-      <ListDivider />
-      {/* <ListSubheader>Task List</ListSubheader>
-      <ListItem>
-        <ListItemButton disabled>
-          <ListItemContent>Not implement</ListItemContent>
-        </ListItemButton>
-      </ListItem> */}
+      {list[2]}
+      {list[3]}
     </List>
   );
 }
