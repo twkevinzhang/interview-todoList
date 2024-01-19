@@ -6,6 +6,7 @@ import { join } from 'path';
 import { TodoItemModule } from 'src/todo-item/todo-item.module';
 import { AuthModule } from 'src/auth/auth.module';
 import { UserModule } from 'src/user/user.module';
+import { UploadScalar } from 'src/scalars/upload.scalar';
 
 @Module({
   imports: [
@@ -23,5 +24,6 @@ import { UserModule } from 'src/user/user.module';
     }),
     UserModule,
   ],
+  providers: [UploadScalar],
 })
 export class AppModule {}

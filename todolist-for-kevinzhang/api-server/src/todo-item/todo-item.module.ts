@@ -8,6 +8,7 @@ import { PrismaModule } from 'src/prisma/prisma.module';
 import { TodoItemRepo } from 'src/todo-item/todo-item.repo';
 import { UserModule } from 'src/user/user.module';
 import { TaskListModule } from 'src/task-list/task-list.module';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   providers: [
@@ -15,6 +16,7 @@ import { TaskListModule } from 'src/task-list/task-list.module';
     TodoItemService,
     TodoItemRepo,
     CommentResolvers,
+    ConfigService,
   ],
   imports: [PrismaModule, UserModule, TaskListModule],
 })

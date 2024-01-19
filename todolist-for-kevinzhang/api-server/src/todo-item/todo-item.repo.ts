@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Comment, Prisma, TodoItem, User } from '@prisma/client';
+import { Attachment, Comment, Prisma, TodoItem, User } from '@prisma/client';
 import { TodoItemsFilters, TodoItemsSortBy } from 'src/graphql.schema';
 import { PrismaService } from 'src/prisma/prisma.service';
 
@@ -186,6 +186,14 @@ export class TodoItemRepo {
 
   async listComments(id: string): Promise<Comment[]> {
     return await this.prisma.comment.findMany({
+      where: {
+        todoItemID: id,
+      },
+    });
+  }
+
+  async attachments(id: string): Promise<Attachment[]> {
+    return await this.prisma.attachment.findMany({
       where: {
         todoItemID: id,
       },
