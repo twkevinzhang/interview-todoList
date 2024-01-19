@@ -8,6 +8,15 @@ query todoItems($filter: TodoItemsFilters, $sortBy: TodoItemsSortBy) {
     title
     createdAt
     due
+    isCompleted
+    comments {
+      id
+      content
+    }
+    children {
+      id
+      title
+    }
   }
 }
 
@@ -26,6 +35,19 @@ query todoItem($id: ID!) {
       uid
       username
     }
+    comments {
+      id
+      content
+      createdBy {
+        uid
+        username
+      }
+      createdAt
+    }
+    children {
+      id
+      title
+	}
     attachments {
       id
       name
@@ -34,8 +56,8 @@ query todoItem($id: ID!) {
   }
 }
 
-mutation createTodoItem($form: TodoItemForm!) {
-  createTodoItem(form: $form) {
+mutation createTodoItem($form: TodoItemForm!, $parentID: ID) {
+  createTodoItem(form: $form, parentID: $parentID) {
     id
   }
 }

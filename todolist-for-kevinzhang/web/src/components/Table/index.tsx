@@ -10,7 +10,12 @@ import {
   Stack,
   Button,
 } from "@mui/joy";
-import { TodoItem, TodoItemsSortBy, User } from "@/graphql/types-and-hooks";
+import {
+  TodoItem,
+  TodoItemsSortBy,
+  User,
+  useUpdateTodoItemMutation,
+} from "@/graphql/types-and-hooks";
 import dayjs from "dayjs";
 
 export default ({
@@ -21,6 +26,8 @@ export default ({
   onSelectOwners,
   onSelectSortBy,
   onCreateClick,
+  onMessageClick,
+  onMissionClick,
   onEditClick,
   onDeleteClick,
   categoryWithMyUID,
@@ -32,6 +39,8 @@ export default ({
   onSelectOwners: (newOwnersUIDs: string[] | null) => void;
   onSelectSortBy: (newSortBy: string | null) => void;
   onCreateClick: () => void;
+  onMessageClick: (todoItemID: string) => void;
+  onMissionClick: (todoItemID: string) => void;
   onEditClick: (todoItemID: string) => void;
   onDeleteClick: (todoItemID: string) => void;
   categoryWithMyUID: { [key: string]: string };
@@ -44,6 +53,7 @@ export default ({
     [TodoItemsSortBy.CreatedByAsc]: "依據創建者正序",
     [TodoItemsSortBy.CreatedByDesc]: "依據創建者倒序",
   };
+  const [update] = useUpdateTodoItemMutation();
 
   function handleCreators(
     event: React.SyntheticEvent | null,
@@ -67,6 +77,22 @@ export default ({
   ) {
     event?.preventDefault();
     onSelectSortBy(newValue);
+  }
+
+  function handleChange(
+    event: React.ChangeEvent<HTMLInputElement>,
+    item: Partial<TodoItem>,
+  ) {
+    event?.preventDefault();
+    update({
+      variables: {
+        form: {
+          isCompleted: event.target.checked,
+        },
+        id: item.id!,
+      },
+      refetchQueries: ["todoItems", "todoItem"],
+    });
   }
 
   let creators: string[] = [];
@@ -163,28 +189,57 @@ export default ({
       <Table hoverRow>
         <thead>
           <tr>
-            {["標題", "截止時間", "建立者", "建立時間", "任務 ID"].map(
-              (column) => (
-                <th key={column}>{column}</th>
-              ),
-            )}
-            <th>action</th>
+            {[
+              "已完成",
+              "標題",
+              "截止時間",
+              "建立者",
+              "建立時間",
+              "任務 ID",
+            ].map((column) => (
+              <th key={column}>{column}</th>
+            ))}
+            <th style={{ width: 250 }}>action</th>
           </tr>
         </thead>
         <tbody>
           {todoItems.map((item, i) => (
             <tr key={i}>
+              <td>
+                <Checkbox
+                  label={item.isCompleted == true ? "已完成" : ""}
+                  size="sm"
+                  checked={item.isCompleted == true}
+                  onChange={(e) => handleChange(e, item)}
+                />
+              </td>
               <td>{item.title}</td>
               <td>{item.due ? dayjs(item.due).format("YYYY/MM/DD") : null}</td>
               <td>{item.createdBy?.username}</td>
               <td>
                 {item.createdAt
-                  ? dayjs(item.createdAt).format("YYYY/MM/DD")
+                  ? dayjs(item.createdAt).format("YYYY/MM/DD HH:mm:ss")
                   : null}
               </td>
               <td>{item.id}</td>
               <td>
                 <Box sx={{ display: "flex", gap: 1 }}>
+                  <Button
+                    size="sm"
+                    variant="soft"
+                    color="neutral"
+                    onClick={() => onMissionClick(item.id!)}
+                  >
+                    Mission
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="soft"
+                    color="neutral"
+                    onClick={() => onMessageClick(item.id!)}
+                  >
+                    Message
+                  </Button>
                   <Button
                     size="sm"
                     variant="plain"

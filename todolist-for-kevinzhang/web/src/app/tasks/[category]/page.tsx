@@ -16,6 +16,8 @@ import {
 import { useRouter, useSearchParams } from "next/navigation";
 import { EnumTodoItemsSortBy } from "@/utils/enum";
 import TaskFormDialog from "@/components/TaskFormDialog";
+import CommentFormDialog from "@/components/CommentFormDialog";
+import MissionFormDialog from "@/components/MissionFormDialog";
 
 export default ({ params }: { params: { category: string } }) => {
   const { category } = params;
@@ -65,7 +67,10 @@ export default ({ params }: { params: { category: string } }) => {
   const [isCreateDialogOpened, setCreateDialogOpened] = React.useState(false);
   const [editingTodoItem, setEditingTodoItem] =
     React.useState<Partial<TodoItem> | null>(null);
-
+  const [missisonTodoItem, setMissionTodoItem] =
+    React.useState<Partial<TodoItem> | null>(null);
+  const [commentingTodoItem, setCommentingTodoItem] =
+    React.useState<Partial<TodoItem> | null>(null);
   const loading = React.useMemo(
     () => todoItemsListing && userListing && creating && updating && deleting,
     [todoItemsListing, userListing, creating, updating, deleting],
@@ -98,6 +103,44 @@ export default ({ params }: { params: { category: string } }) => {
   function handleCreateSubmit(newForm: TodoItemForm) {
     create({ variables: { form: newForm }, refetchQueries: ["todoItems"] });
     setCreateDialogOpened(false);
+  }
+
+  function handleMessage(todoItemID: string) {
+    getTodoItem({ variables: { id: todoItemID } }).then((res) => {
+      setCommentingTodoItem(res.data?.todoItem ?? null);
+    });
+  }
+
+  function handleMessageSubmit(todoItemID: string, newComment: string) {
+    update({
+      variables: {
+        form: {
+          newComments: [newComment],
+        },
+        id: todoItemID,
+      },
+      refetchQueries: ["todoItems", "todoItem"],
+    });
+    setCommentingTodoItem(null);
+  }
+
+  function handleMission(todoItemID: string) {
+    getTodoItem({ variables: { id: todoItemID } }).then((res) => {
+      setMissionTodoItem(res.data?.todoItem ?? null)
+    });
+  }
+
+  function handleMissionSubmit(todoItemID: string, newMission: string) {
+    create({
+      variables: {
+        form: {
+          title: newMission,
+        },
+        parentID: todoItemID,
+      },
+      refetchQueries: ["todoItems", "todoItem"],
+    });
+    setMissionTodoItem(null);
   }
 
   function handleEdit(todoItemID: string) {
@@ -141,6 +184,24 @@ export default ({ params }: { params: { category: string } }) => {
         isOpend={!!editingTodoItem}
         onDownloadClick={handleDownload}
       />
+      <CommentFormDialog
+        comments={commentingTodoItem?.comments ?? []}
+        title={commentingTodoItem?.title ?? ""}
+        onSubmit={(newComment: string) =>
+          handleMessageSubmit(commentingTodoItem!.id!, newComment)
+        }
+        onClose={() => setCommentingTodoItem(null)}
+        isOpend={!!commentingTodoItem}
+      />
+      <MissionFormDialog
+        children={missisonTodoItem?.children ?? []}
+        title={missisonTodoItem?.title ?? ""}
+        onSubmit={(newMission: string) =>
+          handleMissionSubmit(missisonTodoItem!.id!, newMission)
+        }
+        onClose={() => setMissionTodoItem(null)}
+        isOpend={!!missisonTodoItem}
+      />
       <Table
         users={usersQuery?.users ?? []}
         todoItems={todoItemsQuery?.todoItems ?? []}
@@ -155,6 +216,8 @@ export default ({ params }: { params: { category: string } }) => {
           pushQueryParam("sortby", newValue)
         }
         onCreateClick={() => setCreateDialogOpened(true)}
+        onMissionClick={handleMission}
+        onMessageClick={handleMessage}
         onEditClick={handleEdit}
         onDeleteClick={handleDel}
         categoryWithMyUID={{
