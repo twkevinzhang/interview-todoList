@@ -14,7 +14,7 @@ import {
 } from "@/graphql/types-and-hooks";
 import { useRouter, useSearchParams } from "next/navigation";
 import { EnumTodoItemsSortBy } from "@/utils/enum";
-import TaskForm from "@/components/TaskForm";
+import TaskFormDialog from "@/components/TaskFormDialog";
 
 export default ({ params }: { params: { category: string } }) => {
   const { category } = params;
@@ -119,14 +119,14 @@ export default ({ params }: { params: { category: string } }) => {
 
   return (
     <div>
-      <TaskForm
+      <TaskFormDialog
         owners={usersQuery?.users ?? []}
         followers={usersQuery?.users ?? []}
         onSubmit={handleCreateSubmit}
         onClose={() => setCreateDialogOpened(false)}
         isOpend={isCreateDialogOpened}
       />
-      <TaskForm
+      <TaskFormDialog
         owners={usersQuery?.users ?? []}
         followers={usersQuery?.users ?? []}
         defaultValue={editingTodoItem}
@@ -149,9 +149,7 @@ export default ({ params }: { params: { category: string } }) => {
         }
         onCreateClick={() => setCreateDialogOpened(true)}
         onEditClick={handleEdit}
-        onDeleteClick={(todoItemID: string) => {
-          handleDel(todoItemID);
-        }}
+        onDeleteClick={handleDel}
         categoryWithMyUID={{
           [category]: uid,
         }}

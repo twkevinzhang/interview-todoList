@@ -1,7 +1,6 @@
 import * as React from "react";
 import {
   Button,
-  Checkbox,
   FormControl,
   FormLabel,
   Input,
@@ -13,8 +12,22 @@ import {
   Textarea,
   ModalClose,
   DialogTitle,
+  SvgIcon,
+  styled,
 } from "@mui/joy";
 import { TodoItem, TodoItemForm, User } from "@/graphql/types-and-hooks";
+
+const VisuallyHiddenInput = styled("input")`
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  white-space: nowrap;
+  width: 1px;
+`;
 
 export default ({
   owners,
@@ -31,6 +44,7 @@ export default ({
   onClose: () => void;
   isOpend: boolean;
 }) => {
+  const [file, setFile] = React.useState<File | null>(null);
   return (
     <Modal open={isOpend} onClose={onClose}>
       <ModalDialog>
@@ -47,6 +61,15 @@ export default ({
             formJson.putFollowersUIDs = formJson["putFollowersUIDs"]?.length
               ? JSON.parse(formJson.putFollowersUIDs)
               : [];
+            if (file) {
+              formJson.newAttachments = [
+                {
+                  filename: file.name,
+                  contentType: file.type,
+                  content: file,
+                },
+              ];
+            }
             onSubmit(formJson);
           }}
         >
@@ -84,6 +107,30 @@ export default ({
                 placeholder="Type description"
                 defaultValue={defaultValue?.description ?? undefined}
               />
+            </FormControl>
+            <FormControl>
+              <Button
+                component="label"
+                role={undefined}
+                tabIndex={-1}
+                variant="outlined"
+                color="neutral"
+                startDecorator={<SvgIcon>{/* Your SVG icon */}</SvgIcon>}
+              >
+                Attach an new attachment
+                <VisuallyHiddenInput
+                  type="file"
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    event.preventDefault();
+                    const selectedFile = event.target.files?.[0];
+                    if (selectedFile) {
+                      // Do something with the selected file
+                      console.log("Selected File:", selectedFile);
+                      setFile(selectedFile);
+                    }
+                  }}
+                />
+              </Button>
             </FormControl>
             <FormControl orientation="horizontal">
               <FormLabel>Subscribed</FormLabel>

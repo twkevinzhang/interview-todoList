@@ -2,8 +2,9 @@
 
 // ref: https://www.apollographql.com/blog/using-apollo-client-with-next-js-13-releasing-an-official-library-to-support-the-app-router
 
-import { ApolloLink, createHttpLink } from "@apollo/client";
+import { ApolloLink } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { createUploadLink } from "apollo-upload-client";
 import {
   ApolloNextAppProvider,
   NextSSRInMemoryCache,
@@ -12,11 +13,9 @@ import {
 } from "@apollo/experimental-nextjs-app-support/ssr";
 
 function makeClient() {
-  const httpLink = createHttpLink({
-    uri: "http://localhost:3000/graphql",
-    headers: {
-      "Content-Type": "application/json",
-    },
+  const httpLink = createUploadLink({
+    uri: process.env.NEXT_PUBLIC_GRAPHQL_ENTRYPOINT,
+    headers: { "Apollo-Require-Preflight": "true" },
   });
 
   const authLink = setContext((_, { headers }) => {

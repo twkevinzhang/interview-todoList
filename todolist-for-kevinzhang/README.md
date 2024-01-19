@@ -42,7 +42,7 @@ make build
    > 1. All Task 是 Created Task + Assigned Task + Completed Task + Followed Task 的集合。
 
  - 顯示任務歷史紀錄
-    - [ ] 可以新增評論在歷史紀錄中
+    - [x] 可以新增評論在歷史紀錄中
  - [x] 內容篩選（時段、創作人、任務人）
  - [x] 支援排序（建立時間、計劃完成時間、創建者、ID）
    > 問題：「ID」的定義？
