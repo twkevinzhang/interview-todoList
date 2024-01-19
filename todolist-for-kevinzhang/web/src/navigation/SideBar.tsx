@@ -5,7 +5,6 @@ import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import ListItemButton from "@mui/joy/ListItemButton";
 import ListItemContent from "@mui/joy/ListItemContent";
-import ListDivider from "@mui/joy/ListDivider";
 import ListSubheader from "@mui/joy/ListSubheader";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

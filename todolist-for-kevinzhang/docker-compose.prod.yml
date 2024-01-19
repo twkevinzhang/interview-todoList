@@ -1,32 +1,29 @@
 version: '3'
 services:
   api-server:
-    image: gplane/pnpm:8.14-node20
+    build:
+      context: ./api-server
+      dockerfile: ./Dockerfile
     working_dir: /app
     environment:
       - NODE_ENV=development
       - DATABASE_URL=postgresql://user:password@postgresql:5432
       - JWT_SECRET=secret
-      - DOMAIN=http://localhost:3000
     ports:
       - "3000:3000"
     volumes:
       - ${PWD}/api-server/:/app
+      - ${PWD}/api-server/attachments:/app/attachments
       - /app/node_modules
       - /app/.pnpm-store
-    command:
-      - /bin/sh
-      - -c
-      - |
-        pnpm install
-        pnpm generate:prisma
-        pnpm start:dev
 
   web:
-    image: gplane/pnpm:8.14-node20
+    build:
+      context: ./web
+      dockerfile: ./Dockerfile
     working_dir: /app
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
       - NEXT_PUBLIC_GRAPHQL_ENTRYPOINT=http://api-server:3000/graphql
     ports:
       - "4000:4000"
@@ -34,9 +31,3 @@ services:
       - ${PWD}/web/:/app
       - /app/node_modules
       - /app/.pnpm-store
-    command:
-      - /bin/sh
-      - -c
-      - |
-        pnpm install
-        pnpm start

@@ -101,7 +101,7 @@ export default ({ params }: { params: { category: string } }) => {
   }
 
   function handleEdit(todoItemID: string) {
-    getTodoItem({ variables: { id: todoItemID } }).then((res) => {
+    getTodoItem({ variables: { id: todoItemID } }).then((res: any) => {
       setEditingTodoItem(res.data?.todoItem ?? null);
     });
   }
@@ -135,7 +135,7 @@ export default ({ params }: { params: { category: string } }) => {
       <TaskFormDialog
         owners={usersQuery?.users ?? []}
         followers={usersQuery?.users ?? []}
-        defaultValue={editingTodoItem}
+        defaultValue={editingTodoItem as TodoItem}
         onSubmit={handleEditSubmit}
         onClose={() => setEditingTodoItem(null)}
         isOpend={!!editingTodoItem}

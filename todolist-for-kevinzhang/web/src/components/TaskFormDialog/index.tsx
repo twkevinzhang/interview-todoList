@@ -14,8 +14,6 @@ import {
   DialogTitle,
   SvgIcon,
   styled,
-  Link,
-  Box,
   Chip,
   ChipDelete,
 } from "@mui/joy";
@@ -63,10 +61,10 @@ export default ({
         <ModalClose />
         <DialogTitle>New Task</DialogTitle>
         <form
-          onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
+          onSubmit={(event: React.FormEvent<HTMLFormElement> | any) => {
             event.preventDefault();
             const formData = new FormData(event.target);
-            const formJson = Object.fromEntries(formData.entries());
+            const formJson: any = Object.fromEntries(formData.entries());
             formJson.putOwnersUIDs = formJson["putOwnersUIDs"]?.length
               ? JSON.parse(formJson.putOwnersUIDs)
               : [];

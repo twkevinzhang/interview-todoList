@@ -46,10 +46,10 @@ export default () => {
       }}
     >
       <form
-        onSubmit={(e) => {
+        onSubmit={(e: any) => {
           e.preventDefault();
           const formData = new FormData(e.target);
-          const formJson = Object.fromEntries(formData.entries());
+          const formJson: any = Object.fromEntries(formData.entries());
           login(formJson);
         }}
       >

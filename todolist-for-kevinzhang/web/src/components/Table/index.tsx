@@ -8,7 +8,6 @@ import {
   FormLabel,
   FormControl,
   Stack,
-  Checkbox,
   Button,
 } from "@mui/joy";
 import { TodoItem, TodoItemsSortBy, User } from "@/graphql/types-and-hooks";

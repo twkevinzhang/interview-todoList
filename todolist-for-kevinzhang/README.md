@@ -4,7 +4,7 @@
 我後端比較熟悉 expressJS 及其他非 NodeJS 語言，前端比較熟悉 Vue3.js 及 Android Native。
 因此如有任何不符框架精神的設計，還請在 github issue 中多多指教。
 
-## How to start develop server
+## How to start production server
 ```bash
 make up
 make migration # 執行 data migration，預設 mutation signIn 帳號密碼: user / password
@@ -13,7 +13,7 @@ make migration # 執行 data migration，預設 mutation signIn 帳號密碼: us
  - 更詳細的 API 文件位於資料夾: /spectaql/output/index.html
  - 訪問 http://localhost:4000 來查看前端頁面
 
-## Stop develop server
+## Stop server
 ```bash
 make down
 ```
