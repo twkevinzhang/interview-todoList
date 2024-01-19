@@ -15,7 +15,9 @@ export class AuthResolvers {
 
   @Mutation()
   @UseGuards(GqlAuthGuard)
-  async signIn(@Context('user') user: { username: string }): Promise<Auth> {
+  async signIn(
+    @Context('user') user: { username: string; sub: string },
+  ): Promise<Auth> {
     return this.authService.signIn(user);
   }
 }

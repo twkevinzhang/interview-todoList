@@ -25,9 +25,10 @@ export class AuthService {
     return this.toOutput(result);
   }
 
-  async signIn(user: { username: string }): Promise<Auth> {
+  async signIn(user: { username: string; sub: string }): Promise<Auth> {
     const accessToken = this.jwtService.sign({
       username: user.username,
+      sub: user.sub,
     });
     if (!accessToken) {
       throw new InternalServerErrorException();
@@ -45,13 +46,14 @@ export class AuthService {
     if (!(await bcrypt.compare(password, user.hashedPassword))) {
       throw new UnauthorizedException('Wrong password');
     }
-    return this.toOutput(user);
+    return user;
   }
 
-  toOutput(from: { username: string; hashedPassword: string }): User {
+  toOutput(from: any): User {
+    delete from.hashedPassword;
     return {
       ...new User(),
-      username: from.username,
+      ...from,
     };
   }
 }
