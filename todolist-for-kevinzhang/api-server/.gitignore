@@ -1,6 +1,7 @@
 db/
 .pnpm-store/
 attachments/
+.env
 
 # compiled output
 /dist

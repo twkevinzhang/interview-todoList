@@ -16,7 +16,7 @@ datasource db {
 model TodoItem {
   id           String       @id @default(uuid())
   taskListID   String?
-  taskList     TaskList?    @relation("TaskList", fields: [taskListID], references: [id])
+  taskList     TaskList?    @relation("TaskList", fields: [taskListID], references: [id], onDelete: Cascade, onUpdate: Cascade)
   title        String?
   owners       User[]       @relation("Owners")
   followers    User[]       @relation("Followers")
@@ -24,7 +24,7 @@ model TodoItem {
   due          DateTime?
   description  String?
   parentID     String?
-  parent       TodoItem?    @relation("Parent", fields: [parentID], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  parent       TodoItem?    @relation("Parent", fields: [parentID], references: [id], onDelete: Cascade, onUpdate: Cascade)
   children     TodoItem[]   @relation("Parent")
   attachments  Attachment[] @relation("Attachments")
   comments     Comment[]    @relation("Comments")
@@ -46,7 +46,7 @@ model TaskList {
 model Comment {
   id           String   @id @default(uuid())
   todoItemID   String
-  todoItem     TodoItem @relation("Comments", fields: [todoItemID], references: [id])
+  todoItem     TodoItem @relation("Comments", fields: [todoItemID], references: [id], onDelete: Cascade, onUpdate: Cascade)
   content      String
   createdAt    DateTime
   createdByUID String
@@ -56,7 +56,7 @@ model Comment {
 model Attachment {
   id           String   @id @default(uuid())
   todoItemID   String
-  todoItem     TodoItem @relation("Attachments", fields: [todoItemID], references: [id])
+  todoItem     TodoItem @relation("Attachments", fields: [todoItemID], references: [id], onDelete: Cascade, onUpdate: Cascade)
   name         String
   url          String
   createdAt    DateTime

@@ -79,6 +79,7 @@ export default ({
                   content: file,
                 },
               ];
+              setFile(null);
             }
             onSubmit(formJson);
           }}

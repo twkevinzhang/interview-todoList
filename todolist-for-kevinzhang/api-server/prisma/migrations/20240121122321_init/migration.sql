@@ -86,10 +86,10 @@ CREATE UNIQUE INDEX "_Followers_AB_unique" ON "_Followers"("A", "B");
 CREATE INDEX "_Followers_B_index" ON "_Followers"("B");
 
 -- AddForeignKey
-ALTER TABLE "TodoItem" ADD CONSTRAINT "TodoItem_taskListID_fkey" FOREIGN KEY ("taskListID") REFERENCES "TaskList"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "TodoItem" ADD CONSTRAINT "TodoItem_taskListID_fkey" FOREIGN KEY ("taskListID") REFERENCES "TaskList"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "TodoItem" ADD CONSTRAINT "TodoItem_parentID_fkey" FOREIGN KEY ("parentID") REFERENCES "TodoItem"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "TodoItem" ADD CONSTRAINT "TodoItem_parentID_fkey" FOREIGN KEY ("parentID") REFERENCES "TodoItem"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "TodoItem" ADD CONSTRAINT "TodoItem_createdByUID_fkey" FOREIGN KEY ("createdByUID") REFERENCES "User"("uid") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -98,13 +98,13 @@ ALTER TABLE "TodoItem" ADD CONSTRAINT "TodoItem_createdByUID_fkey" FOREIGN KEY (
 ALTER TABLE "TodoItem" ADD CONSTRAINT "TodoItem_updatedByUID_fkey" FOREIGN KEY ("updatedByUID") REFERENCES "User"("uid") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Comment" ADD CONSTRAINT "Comment_todoItemID_fkey" FOREIGN KEY ("todoItemID") REFERENCES "TodoItem"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Comment" ADD CONSTRAINT "Comment_todoItemID_fkey" FOREIGN KEY ("todoItemID") REFERENCES "TodoItem"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Comment" ADD CONSTRAINT "Comment_createdByUID_fkey" FOREIGN KEY ("createdByUID") REFERENCES "User"("uid") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Attachment" ADD CONSTRAINT "Attachment_todoItemID_fkey" FOREIGN KEY ("todoItemID") REFERENCES "TodoItem"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Attachment" ADD CONSTRAINT "Attachment_todoItemID_fkey" FOREIGN KEY ("todoItemID") REFERENCES "TodoItem"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Attachment" ADD CONSTRAINT "Attachment_createdByUID_fkey" FOREIGN KEY ("createdByUID") REFERENCES "User"("uid") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -120,7 +120,6 @@ ALTER TABLE "_Followers" ADD CONSTRAINT "_Followers_A_fkey" FOREIGN KEY ("A") RE
 
 -- AddForeignKey
 ALTER TABLE "_Followers" ADD CONSTRAINT "_Followers_B_fkey" FOREIGN KEY ("B") REFERENCES "User"("uid") ON DELETE CASCADE ON UPDATE CASCADE;
-
 
 -- data migration
 INSERT INTO public."User" (uid, username, email, nickname, "hashedPassword") VALUES ('d05a7576-ecc1-48da-a75b-636a6c414b66', 'user', null, null, '$2b$10$zZPOFFJ60pvGmqX4VmntI.A6RJEoz8.Ljt9Skmd7IaYur4N7c9XOm');

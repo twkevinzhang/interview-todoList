@@ -8,6 +8,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import { FileUpload } from 'graphql-upload';
+
 export enum TodoItemsSortBy {
     CREATED_AT_ASC = "CREATED_AT_ASC",
     CREATED_AT_DESC = "CREATED_AT_DESC",
@@ -161,6 +163,6 @@ export class User {
 }
 
 export type RFC3339 = any;
-export type Upload = any;
+export type Upload = Promise<FileUpload>;
 export type Int64 = any;
 type Nullable<T> = T | null;
