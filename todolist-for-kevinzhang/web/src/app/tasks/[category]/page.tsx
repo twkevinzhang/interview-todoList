@@ -17,7 +17,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { EnumTodoItemsSortBy } from "@/utils/enum";
 import TaskFormDialog from "@/components/TaskFormDialog";
 import CommentFormDialog from "@/components/CommentFormDialog";
-import MissionFormDialog from "@/components/MissionFormDialog";
+import SubTaskFormDialog from "@/components/SubTaskFormDialog";
 
 export default ({ params }: { params: { category: string } }) => {
   const { category } = params;
@@ -67,7 +67,7 @@ export default ({ params }: { params: { category: string } }) => {
   const [isCreateDialogOpened, setCreateDialogOpened] = React.useState(false);
   const [editingTodoItem, setEditingTodoItem] =
     React.useState<Partial<TodoItem> | null>(null);
-  const [missisonTodoItem, setMissionTodoItem] =
+  const [subTaskParent, setSubTaskParent] =
     React.useState<Partial<TodoItem> | null>(null);
   const [commentingTodoItem, setCommentingTodoItem] =
     React.useState<Partial<TodoItem> | null>(null);
@@ -124,23 +124,23 @@ export default ({ params }: { params: { category: string } }) => {
     setCommentingTodoItem(null);
   }
 
-  function handleMission(todoItemID: string) {
+  function handleSubTaskClick(todoItemID: string) {
     getTodoItem({ variables: { id: todoItemID } }).then((res: any) => {
-      setMissionTodoItem(res.data?.todoItem ?? null);
+      setSubTaskParent(res.data?.todoItem ?? null);
     });
   }
 
-  function handleMissionSubmit(todoItemID: string, newMission: string) {
+  function handleSubTaskClickSubmit(todoItemID: string, newTask: string) {
     create({
       variables: {
         form: {
-          title: newMission,
+          title: newTask,
         },
         parentID: todoItemID,
       },
       refetchQueries: ["todoItems", "todoItem"],
     });
-    setMissionTodoItem(null);
+    setSubTaskParent(null);
   }
 
   function handleEdit(todoItemID: string) {
@@ -193,14 +193,14 @@ export default ({ params }: { params: { category: string } }) => {
         onClose={() => setCommentingTodoItem(null)}
         isOpend={!!commentingTodoItem}
       />
-      <MissionFormDialog
-        children={missisonTodoItem?.children ?? []}
-        title={missisonTodoItem?.title ?? ""}
-        onSubmit={(newMission: string) =>
-          handleMissionSubmit(missisonTodoItem!.id!, newMission)
+      <SubTaskFormDialog
+        children={subTaskParent?.children ?? []}
+        title={subTaskParent?.title ?? ""}
+        onSubmit={(newTask: string) =>
+          handleSubTaskClickSubmit(subTaskParent!.id!, newTask)
         }
-        onClose={() => setMissionTodoItem(null)}
-        isOpend={!!missisonTodoItem}
+        onClose={() => setSubTaskParent(null)}
+        isOpend={!!subTaskParent}
       />
       <Table
         users={usersQuery?.users ?? []}
@@ -216,7 +216,7 @@ export default ({ params }: { params: { category: string } }) => {
           pushQueryParam("sortby", newValue)
         }
         onCreateClick={() => setCreateDialogOpened(true)}
-        onMissionClick={handleMission}
+        onSubTaskCreate={handleSubTaskClick}
         onMessageClick={handleMessage}
         onEditClick={handleEdit}
         onDeleteClick={handleDel}

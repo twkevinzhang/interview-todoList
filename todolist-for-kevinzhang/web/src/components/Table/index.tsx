@@ -28,7 +28,7 @@ export default ({
   onSelectSortBy,
   onCreateClick,
   onMessageClick,
-  onMissionClick,
+  onSubTaskCreate,
   onEditClick,
   onDeleteClick,
   categoryWithMyUID,
@@ -41,7 +41,7 @@ export default ({
   onSelectSortBy: (newSortBy: string | null) => void;
   onCreateClick: () => void;
   onMessageClick: (todoItemID: string) => void;
-  onMissionClick: (todoItemID: string) => void;
+  onSubTaskCreate: (todoItemID: string) => void;
   onEditClick: (todoItemID: string) => void;
   onDeleteClick: (todoItemID: string) => void;
   categoryWithMyUID: { [key: string]: string };
@@ -200,7 +200,7 @@ export default ({
             ].map((column) => (
               <th key={column}>{column}</th>
             ))}
-            <th style={{ width: 250 }}>action</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -208,7 +208,7 @@ export default ({
             <tr key={i}>
               <td>
                 <Checkbox
-                  label={item.isCompleted == true ? "已完成" : ""}
+                  label={""}
                   size="sm"
                   checked={item.isCompleted == true}
                   onChange={(e) => handleChange(e, item)}
@@ -224,22 +224,22 @@ export default ({
               </td>
               <td>{item.id}</td>
               <td>
-                <Box sx={{ display: "flex", gap: 1 }}>
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
                   <Button
                     size="sm"
-                    variant="soft"
+                    variant="plain"
                     color="neutral"
-                    onClick={() => onMissionClick(item.id!)}
+                    onClick={() => onSubTaskCreate(item.id!)}
                   >
-                    Mission
+                    NewSubTask
                   </Button>
                   <Button
                     size="sm"
-                    variant="soft"
+                    variant="plain"
                     color="neutral"
                     onClick={() => onMessageClick(item.id!)}
                   >
-                    Message
+                    Comment
                   </Button>
                   <Button
                     size="sm"

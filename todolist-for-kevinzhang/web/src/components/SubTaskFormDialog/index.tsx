@@ -21,7 +21,7 @@ export default ({
 }: {
   children: TodoItem[];
   title: string;
-  onSubmit: (newMission: string) => void;
+  onSubmit: (newSubTask: string) => void;
   onClose: () => void;
   isOpend: boolean;
 }) => {
@@ -29,23 +29,29 @@ export default ({
     <Modal open={isOpend} onClose={onClose}>
       <ModalDialog>
         <ModalClose />
-        <DialogTitle>mission</DialogTitle>
+        <DialogTitle>Sub Task List</DialogTitle>
         <form
           onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
             const formData = new FormData(event.target);
             const formJson = Object.fromEntries(formData.entries());
-            onSubmit(formJson.newMission);
+            onSubmit(formJson.newSubTask);
           }}
         >
           <Stack spacing={2}>
-            {children.map((mission) => (
-              <FormControl key={mission.id}>{mission.title}</FormControl>
+            {children.map((subTask) => (
+              <FormControl key={subTask.id}>
+                Sub Task {subTask.id}: {subTask.title}
+              </FormControl>
             ))}
           </Stack>
           <Stack spacing={2} className="my-4">
             <FormControl>
-              <Input name="newMission" required />
+              <Input
+                name="newSubTask"
+                placeholder="Type new sub task title"
+                required
+              />
             </FormControl>
             <Button type="submit">Submit</Button>
           </Stack>
