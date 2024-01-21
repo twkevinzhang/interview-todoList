@@ -96,19 +96,23 @@ export default ({
     });
   }
 
-  let creators: string[] = [];
-  if (categoryWithMyUID["created"]) {
-    creators = [categoryWithMyUID["created"]];
-  } else {
-    creators = queryParams.get("creators")?.split(",") ?? [""];
-  }
+  const [creators, setCreators] = React.useState<string[]>([]);
+  const [owners, setOwners] = React.useState<string[]>([]);
 
-  let owners: string[] = [];
-  if (categoryWithMyUID["assigned"]) {
-    owners = [categoryWithMyUID["assigned"]];
-  } else {
-    owners = queryParams.get("owners")?.split(",") ?? [""];
-  }
+  React.useEffect(() => {
+    if (categoryWithMyUID["created"]) {
+      setCreators([categoryWithMyUID["created"]]);
+    } else {
+      setCreators(queryParams.get("creators")?.split(",") ?? []);
+    }
+
+    if (categoryWithMyUID["assigned"]) {
+      setOwners([categoryWithMyUID["assigned"]]);
+    } else {
+      setOwners(queryParams.get("owners")?.split(",") ?? []);
+    }
+  }, [categoryWithMyUID]);
+
   const sortby = queryParams.get("sortby") ?? "";
 
   return (
@@ -130,7 +134,7 @@ export default ({
             <Stack spacing={2}>
               <Select
                 name="listOfCreators"
-                defaultValue={creators}
+                value={creators}
                 multiple
                 sx={{ minWidth: 200 }}
                 onChange={handleCreators}
@@ -149,7 +153,7 @@ export default ({
             <Stack spacing={2}>
               <Select
                 name="listOfOwner"
-                defaultValue={owners}
+                value={owners}
                 multiple
                 sx={{ minWidth: 200 }}
                 onChange={handleOwners}
@@ -169,7 +173,7 @@ export default ({
               <Select
                 name="sortBy"
                 sx={{ minWidth: 200 }}
-                defaultValue={sortby}
+                value={sortby}
                 onChange={handleSortBy}
               >
                 {Object.entries(sortby_options).map(([k, v]) => (

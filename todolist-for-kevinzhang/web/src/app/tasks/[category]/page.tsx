@@ -35,14 +35,20 @@ export default ({ params }: { params: { category: string } }) => {
     variables: {
       filter: {
         creatorUID: {
-          contains: queryParams.has("creators")
-            ? queryParams.get("creators")?.split(",")
-            : null,
+          contains:
+            category === "created"
+              ? [uid]
+              : queryParams.has("creators")
+                ? queryParams.get("creators")?.split(",")
+                : null,
         },
         ownerUID: {
-          contains: queryParams.has("owners")
-            ? queryParams.get("owners")?.split(",")
-            : null,
+          contains:
+            category === "assigned"
+              ? [uid]
+              : queryParams.has("owners")
+                ? queryParams.get("owners")?.split(",")
+                : null,
         },
         followerUID: {
           contains: category === "subscribed" ? [uid] : null,
