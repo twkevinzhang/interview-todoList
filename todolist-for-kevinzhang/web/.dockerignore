@@ -1,5 +1,7 @@
 attachments
 .env
+.next
+next-env.d.ts
 
 # dependencies
 /node_modules

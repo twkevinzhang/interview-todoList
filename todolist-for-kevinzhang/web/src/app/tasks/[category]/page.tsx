@@ -106,7 +106,7 @@ export default ({ params }: { params: { category: string } }) => {
   }
 
   function handleMessage(todoItemID: string) {
-    getTodoItem({ variables: { id: todoItemID } }).then((res) => {
+    getTodoItem({ variables: { id: todoItemID } }).then((res: any) => {
       setCommentingTodoItem(res.data?.todoItem ?? null);
     });
   }
@@ -125,8 +125,8 @@ export default ({ params }: { params: { category: string } }) => {
   }
 
   function handleMission(todoItemID: string) {
-    getTodoItem({ variables: { id: todoItemID } }).then((res) => {
-      setMissionTodoItem(res.data?.todoItem ?? null)
+    getTodoItem({ variables: { id: todoItemID } }).then((res: any) => {
+      setMissionTodoItem(res.data?.todoItem ?? null);
     });
   }
 

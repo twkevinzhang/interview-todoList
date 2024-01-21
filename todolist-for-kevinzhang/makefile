@@ -1,6 +1,6 @@
 .PHONY: up
 up:
-	docker compose -p todo-list -f ./docker-compose.dev.yml -f ./docker-compose.service.yml up -d
+	docker compose -p todo-list -f ./docker-compose.prod.yml -f ./docker-compose.service.yml up -d
 
 .PHONY: migration
 migration:
