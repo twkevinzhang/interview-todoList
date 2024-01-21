@@ -1,5 +1,6 @@
 attachments
 .env
+/db
 
 # dependencies
 /node_modules

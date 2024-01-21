@@ -20,9 +20,9 @@ make down
 
 ## Build and deploy
 ```bash
-make build
+make build NEXT_PUBLIC_GRAPHQL_ENTRYPOINT="http://localhost:3000/graphql"
 ```
-然後你可以使用 built image 執行 container，注意設定 environment variables。
+然後你可以使用 built image 執行 container，注意設定 api-server environment variables for runtime。
 
 ## 功能
  - [x] 註冊／登入

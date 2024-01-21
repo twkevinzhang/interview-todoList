@@ -10,10 +10,7 @@ RUN pnpm install && \
     pnpx prisma generate && \
     pnpm build
 
-FROM node:20.9-slim AS runtime
-ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
+FROM build AS runtime
 WORKDIR /app
 
 COPY --from=build /app .
